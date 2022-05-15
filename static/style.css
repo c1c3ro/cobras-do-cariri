@@ -1,0 +1,62 @@
+/*
+CORES
+Beje/Amarelo: #F2E8C0
+Vermelho: #DE4645
+Verde Escuro: #282D29
+*/
+
+/*General Style*/
+
+html, body {
+    font-family: "Plus Jakarta Sans", "Roboto", "Open Sans", sans-serif;
+    padding-top: 10px;
+    background-color: #F2E8C0;
+    height: 100%;
+    width: 100%;
+}
+
+a {
+    color: #DE4645;
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    font-weight: 600;
+}
+
+.footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+/*End General Style*/
+
+/*Header Style*/
+
+.logo-img {
+    width: 60%;
+    height: auto;
+}
+
+.search {
+    display: flex;
+    justify-content: center;
+}
+
+/*End -- Header Style*/
+
+/*Main Menu Style*/
+
+.menu {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.menu li{
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #505050;
+}
+
+/*End -- Main Meny Style*/
