@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="col-12 text-center d-flex flex-column justify-content-center align-items-center">
+    <h3>Bem-vindo ao Cobras do Cariri</h3>
+    <p>Faça o seu login abaixo:</p>
+
+    <form class="col-sm-6 col-10 mt-2">
+        <div class="input-group my-2">
+            <span class="input-group-text shadow-sm" id="usuario">@</span>
+            <input type="text" class="form-control shadow-sm" placeholder="Usuário" aria-label="usuario" aria-describedby="usuario" id="usuario" required>
+        </div>
+        <div class="input-group my-2">
+            <span class="input-group-text shadow-sm" id="usuario"><i class="bi bi-lock"></i></span>
+            <input type="password" class="form-control shadow-sm" placeholder="Senha" aria-label="senha" aria-describedby="senha" id="senha" required>
+        </div>
+        <div class="col-12">
+            <button class="btn submit-btn shadow-sm my-2" type="submit">Entrar</button>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}
