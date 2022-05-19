@@ -11,6 +11,7 @@ html, body {
     font-family: "Plus Jakarta Sans", "Roboto", "Open Sans", sans-serif;
     padding-top: 10px;
     background-color: #F2E8C0;
+    min-height: 100vh;
     height: 100%;
     width: 100%;
 }
@@ -23,14 +24,36 @@ a {
 }
 
 .footer {
-    position: absolute;
+    background-color: #F2E8C0;
     width: 100%;
-    bottom: 0;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.submit-btn {
+    background-color: #DE4645;
+    color: white;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #c72b2b;
+    color: white;
 }
 
 /*End General Style*/
 
 /*Header Style*/
+
+.logo {
+    text-align: start;
+}
+
+.logo-mobile .logo-img {
+    width: 40%;
+    height: auto;
+}
 
 .logo-img {
     width: 60%;
@@ -42,21 +65,84 @@ a {
     justify-content: center;
 }
 
+.search-icon {
+    padding: 7px 10px 7px 10px;
+    border-radius: 100%;
+    margin-left: 5px;
+    background-color: #DE4645;
+    color: #F2E8C0;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.login {
+    display: inline-flex;
+    width: min-content;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.login > i {
+    font-size: 20px;
+    margin-left: 5px;
+}
+
 /*End -- Header Style*/
 
 /*Main Menu Style*/
 
-.menu {
+.main-menu {
     display: flex;
-    width: 100%;
     justify-content: space-around;
+    text-align: center;
 }
 
-.menu li{
-    display: inline-block;
+.main-menu-item {
     font-size: 12px;
     font-weight: 600;
-    color: #505050;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.main-menu-item:hover {
+    color: #DE4645;
+}
+
+.main-menu-item i {
+    font-size: 20px;
+}
+
+@media only screen and (max-width: 576px) {
+    .main-menu-item {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+    }
+
+    .main-menu-item i {
+        font-size: 24px;
+    }
 }
 
 /*End -- Main Meny Style*/
+
+/*Explorar -- Style*/
+
+.slider img {
+    width:95%;
+    height: auto;
+    border-radius: 15px;
+}
+
+.slider-item h5{
+    margin-bottom: 2px;
+}
+
+.slider-item p{
+    font-size: 14px;
+    color: #505050;
+}
+
+/*End -- Explorar Style*/

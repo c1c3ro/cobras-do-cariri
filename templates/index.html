@@ -4,16 +4,49 @@
 <div class="row align-items-center">
     <div class="col">
         <div class="alert alert-danger" role="alert">
-            <strong>Viu uma serpente?</strong>
+            <i class="bi bi-exclamation-diamond"></i> <strong>Viu uma serpente?</strong>
             Se possível, não mate ela. Assim você ajuda a preservar a fauna e o equilíbrio da nossa região!
         </div>
     </div>
     <div class="col">
         <div class="alert alert-danger" role="alert">
-            <strong>Foi picado por uma cobra?</strong>
+            <i class="bi bi-hospital"></i> <strong>Foi picado por uma cobra?</strong>
             <a href="#">Descubra aqui</a> onde você pode buscar tratamento!
         </div>
     </div>
 </div>
 
+<div class="explorar col-12 flex-column align-items-center justify-content-center">
+    <h2><i class="bi bi-eye mx-2"></i> Explorar</h2>
+    <div class="row mt-3 slider-item justify-content-center">
+        <div class="col-12 col-md-6 col-lg-3 px-2 mb-3 flex-column align-items-center justify-content-center">
+            <div class="slider">
+                <img class="shadow mb-2" src="{{url_for('static', filename='img/cobras/Anilius scytale/0159-973914328.jpg')}}"/>
+            </div>
+            <h5><strong>Anilius scytale</strong></h5>
+            <p>Cobra-Cega, Cobra-Coral, Cobra-Coral-Falsa, Cobra-de-Duas-Cabeças, Coral, Coral-D’Água, Coral-Falsa</p>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3 px-2 mb-3 flex-column align-items-center justify-content-center">
+            <div class="slider">
+                <img class="shadow mb-2" src="{{url_for('static', filename='img/cobras/Apostolepis cearensis/Apostolepis%20cearensis_1_Otavio%20Marques[1]-1289895386.jpg')}}"/>
+            </div>
+            <h5><strong>Apostolepis cearensis</strong></h5>
+            <p>Cobra-de-Ferrão, Cobra-Rainha, Coral-Falsa, Coralzinha, Falsa-Coral</p>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3 px-2 mb-3 flex-column align-items-center justify-content-center">
+            <div class="slider">
+                <img class="shadow mb-2" src="{{url_for('static', filename='img/cobras/Boa constrictor/boa-constrictor-3484406_1920-3960392922.jpg')}}"/>
+            </div>
+            <h5><strong>Boa constrictor</strong></h5>
+            <p>Anaconda, Boiuçu, Cobra-de-Veado, Jiboia, Kuong-Kuong, Salamanta-Boi, Suaçu</p>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3 px-2 mb-3 flex-column align-items-center justify-content-center">
+            <div class="slider">
+                <img class="shadow mb-2" src="{{url_for('static', filename='img/cobras/Bothrops atrox/labaria-1901601323.jpg')}}"/>
+            </div>
+            <h5><strong>Bothrops atrox</strong></h5>
+            <p>Boca-Podre, Cambéua, Caiçara, Comboia, Jaracuçu, Jararaca, Jararaca do Rabo Branco, Jararacarana, Surucucu, Surucucurana</p>
+        </div>
+    </div>
+</div>
 {% endblock %}
