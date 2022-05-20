@@ -16,40 +16,40 @@ cursor = conn.cursor()
 #cursor.execute(" INSERT INTO usuario (idUSUARIO, password, user, email) VALUES(1, '123456', 'csamuelssm', 'csamuelssm@gmail.com') ")
 
 cursor.execute(''' INSERT INTO cobra (familia, especie, peconhenta, idUSUARIO)
-                VALUES('Anilius', 'scytale', 0, 1)
-                VALUES('Apostolepis', 'cearensis', 0, 1)
-                VALUES('Atractus', 'ronnie', 0, 1)
-                VALUES('Boa', 'constrictor', 0, 1)
-                VALUES('Bothrops', 'atrox', 1, 1)
-                VALUES('Bothrops', 'erythromelas', 1, 1)
-                VALUES('Chironius', 'flavolineatus', 0, 1)
-                VALUES('Corallus', 'hortulanus', 0, 1)
-                VALUES('Dipsas', 'mikanii', 0, 1)
-                VALUES('Drymoluber', 'brazili', 0, 1)
-                VALUES('Drymoluber', 'dichrous', 0, 1)
-                VALUES('Epicrates', 'assisi', 0, 1)
-                VALUES('Epictia', 'borapeliotes', 0, 1)
-                VALUES('Erythrolamprus', 'poecilogyrus', 0, 1)
-                VALUES('Erythrolamprus', 'viridis', 0, 1)
-                VALUES('Helicops', 'angulatus', 0, 1)
-                VALUES('Imantodes', 'cenchoa', 0, 1)
-                VALUES('Leptodeira', 'annulata', 0, 1)
-                VALUES('Lygophis', 'dilepis', 0, 1)
-                VALUES('Micrurus', 'ibiboboca', 0, 1)
-                VALUES('Micrurus', 'lemniscatus', 0, 1)
-                VALUES('Oxybelis', 'aeneus', 0, 1)
-                VALUES('Oxyrhopus', 'trigeminus', 0, 1)
-                VALUES('Philodryas', 'nattereri', 0, 1)
-                VALUES('Philodryas', 'olfersii', 0, 1)
-                VALUES('Pseudoboa', 'nigra', 0, 1)
-                VALUES('Psomophis', 'joberti', 0, 1)
-                VALUES('Taeniophallus', 'occipitalis', 0, 1) 
-                VALUES('Tantilla', 'melanocephala', 0, 1) 
-                VALUES('Thamnodynastes', 'almae', 0, 1) 
-                VALUES('Thamnodynastes', 'sertanejo', 0, 1) 
-                VALUES('Thamnodynastes', 'phoenix', 0, 1) 
-                VALUES('Spilotes', 'pullatus', 0, 1)
-                VALUES('Xenodon', 'merremii', 0, 1) ''')
+                VALUES('Anilius', 'scytale', 0, 2),
+                ('Apostolepis', 'cearensis', 0, 2),
+                ('Atractus', 'ronnie', 0, 2),
+                ('Boa', 'constrictor', 0, 2),
+                ('Bothrops', 'atrox', 1, 2),
+                ('Bothrops', 'erythromelas', 1, 2),
+                ('Chironius', 'flavolineatus', 0, 2),
+                ('Corallus', 'hortulanus', 0, 2),
+                ('Dipsas', 'mikanii', 0, 2),
+                ('Drymoluber', 'brazili', 0, 2),
+                ('Drymoluber', 'dichrous', 0, 2),
+                ('Epicrates', 'assisi', 0, 2),
+                ('Epictia', 'borapeliotes', 0, 2),
+                ('Erythrolamprus', 'poecilogyrus', 0, 2),
+                ('Erythrolamprus', 'viridis', 0, 2),
+                ('Helicops', 'angulatus', 0, 2),
+                ('Imantodes', 'cenchoa', 0, 2),
+                ('Leptodeira', 'annulata', 0, 2),
+                ('Lygophis', 'dilepis', 0, 2),
+                ('Micrurus', 'ibiboboca', 0, 2),
+                ('Micrurus', 'lemniscatus', 0, 2),
+                ('Oxybelis', 'aeneus', 0, 2),
+                ('Oxyrhopus', 'trigeminus', 0, 2),
+                ('Philodryas', 'nattereri', 0, 2),
+                ('Philodryas', 'olfersii', 0, 2),
+                ('Pseudoboa', 'nigra', 0, 2),
+                ('Psomophis', 'joberti', 0, 2),
+                ('Taeniophallus', 'occipitalis', 0, 2), 
+                ('Tantilla', 'melanocephala', 0, 2), 
+                ('Thamnodynastes', 'almae', 0, 2), 
+                ('Thamnodynastes', 'sertanejo', 0, 2), 
+                ('Thamnodynastes', 'phoenix', 0, 2), 
+                ('Spilotes', 'pullatus', 0, 2),
+                ('Xenodon', 'merremii', 0, 2); ''')
 
 
 #Saving the Actions performed on the DB
