@@ -24,6 +24,9 @@
 
         <!--CSS-->
         <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}"/>
+
+        <!--Scripts-->
+        <script src="{{url_for('static', filename='scripts/location.js')}}"></script>
     </head>
 
     <body>
@@ -56,8 +59,8 @@
 
             <div class="main-menu row align-items-center text-center">
                 <div class="col-12 col-sm main-menu-item">
-                    <div><i class="bi bi-eye mx-2"></i></div>
-                    Explorar
+                    <a href="/#explorar"><div><i class="bi bi-eye mx-2"></i></div>
+                    Explorar</a>
                 </div>
                 <div class="col-12 col-sm main-menu-item">
                     <div><i class="bi bi-question-diamond mx-2"></i></div>
@@ -68,8 +71,8 @@
                     Hospitais
                 </div>
                 <div class="col-12 col-sm main-menu-item">
-                    <div><i class="bi bi-journal-richtext mx-2"></i></div>
-                    Ocorrência
+                    <a href="registro"><div><i class="bi bi-journal-richtext mx-2"></i></div>
+                    Ocorrência</a>
                 </div>
                 <div class="col-12 col-sm main-menu-item">
                     <div><i class="bi bi-info-circle mx-2"></i></div>

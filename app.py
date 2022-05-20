@@ -10,7 +10,7 @@ password = "S06h27c23a25",
 database = "bessapontes23")
 
 #Creating a connection cursor
-cursor = conn.cursor()
+#cursor = conn.cursor()
 
 #Executing SQL Statements
 #cursor.execute(" INSERT INTO usuario (idUSUARIO, password, user, email) VALUES(1, '123456', 'csamuelssm', 'csamuelssm@gmail.com') ")
@@ -31,6 +31,10 @@ def index():
 @app.route("/login")
 def login():
     return render_template("login.html")
+
+@app.route("/registro")
+def registro():
+    return render_template("registro.html")
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
