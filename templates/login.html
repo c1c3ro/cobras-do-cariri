@@ -5,7 +5,8 @@
     <h3>Bem-vindo ao Cobras do Cariri</h3>
     <p>Faça o seu login abaixo:</p>
 
-    <form class="col-sm-6 col-10 mt-2">
+    <form class="col-sm-6 col-10 mt-2" action="" method='POST'>
+        {{ form.csrf_token }}
         <div class="input-group my-2">
             <span class="input-group-text shadow-sm" id="usuario">@</span>
             <input type="text" class="form-control shadow-sm" placeholder="Usuário" aria-label="usuario" aria-describedby="usuario" id="usuario" required>
