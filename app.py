@@ -4,11 +4,11 @@ import mysql.connector
 app = Flask(__name__)
 
 
-""" conn = mysql.connector.connect(host = "127.0.0.1",
-user = "csamuelssm",
-password = "S06h27c23a25",
+conn = mysql.connector.connect(host = "mysql04-farm2.uni5.net",
+user = "bessapontes23",
+password = "6qSLjgbR",
 database = "bessapontes23")
-
+"""
 #Creating a connection cursor
 #cursor = conn.cursor()
 
@@ -43,13 +43,13 @@ cursor.execute(''' INSERT INTO cobra (familia, especie, peconhenta, idUSUARIO)
                 ('Philodryas', 'olfersii', 0, 2),
                 ('Pseudoboa', 'nigra', 0, 2),
                 ('Psomophis', 'joberti', 0, 2),
-                ('Taeniophallus', 'occipitalis', 0, 2), 
-                ('Tantilla', 'melanocephala', 0, 2), 
-                ('Thamnodynastes', 'almae', 0, 2), 
-                ('Thamnodynastes', 'sertanejo', 0, 2), 
-                ('Thamnodynastes', 'phoenix', 0, 2), 
+                ('Taeniophallus', 'occipitalis', 0, 2),
+                ('Tantilla', 'melanocephala', 0, 2),
+                ('Thamnodynastes', 'almae', 0, 2),
+                ('Thamnodynastes', 'sertanejo', 0, 2),
+                ('Thamnodynastes', 'phoenix', 0, 2),
                 ('Spilotes', 'pullatus', 0, 2),
-                ('Xenodon', 'merremii', 0, 2); ''') 
+                ('Xenodon', 'merremii', 0, 2); ''')
 
 
 #Saving the Actions performed on the DB
