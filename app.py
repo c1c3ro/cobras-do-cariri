@@ -17,7 +17,7 @@ cursor = conn.cursor()
 
 cursor.execute(''' INSERT INTO cobra (familia, especie, peconhenta, idUSUARIO)
                 VALUES('Anilius', 'scytale', 0, 1)
-                VALUES('Apostolepis, 'cearensis', 0, 1)
+                VALUES('Apostolepis', 'cearensis', 0, 1)
                 VALUES('Atractus', 'ronnie', 0, 1)
                 VALUES('Boa', 'constrictor', 0, 1)
                 VALUES('Bothrops', 'atrox', 1, 1)
