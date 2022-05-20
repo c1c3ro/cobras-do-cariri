@@ -53,10 +53,10 @@ cursor.execute(''' INSERT INTO cobra (familia, especie, peconhenta, idUSUARIO)
 
 
 #Saving the Actions performed on the DB
-#conn.commit()
+conn.commit()
 
 #Closing the cursor
-#cursor.close()
+cursor.close()
 
 #Closging the connection
 conn.close()
