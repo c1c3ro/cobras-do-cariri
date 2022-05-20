@@ -98,6 +98,10 @@ a {
     text-align: center;
 }
 
+.main-menu-item a {
+    all:unset;
+}
+
 .main-menu-item {
     font-size: 12px;
     font-weight: 600;
@@ -114,7 +118,8 @@ a {
 }
 
 @media only screen and (max-width: 576px) {
-    .main-menu-item {
+
+    .main-menu-item, .main-menu-item a {
         display: inline-flex;
         align-items: center;
         justify-content: center;

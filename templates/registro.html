@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="col-12 text-center d-flex flex-column justify-content-center align-items-center">
+    <h3>Você viu uma cobra?</h3>
+    <p>Conte para nós abaixo. Assim, você contribui para a ciência da região e para a preservação das cobras!</p>
+
+    <form class="col-sm-6 col-md-8 col-10 mt-2 align-items-center justify-content-start">
+        <div class="input-group my-2">
+            <span class="input-group-text shadow-sm"><i class="bi bi-geo-alt"></i> *</span>
+            <input type="text" class="form-control shadow-sm" placeholder="Localização ou ponto de referência" aria-label="local" aria-describedby="local" id="local" required>
+        </div>
+        <div class="input-group my-2">
+            <span class="input-group-text">Data *</span>
+            <input type="date" class="form-control  shadow-sm" placeholder="Data" aria-label="data" required>
+            <span class="input-group-text d-none d-md-block">Hora *</span>
+            <input type="time" class="form-control  shadow-sm  d-none  d-md-block" placeholder="Horas" aria-label="horas" required>
+        </div>
+        <div class="input-group my-2 d-flex d-md-none">
+            <span class="input-group-text">Hora *</span>
+            <input type="time" class="form-control shadow-sm" placeholder="Horas" aria-label="horas">
+        </div>
+        <div class="form-check form-switch my-2 d-inline-flex">
+            <input class="form-check-input mx-1 shadow-sm" type="checkbox" role="switch" id="gps">
+            <label class="form-check-label" for="flexSwitchCheckDefault"><strong>Deseja informar sua localização atual?</strong></label>
+
+        </div>
+        <div class="input-group my-2 d-none coordenadas">
+            <span class="input-group-text">Coordenadas</span>
+            <input type="number" aria-label="First name" class="form-control shadow-sm" id="lat" disabled>
+            <input type="number" aria-label="Last name" class="form-control shadow-sm" id="lon" disabled>
+        </div>
+        <div class="input-group mt-2">
+            <label class="input-group-text" for="foto">Foto</label>
+            <input type="file" class="form-control shadow-sm" id="foto">
+        </div>
+        <div class="col-12">
+            <p><small><em>Não é obrigatório enviar uma foto.</em></small></p>
+        </div>
+        <div class="input-group my-2">
+            <textarea class="form-control shadow-sm" aria-label="info_adc" placeholder="Informações adicionais"></textarea>
+        </div>
+        <div class="col-12">
+            <p><small><strong>Os campos marcados com um * são obrigatórios.</strong></small></p>
+        </div>
+        <div class="col-12">
+            <button class="btn submit-btn shadow-sm my-2" type="submit">Enviar ocorrência</button>
+        </div>
+    </form>
+
+    <script>
+        $(document).ready(function(){
+
+            // pegando as coordenadas
+
+            if ($('#gps').prop('checked') == true) {
+                $('.coordenadas').removeClass('d-none');
+                $('.coordenadas').addClass('d-flex');
+                loc = get_location();
+                if (!loc) {
+                    $('.coordenadas').removeClass('d-flex')
+                    $('.coordenadas').addClass('d-none')
+                }
+            }
+
+            $('#gps').on("click", function(){
+                if ($('#gps').prop('checked') == true) {
+                    loc = get_location();
+                    if (loc != false) {
+                        $('.coordenadas').removeClass('d-none')
+                        $('.coordenadas').addClass('d-flex')
+                    } else {
+                        $('.coordenadas').removeClass('d-flex')
+                        $('.coordenadas').addClass('d-none')
+                    }
+                } else {
+                    $('.coordenadas').removeClass('d-flex')
+                    $('.coordenadas').addClass('d-none')
+                }
+            })
+
+        })
+    </script>
+
+</div>
+
+{% endblock %}
