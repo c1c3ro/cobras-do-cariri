@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField,PasswordField, TextAreaField
-from wtforms.fields import EmailField, DateTimeField, DecimalField, FileField
+from wtforms.fields import DateTimeField, DecimalField, FileField
 from wtforms.validators import DataRequired
 
 class OcorrenciaForm(FlaskForm):

@@ -1,12 +1,16 @@
 from flask import Flask, render_template, request
 from flask_wtf.csrf import CSRFProtect
 from formOcorrencia import OcorrenciaForm
+from flask_session import Session
 import mysql.connector
 import os
 
 app = Flask(__name__)
 CSRFProtect(app)
+app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SECRET_KEY'] = os.urandom(24)
+app.config['WTF_CSRF_SSL_STRICT'] = False
+Session(app)
 
 
 conn = mysql.connector.connect(host = "mysql04-farm2.uni5.net",
