@@ -5,10 +5,11 @@
     <h3>Você viu uma cobra?</h3>
     <p>Conte para nós abaixo. Assim, você contribui para a ciência da região e para a preservação das cobras!</p>
 
-    <form class="col-sm-6 col-md-8 col-10 mt-2 align-items-center justify-content-start">
+    <form class="col-sm-6 col-md-8 col-10 mt-2 align-items-center justify-content-start" action="" method='POST'>
+        {{ form.csrf_token }}
         <div class="input-group my-2">
             <span class="input-group-text shadow-sm"><i class="bi bi-geo-alt"></i> *</span>
-            <input type="text" class="form-control shadow-sm" placeholder="Localização ou ponto de referência" aria-label="local" aria-describedby="local" id="local" required>
+            {{ form.localizacao(type="text", class="form-control shadow-sm", placeholder="Localização ou ponto de referência", id="local", required = True, **{'aria-label': "local", 'aria-describedby': "local"}) }}
         </div>
         <div class="input-group my-2">
             <span class="input-group-text">Data *</span>
@@ -27,18 +28,18 @@
         </div>
         <div class="input-group my-2 d-none coordenadas">
             <span class="input-group-text">Coordenadas</span>
-            <input type="number" aria-label="First name" class="form-control shadow-sm" id="lat" disabled>
-            <input type="number" aria-label="Last name" class="form-control shadow-sm" id="lon" disabled>
+            {{ form.localizacao_lat(type="number", class="form-control shadow-sm", id="lat", disabled=True) }}
+            {{ form.localizacao_log(type="number", class="form-control shadow-sm", id="lon", disabled=True) }}
         </div>
         <div class="input-group mt-2">
             <label class="input-group-text" for="foto">Foto</label>
-            <input type="file" class="form-control shadow-sm" id="foto">
+            {{ form.imagem(type="file", class="form-control shadow-sm", id="foto") }}
         </div>
         <div class="col-12">
             <p><small><em>Não é obrigatório enviar uma foto.</em></small></p>
         </div>
         <div class="input-group my-2">
-            <textarea class="form-control shadow-sm" aria-label="info_adc" placeholder="Informações adicionais"></textarea>
+            {{ form.informacao_adc(class="form-control shadow-sm", placeholder="Informações adicionais") }}
         </div>
         <div class="col-12">
             <p><small><strong>Os campos marcados com um * são obrigatórios.</strong></small></p>
