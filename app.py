@@ -4,23 +4,25 @@ import mysql.connector
 app = Flask(__name__)
 
 
-conn = mysql.connector.connect(host = "mysql04-farm2.uni5.net",
-user = "bessapontes23",
-password = "marleyanos32",
+conn = mysql.connector.connect(host = "127.0.0.1",
+user = "csamuelssm",
+password = "S06h27c23a25",
 database = "bessapontes23")
 
 #Creating a connection cursor
 cursor = conn.cursor()
- 
+
 #Executing SQL Statements
-cursor.execute(''' INSERT INTO COBRA (familia, especie, peconhenta, idUSUARIO) 
-                    VALUES(teste0, teste1, 0, 1) ''')
- 
+#cursor.execute(" INSERT INTO usuario (idUSUARIO, password, user, email) VALUES(1, '123456', 'csamuelssm', 'csamuelssm@gmail.com') ")
+
 #Saving the Actions performed on the DB
-conn.commit()
- 
+#conn.commit()
+
 #Closing the cursor
-cursor.close()
+#cursor.close()
+
+#Closging the connection
+conn.close()
 
 @app.route("/")
 def index():
