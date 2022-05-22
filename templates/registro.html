@@ -13,7 +13,7 @@
         </div>
         <div class="input-group my-2">
             <span class="input-group-text">Data *</span>
-            <input type="date" class="form-control  shadow-sm" placeholder="Data" aria-label="data" required>
+            {{ form.data(type="date", class="form-control  shadow-sm", placeholder="Data", required=True) }}
             <span class="input-group-text d-none d-md-block">Hora *</span>
             <input type="time" class="form-control  shadow-sm  d-none  d-md-block" placeholder="Horas" aria-label="horas" required>
         </div>
@@ -51,7 +51,6 @@
 
     <script>
         $(document).ready(function(){
-
             // pegando as coordenadas
 
             if ($('#gps').prop('checked') == true) {
