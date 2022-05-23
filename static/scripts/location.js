@@ -17,4 +17,5 @@ function geoError() {
     $('#gps').prop("checked", false);
     $('.coordenadas').removeClass('d-flex')
     $('.coordenadas').addClass('d-none')
+    alert("Não foi possível obter a localização. O seu navegador não tem suporte à geolocalização.")
 }

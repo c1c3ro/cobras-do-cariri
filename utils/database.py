@@ -1,4 +1,5 @@
 import mysql.connector
+import os
 
 def get_conn(host = "mysql04-farm2.uni5.net",
             user = "bessapontes23", password = "6qSLjgbR",
@@ -10,7 +11,7 @@ def get_conn(host = "mysql04-farm2.uni5.net",
     return conn
 
 def get_cobras():
-    # função que retorna o nome científica das cobras no banco
+    # função que retorna o nome científico das cobras no banco
     conn = get_conn()
     cursor = conn.cursor()
 
@@ -25,3 +26,13 @@ def get_cobras():
     conn.close()
 
     return cobras
+
+def get_cobras_info():
+    cobras = get_cobras()
+    cobras_info = {}
+    for cobra in cobras:
+        for filename in os.listdir("./static/serpentesFotos/{}".format(cobra)):
+            if cobra not in cobras_info.keys():
+                cobras_info[cobra] = []
+            cobras_info[cobra].append(filename)
+    return cobras_info

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for
 from utils.database import *
 from flask_wtf.csrf import CSRFProtect
 from formOcorrencia import OcorrenciaForm
@@ -16,14 +16,16 @@ Session(app)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    cobras_info = get_cobras_info()
+    print(cobras_info)
+    return render_template("index.html", cobras_info=cobras_info)
 
 @app.route("/login", methods=('GET', 'POST'))
 def login():
     form = LoginForm()
     return render_template("login.html", form = form)
 
-@app.route("/registro", methods=('GET', 'POST')) 
+@app.route("/registro", methods=('GET', 'POST'))
 def registro():
     form = OcorrenciaForm()
     if form.validate_on_submit():
