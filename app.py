@@ -27,6 +27,7 @@ def login():
 
 @app.route("/registro", methods=('GET', 'POST'))
 def registro():
+    print("tá dando certo?")
     form = OcorrenciaForm()
     if form.validate_on_submit():
         localizacao = request.form['localizacao']

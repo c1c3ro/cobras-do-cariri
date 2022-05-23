@@ -6,8 +6,7 @@ from wtforms.validators import DataRequired
 class OcorrenciaForm(FlaskForm):
     localizacao = StringField('Localização', validators=[DataRequired()])
     data = DateTimeField('Data', validators=[DataRequired()])
-    #hora = DateTimeField('Hora', format= '%H:%M')
-    #hora2 = DateTimeField('Hora', format= '%H:%M', validators=[DataRequired()])
+    hora = DateTimeField('Hora', format= '%H:%M')
     localizacao_lat = DecimalField("Localização - Latitude")
     localizacao_log = DecimalField("Localização - Longitude")
     imagem = FileField('Imagem')
