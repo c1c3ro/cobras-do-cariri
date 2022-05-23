@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from utils.database import *
 from flask_wtf.csrf import CSRFProtect
 from formOcorrencia import OcorrenciaForm
+from formLogin import LoginForm
 from flask_session import Session
 import mysql.connector
 import os
@@ -19,15 +20,20 @@ def index():
 
 @app.route("/login", methods=('GET', 'POST'))
 def login():
-    return render_template("login.html")
+    form = LoginForm()
+    return render_template("login.html", form = form)
 
-@app.route("/registro", methods=('GET', 'POST'))
+@app.route("/registro", methods=('GET', 'POST')) 
 def registro():
     form = OcorrenciaForm()
     if form.validate_on_submit():
         localizacao = request.form['localizacao']
         informacao_adc = request.form['informacao_adc']
+        data = request.form['data']
+        #hora = request.form['hora']
         print(localizacao, informacao_adc)
+        #print(data)
+        #print(hora)
     return render_template("registro.html", form = form)
 
 if __name__ == "__main__":
