@@ -33,10 +33,10 @@ def registro():
         localizacao = request.form['localizacao']
         informacao_adc = request.form['informacao_adc']
         data = request.form['data']
-        #hora = request.form['hora']
+        hora = request.form['hora1']
         print(localizacao, informacao_adc)
-        #print(data)
-        #print(hora)
+        print(data)
+        print(hora)
     return render_template("registro.html", form = form)
 
 if __name__ == "__main__":
