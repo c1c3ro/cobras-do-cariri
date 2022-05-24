@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request
 from utils.database import *
 from flask_wtf.csrf import CSRFProtect
 from formOcorrencia import OcorrenciaForm
@@ -29,6 +29,7 @@ def login():
 def registro():
     print("tá dando certo?")
     form = OcorrenciaForm()
+<<<<<<< HEAD
     if form.validate_on_submit():
         localizacao = request.form['localizacao']
         informacao_adc = request.form['informacao_adc']
@@ -37,6 +38,22 @@ def registro():
         print(localizacao, informacao_adc)
         print(data)
         print(hora)
+=======
+    if request.method == "POST":
+        if form.validate_on_submit():
+            localizacao = request.form['localizacao']
+            informacao_adc = request.form['informacao_adc']
+            data = request.form['data']
+            #hora = request.form['hora']
+            print(localizacao, informacao_adc)
+            #print(data)
+            #print(hora)
+        else:
+            print("Algo deu errado")
+            if form.errors != {}:
+                for err in form.errors.values():
+                    print(f"Houve um erro: {err}")
+>>>>>>> 05bc27dab822f7891e3bd330b8373d350a11d481
     return render_template("registro.html", form = form)
 
 if __name__ == "__main__":
