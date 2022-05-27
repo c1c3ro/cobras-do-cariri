@@ -47,6 +47,7 @@ def registro():
             localizacao_lat = request.form['localizacao_lat']
             localizacao_log = request.form['localizacao_log']
             imagem = request.files['file']
+            print(imagem.filename)
             #lidando com a imagem
             nomeImg = secure_filename(imagem.filename)
             if nomeImg != '':
@@ -56,6 +57,7 @@ def registro():
                 if file_ext not in app.config['UPLOAD_EXTENSIONS']:
                     abort(400)
                 imagem.save(os.path.join(app.config['UPLOAD_PATH'], nomeImg))
+                print(nomeImg)
         except(KeyError):
             localizacao_lat = ''
             localizacao_log = ''
@@ -63,7 +65,6 @@ def registro():
         hora = hora + ":00"
         dateTime = data + " " + hora
         insert_registro(localizacao, informacao_adc, dateTime, localizacao_lat, localizacao_log, nomeImg)
-        close_conn()
     return render_template("registro.html", form = form)
 
 if __name__ == "__main__":
