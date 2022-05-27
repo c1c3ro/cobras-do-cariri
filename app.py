@@ -16,14 +16,13 @@ app.config['WTF_CSRF_SSL_STRICT'] = False
 
 app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 50
 app.config['UPLOAD_EXTENSIONS'] = [".png", ".jpg", ".jpeg", ".gif"]
-app.config['UPLOAD_PATH'] = 'registros'
+app.config['UPLOAD_PATH'] = os.path.join('static', 'registros')
 
 Session(app)
 
 @app.route("/")
 def index():
     cobras_info = get_cobras_info()
-    print(cobras_info)
     return render_template("index.html", cobras_info=cobras_info)
 
 @app.route("/login", methods=('GET', 'POST'))
@@ -46,8 +45,12 @@ def registro():
         try:
             localizacao_lat = request.form['localizacao_lat'] 
             localizacao_log = request.form['localizacao_log']
-            imagem = request.files['file']
-            print(imagem.filename)
+        except KeyError as err:
+            print(err)
+            localizacao_lat = ''
+            localizacao_log = ''
+        try:
+            imagem = request.files['imagem']
             #lidando com a imagem
             nomeImg = secure_filename(imagem.filename)
             if nomeImg != '':
@@ -57,10 +60,7 @@ def registro():
                 if file_ext not in app.config['UPLOAD_EXTENSIONS']:
                     abort(400)
                 imagem.save(os.path.join(app.config['UPLOAD_PATH'], nomeImg))
-                print(nomeImg)
         except(KeyError):
-            localizacao_lat = ''
-            localizacao_log = ''
             nomeImg = ''
         hora = hora + ":00"
         dateTime = data + " " + hora
