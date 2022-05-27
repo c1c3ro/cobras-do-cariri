@@ -43,7 +43,7 @@ def registro():
         except(KeyError):
             hora = request.form['hora2']
         try:
-            localizacao_lat = request.form['localizacao_lat'] 
+            localizacao_lat = request.form['localizacao_lat']
             localizacao_log = request.form['localizacao_log']
         except KeyError as err:
             print(err)

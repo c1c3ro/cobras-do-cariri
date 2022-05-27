@@ -19,7 +19,7 @@ def get_cobras():
     conn = get_conn()
     cursor = conn.cursor()
 
-    query = ("SELECT familia, especie FROM COBRA")
+    query = ("SELECT familia, especie FROM COBRA ORDER BY familia")
     cursor.execute(query)
 
     cobras = []
@@ -42,12 +42,12 @@ def get_cobras_info():
     return cobras_info
 
 def insert_registro(localizacao, informacao_adc,
-                    dateTime, localizacao_lat = '', 
+                    dateTime, localizacao_lat = '',
                     localizacao_log = '', imgPath = ''):
     conn = get_conn()
     cursor = conn.cursor()
     try:
-        insert_query = """INSERT INTO REGISTRO (localizacao, localizacao_lat, localizacao_log, imagem, informacao_adc, data_hora) 
+        insert_query = """INSERT INTO REGISTRO (localizacao, localizacao_lat, localizacao_log, imagem, informacao_adc, data_hora)
                         VALUES (%s, %s, %s, %s, %s, %s)"""
         values = (localizacao, localizacao_lat, localizacao_log, imgPath, informacao_adc, dateTime)
         cursor.execute(insert_query, values)
