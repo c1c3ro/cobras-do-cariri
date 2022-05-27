@@ -15,7 +15,7 @@ app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SECRET_KEY'] = os.urandom(24)
 app.config['WTF_CSRF_SSL_STRICT'] = False
 
-app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 50
+app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 50
 app.config['UPLOAD_EXTENSIONS'] = [".png", ".jpg", ".jpeg", ".gif"]
 app.config['UPLOAD_PATH'] = os.path.join('static', 'registros')
 
