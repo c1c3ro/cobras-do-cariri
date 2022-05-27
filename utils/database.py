@@ -14,14 +14,9 @@ def get_conn(host = "mysql04-farm2.uni5.net",
         conn = None
     return conn
 
-def close_conn():
-    global conn
-    if conn is not None and conn.is_connected():
-        conn.close()
-
 def get_cobras():
     # função que retorna o nome científico das cobras no banco
-    global conn
+    conn = get_conn()
     cursor = conn.cursor()
 
     query = ("SELECT familia, especie FROM COBRA")
@@ -32,6 +27,7 @@ def get_cobras():
         cobras.append("{} {}".format(familia, especie))
 
     cursor.close()
+    conn.close()
     return cobras
 
 def get_cobras_info():
@@ -47,16 +43,16 @@ def get_cobras_info():
 def insert_registro(localizacao, informacao_adc,
                     dateTime, localizacao_lat = '', 
                     localizacao_log = '', imgPath = ''):
-    global conn
+    conn = get_conn()
     cursor = conn.cursor()
     try:
         insert_query = """INSERT INTO REGISTRO (localizacao, localizacao_lat, localizacao_log, imagem, informacao_adc, data_hora) 
                         VALUES (%s, %s, %s, %s, %s, %s)"""
-        cursor.execute(insert_query, (localizacao, localizacao_lat, localizacao_log, imgPath, informacao_adc, dateTime))
+        values = (localizacao, localizacao_lat, localizacao_log, imgPath, informacao_adc, dateTime)
+        cursor.execute(insert_query, values)
+        print(values)
         print(cursor.rowcount, "Registro salvo com sucesso")
         cursor.close()
+        conn.close()
     except mysql.connector.Error as error:
         print("Falha ao inserir o registro no banco de dados: {}".format(error))
-
-# usar essa variável global para executar queries no banco de dados
-conn = get_conn()
