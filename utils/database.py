@@ -4,15 +4,24 @@ import os
 def get_conn(host = "mysql04-farm2.uni5.net",
             user = "bessapontes23", password = "6qSLjgbR",
             database = "bessapontes23"):
-    conn = mysql.connector.connect(host = host,
-        user = user,
-        password = password,
-        database = database)
+    try:
+        conn = mysql.connector.connect(host = host,
+            user = user,
+            password = password,
+            database = database)
+    except mysql.connector.Error as error:
+        print("Falha ao se conectar no banco de dados: {}".format(error))
+        conn = None
     return conn
+
+def close_conn():
+    global conn
+    if conn is not None and conn.is_connected():
+        conn.close()
 
 def get_cobras():
     # função que retorna o nome científico das cobras no banco
-    conn = get_conn()
+    global conn
     cursor = conn.cursor()
 
     query = ("SELECT familia, especie FROM COBRA")
@@ -23,8 +32,6 @@ def get_cobras():
         cobras.append("{} {}".format(familia, especie))
 
     cursor.close()
-    conn.close()
-
     return cobras
 
 def get_cobras_info():
@@ -38,26 +45,18 @@ def get_cobras_info():
     return cobras_info
 
 def insert_registro(localizacao, informacao_adc,
-                    dateTime, localizacao_lat = None, 
-                    localizacao_log = None, imgPath = None):
+                    dateTime, localizacao_lat = '', 
+                    localizacao_log = '', imgPath = ''):
+    global conn
+    cursor = conn.cursor()
     try:
-        if (localizacao_lat is None or localizacao_log is None) and (imgPath is not None):
-            insert_query = ("INSERT INTO REGISTRO (localizacao, imagem, informacao_adc, data_hora) VALUES (%s, %s, %s, %s)", (localizacao, imgPath, informacao_adc, dateTime))
-        elif (localizacao_lat is None or localizacao_log is None) and (imgPath is None):
-            insert_query = ("INSERT INTO REGISTRO (localizacao, informacao_adc, data_hora) VALUES (%s, %s, %s)", (localizacao, informacao_adc, dateTime))
-        else:
-            insert_query = ("INSERT INTO REGISTRO (localizacao, localizacao_lat, localizacao_log, imagem, informacao_adc, data_hora) VALUES (%s, %s, %s, %s, %s, %s)", (localizacao, localizacao_lat, localizacao_log, imgPath, informacao_adc, dateTime))
-        conn = get_conn()
-        cursor = conn.cursor()
-        cursor.execute(insert_query)
+        insert_query = """INSERT INTO REGISTRO (localizacao, localizacao_lat, localizacao_log, imagem, informacao_adc, data_hora) 
+                        VALUES (%s, %s, %s, %s, %s, %s)"""
+        cursor.execute(insert_query, (localizacao, localizacao_lat, localizacao_log, imgPath, informacao_adc, dateTime))
         print(cursor.rowcount, "Registro salvo com sucesso")
         cursor.close()
     except mysql.connector.Error as error:
         print("Falha ao inserir o registro no banco de dados: {}".format(error))
 
-    finally:
-        if conn.is_connected():
-            conn.close()
-
-
-
+# usar essa variável global para executar queries no banco de dados
+conn = get_conn()

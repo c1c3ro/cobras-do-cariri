@@ -39,9 +39,9 @@ def registro():
         localizacao = request.form['localizacao']
         informacao_adc = request.form['informacao_adc']
         data = request.form['data']
-        if request.form['hora1']:
+        try: 
             hora = request.form['hora1']
-        else:
+        except(KeyError):
             hora = request.form['hora2']
         try:
             localizacao_lat = request.form['localizacao_lat']
@@ -51,18 +51,19 @@ def registro():
             nomeImg = secure_filename(imagem.filename)
             if nomeImg != '':
                 if len(nomeImg) > 50:
-                    nomeImg = nomeImg[0:50]
+                    nomeImg = nomeImg[0:51]
                 file_ext = os.path.splitext(nomeImg)[1]
                 if file_ext not in app.config['UPLOAD_EXTENSIONS']:
                     abort(400)
                 imagem.save(os.path.join(app.config['UPLOAD_PATH'], nomeImg))
         except(KeyError):
-            localizacao_lat = None
-            localizacao_log = None
-            nomeImg = None
+            localizacao_lat = ''
+            localizacao_log = ''
+            nomeImg = ''
         hora = hora + ":00"
         dateTime = data + " " + hora
         insert_registro(localizacao, informacao_adc, dateTime, localizacao_lat, localizacao_log, nomeImg)
+        close_conn()
     return render_template("registro.html", form = form)
 
 if __name__ == "__main__":
