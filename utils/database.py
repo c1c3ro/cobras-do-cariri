@@ -25,7 +25,8 @@ def get_cobras():
     cobras = []
     for familia, especie in cursor:
         cobras.append("{} {}".format(familia, especie))
-
+        
+    
     cursor.close()
     conn.close()
     return cobras
@@ -52,6 +53,7 @@ def insert_registro(localizacao, informacao_adc,
         cursor.execute(insert_query, values)
         print(values)
         print(cursor.rowcount, "Registro salvo com sucesso")
+        conn.commit()
         cursor.close()
         conn.close()
     except mysql.connector.Error as error:
