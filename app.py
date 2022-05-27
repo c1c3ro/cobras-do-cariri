@@ -23,7 +23,7 @@ Session(app)
 @app.route("/")
 def index():
     cobras_info = get_cobras_info()
-    print(cobras_info)
+    #print(cobras_info)
     return render_template("index.html", cobras_info=cobras_info)
 
 @app.route("/login", methods=('GET', 'POST'))
@@ -44,7 +44,7 @@ def registro():
         else:
             hora = request.form['hora2']
         try:
-            localizacao_lat = request.form['localizacao_lat'] 
+            localizacao_lat = request.form['localizacao_lat']
             localizacao_log = request.form['localizacao_log']
             imagem = request.files['file']
             #lidando com a imagem
