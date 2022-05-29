@@ -6,7 +6,6 @@ from formOcorrencia import OcorrenciaForm
 from formLogin import LoginForm
 from flask_session import Session
 from werkzeug.utils import secure_filename
-import mysql.connector
 import os
 
 app = Flask(__name__)
