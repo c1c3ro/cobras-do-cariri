@@ -1,9 +1,15 @@
+from flask import abort
 import mysql.connector
 import os
 
-def get_conn(host = "mysql04-farm2.uni5.net",
+conn = None
+
+def start_conn(host = "mysql04-farm2.uni5.net",
             user = "bessapontes23", password = "6qSLjgbR",
             database = "bessapontes23"):
+    global conn
+    if conn is not None and conn.is_connected():
+        return conn
     try:
         conn = mysql.connector.connect(host = host,
             user = user,
@@ -11,12 +17,22 @@ def get_conn(host = "mysql04-farm2.uni5.net",
             database = database)
     except mysql.connector.Error as error:
         print("Falha ao se conectar no banco de dados: {}".format(error))
-        conn = None
+        abort(500)
+
+def get_conn():
+    global conn
     return conn
+
+def close_conn():
+    global conn
+    if conn is not None:
+        conn.close()
+        conn = None
 
 def get_cobras():
     # função que retorna o nome científico das cobras no banco
-    conn = get_conn()
+    global coon
+    start_conn()
     cursor = conn.cursor()
 
     query = ("SELECT COBRA.idCOBRA, COBRA.familia, COBRA.especie, COBRA_NOME_POP.nome FROM COBRA "
@@ -27,11 +43,15 @@ def get_cobras():
     cobras = []
     for id, familia, especie, nome_pop in cursor:
         cobras.append("{} {}".format(familia, especie))
+<<<<<<< HEAD
         print(nome_pop)
 
 
+=======
+        
+>>>>>>> f47ce8c624e8665a1b373bf359f1302420bd0bdf
     cursor.close()
-    conn.close()
+    close_conn()
     return cobras
 
 def get_cobras_info():
@@ -47,7 +67,8 @@ def get_cobras_info():
 def insert_registro(localizacao, informacao_adc,
                     dateTime, localizacao_lat = '',
                     localizacao_log = '', isImg = 0):
-    conn = get_conn()
+    global coon
+    start_conn()
     cursor = conn.cursor()
     idRegistro = None
     try:
@@ -62,5 +83,5 @@ def insert_registro(localizacao, informacao_adc,
         print("Falha ao inserir o registro no banco de dados: {}".format(error))
     finally:
         cursor.close()
-        conn.close()
+        close_conn()
     return idRegistro

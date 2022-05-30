@@ -1,5 +1,4 @@
-from msilib.schema import LockPermissions
-from flask import Flask, render_template, request, abort
+from flask import Flask, render_template, request, abort, g
 from utils.database import *
 from flask_wtf.csrf import CSRFProtect
 from formOcorrencia import OcorrenciaForm
@@ -40,7 +39,6 @@ def sobre():
 
 @app.route("/registro", methods=('GET', 'POST'))
 def registro():
-    print("tá dando certo?")
     form = OcorrenciaForm()
     if form.validate_on_submit():
         localizacao = request.form['localizacao']
@@ -72,8 +70,6 @@ def registro():
             for imagem in imagens:
                 if imagem.filename != '':
                     nomesImg.append(secure_filename(imagem.filename))
-                    if len(nomesImg[-1]) > 50:
-                        nomesImg.insert(-1, nomesImg[-1][-50:])
                     file_ext = os.path.splitext(nomesImg[-1])[1]
                     if file_ext not in app.config['UPLOAD_EXTENSIONS']:
                         abort(400)
