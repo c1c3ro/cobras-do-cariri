@@ -31,6 +31,14 @@ def login():
     form = LoginForm()
     return render_template("login.html", form = form)
 
+@app.route("/hospitais")
+def hospitais():
+    return render_template("hospitais.html")
+
+@app.route("/sobre")
+def sobre():
+    return render_template("sobre.html")
+
 @app.route("/registro", methods=('GET', 'POST'))
 def registro():
     print("tá dando certo?")
@@ -39,7 +47,7 @@ def registro():
         localizacao = request.form['localizacao']
         informacao_adc = request.form['informacao_adc']
         data = request.form['data']
-        try: 
+        try:
             hora = request.form['hora1']
         except(KeyError):
             hora = request.form['hora2']
