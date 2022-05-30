@@ -6,7 +6,6 @@ from formOcorrencia import OcorrenciaForm
 from formLogin import LoginForm
 from flask_session import Session
 from werkzeug.utils import secure_filename
-import mysql.connector
 import os
 
 app = Flask(__name__)
@@ -51,6 +50,10 @@ def registro():
             hora = request.form['hora1']
         except(KeyError):
             hora = request.form['hora2']
+
+        hora = hora + ":00"
+        dateTime = data + " " + hora
+
         try:
             localizacao_lat = request.form['localizacao_lat']
             localizacao_log = request.form['localizacao_log']
@@ -60,21 +63,24 @@ def registro():
             localizacao_log = ''
         try:
             nomesImg = []
+            isImg = 1
             #lidando com as imagens
-            for imagem in request.files.getlist('imagem'):
-                nomesImg.append(secure_filename(imagem.filename))
-                if nomesImg[-1] != '':
+            imagens = request.files.getlist('imagem')
+            # pegando o id do registro para criar uma pasta que conterá as imagens
+            imgId = insert_registro(localizacao, informacao_adc, dateTime, localizacao_lat, localizacao_log, isImg)
+            os.mkdir(os.path.join(app.config['UPLOAD_PATH'], str(imgId)))
+            for imagem in imagens:
+                if imagem.filename != '':
+                    nomesImg.append(secure_filename(imagem.filename))
                     if len(nomesImg[-1]) > 50:
                         nomesImg.insert(-1, nomesImg[-1][-50:])
                     file_ext = os.path.splitext(nomesImg[-1])[1]
                     if file_ext not in app.config['UPLOAD_EXTENSIONS']:
                         abort(400)
-                    imagem.save(os.path.join(app.config['UPLOAD_PATH'], nomesImg[-1]))
+                    imagem.save(os.path.join(app.config['UPLOAD_PATH'], str(imgId),nomesImg[-1]))
         except(KeyError):
-            nomesImg = ['']
-        hora = hora + ":00"
-        dateTime = data + " " + hora
-        insert_registro(localizacao, informacao_adc, dateTime, localizacao_lat, localizacao_log, nomesImg[-1])
+            isImg = 0
+            insert_registro(localizacao, informacao_adc, dateTime, localizacao_lat, localizacao_log, isImg)
     return render_template("registro.html", form = form)
 
 if __name__ == "__main__":

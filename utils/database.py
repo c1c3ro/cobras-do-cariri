@@ -43,18 +43,21 @@ def get_cobras_info():
 
 def insert_registro(localizacao, informacao_adc,
                     dateTime, localizacao_lat = '',
-                    localizacao_log = '', imgPath = ''):
+                    localizacao_log = '', isImg = 0):
     conn = get_conn()
     cursor = conn.cursor()
+    idRegistro = None
     try:
         insert_query = """INSERT INTO REGISTRO (localizacao, localizacao_lat, localizacao_log, imagem, informacao_adc, data_hora)
                         VALUES (%s, %s, %s, %s, %s, %s)"""
-        values = (localizacao, localizacao_lat, localizacao_log, imgPath, informacao_adc, dateTime)
+        values = (localizacao, localizacao_lat, localizacao_log, isImg, informacao_adc, dateTime)
         cursor.execute(insert_query, values)
-        print(values)
         print(cursor.rowcount, "Registro salvo com sucesso")
         conn.commit()
-        cursor.close()
-        conn.close()
+        idRegistro = cursor.lastrowid
     except mysql.connector.Error as error:
         print("Falha ao inserir o registro no banco de dados: {}".format(error))
+    finally:
+        cursor.close()
+        conn.close()
+    return idRegistro
