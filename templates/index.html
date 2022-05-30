@@ -44,7 +44,9 @@
               </button>
             </div>
             <h5><strong>{{cobra}}</strong></h5>
-            <p>Nomes Popular</p>
+            <p>
+              {{nomes_pop[cobra] | join(', ')}}
+            </p>
           </div>
         {% endfor %}
     </div>

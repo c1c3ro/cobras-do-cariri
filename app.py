@@ -21,8 +21,9 @@ Session(app)
 
 @app.route("/")
 def index():
-    cobras_info = get_cobras_info()
-    return render_template("index.html", cobras_info=cobras_info)
+    cobras_info, nomes_pop = get_cobras_info()
+    print(nomes_pop)
+    return render_template("index.html", cobras_info=cobras_info, nomes_pop=nomes_pop)
 
 @app.route("/login", methods=('GET', 'POST'))
 def login():

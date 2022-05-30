@@ -1,3 +1,4 @@
+from cv2 import NORM_TYPE_MASK
 from flask import abort
 import mysql.connector
 import os
@@ -41,24 +42,28 @@ def get_cobras():
     cursor.execute(query)
 
     cobras = []
+    nomes_pop = {}
     for id, familia, especie, nome_pop in cursor:
-        cobras.append("{} {}".format(familia, especie))
-        print(nome_pop)
+        nome_cientifico = "{} {}".format(familia, especie)
+        cobras.append(nome_cientifico)
+        if nome_cientifico not in nomes_pop.keys():
+            nomes_pop[nome_cientifico] = []
+        nomes_pop[nome_cientifico].append(nome_pop)
 
 
     cursor.close()
     close_conn()
-    return cobras
+    return cobras, nomes_pop
 
 def get_cobras_info():
-    cobras = get_cobras()
+    cobras, nomes_pop = get_cobras()
     cobras_info = {}
     for cobra in cobras:
         for filename in os.listdir("./static/serpentesFotos/{}".format(cobra)):
             if cobra not in cobras_info.keys():
                 cobras_info[cobra] = []
             cobras_info[cobra].append(filename)
-    return cobras_info
+    return cobras_info, nomes_pop
 
 def insert_registro(localizacao, informacao_adc,
                     dateTime, localizacao_lat = '',
