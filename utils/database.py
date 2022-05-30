@@ -19,10 +19,6 @@ def start_conn(host = "mysql04-farm2.uni5.net",
         print("Falha ao se conectar no banco de dados: {}".format(error))
         abort(500)
 
-def get_conn():
-    global conn
-    return conn
-
 def close_conn():
     global conn
     if conn is not None:
