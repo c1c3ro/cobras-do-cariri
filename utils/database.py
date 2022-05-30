@@ -43,13 +43,9 @@ def get_cobras():
     cobras = []
     for id, familia, especie, nome_pop in cursor:
         cobras.append("{} {}".format(familia, especie))
-<<<<<<< HEAD
         print(nome_pop)
 
 
-=======
-        
->>>>>>> f47ce8c624e8665a1b373bf359f1302420bd0bdf
     cursor.close()
     close_conn()
     return cobras
