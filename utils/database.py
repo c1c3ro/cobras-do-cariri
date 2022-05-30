@@ -35,13 +35,17 @@ def get_cobras():
     start_conn()
     cursor = conn.cursor()
 
-    query = ("SELECT familia, especie FROM COBRA ORDER BY familia")
+    query = ("SELECT COBRA.idCOBRA, COBRA.familia, COBRA.especie, COBRA_NOME_POP.nome FROM COBRA "
+            "INNER JOIN COBRA_NOME_POP ON COBRA.idCOBRA = COBRA_NOME_POP.idCOBRA "
+            "ORDER BY familia;")
     cursor.execute(query)
 
     cobras = []
-    for familia, especie in cursor:
+    for id, familia, especie, nome_pop in cursor:
         cobras.append("{} {}".format(familia, especie))
-        
+        print(nome_pop)
+
+
     cursor.close()
     close_conn()
     return cobras
