@@ -78,6 +78,7 @@ a {
     color: #F2E8C0;
     font-size: 12px;
     cursor: pointer;
+    border: none;
 }
 
 .login {

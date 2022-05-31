@@ -1,4 +1,3 @@
-from cv2 import NORM_TYPE_MASK
 from flask import abort
 import mysql.connector
 import os
@@ -26,15 +25,26 @@ def close_conn():
         conn.close()
         conn = None
 
-def get_cobras():
+def get_cobras(search):
     # função que retorna o nome científico das cobras no banco
     global coon
     start_conn()
     cursor = conn.cursor()
 
-    query = ("SELECT COBRA.idCOBRA, COBRA.familia, COBRA.especie, COBRA_NOME_POP.nome FROM COBRA "
-            "INNER JOIN COBRA_NOME_POP ON COBRA.idCOBRA = COBRA_NOME_POP.idCOBRA "
-            "ORDER BY familia;")
+    query = """SELECT COBRA.idCOBRA, COBRA.familia, COBRA.especie, COBRA_NOME_POP.nome FROM COBRA 
+            INNER JOIN COBRA_NOME_POP ON COBRA.idCOBRA = COBRA_NOME_POP.idCOBRA """
+
+    if search is not None:
+        search = search.split()
+        pos_query = "WHERE"
+        for p in range(len(search)):
+            pos_query += " CONCAT(COBRA.familia, COBRA.especie, COBRA_NOME_POP.nome) LIKE '%" + search[p] + "%'"
+            if p < len(search) - 1:
+                pos_query += " OR" 
+    else:
+        pos_query = "ORDER BY familia;"
+
+    query = query + pos_query
     cursor.execute(query)
 
     cobras = []
@@ -46,13 +56,12 @@ def get_cobras():
             nomes_pop[nome_cientifico] = []
         nomes_pop[nome_cientifico].append(nome_pop)
 
-
     cursor.close()
     close_conn()
     return cobras, nomes_pop
 
-def get_cobras_info():
-    cobras, nomes_pop = get_cobras()
+def get_cobras_info(search = None):
+    cobras, nomes_pop = get_cobras(search)
     cobras_info = {}
     for cobra in cobras:
         for filename in os.listdir("./static/serpentesFotos/{}".format(cobra)):

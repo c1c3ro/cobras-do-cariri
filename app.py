@@ -80,5 +80,12 @@ def registro():
             insert_registro(localizacao, informacao_adc, dateTime, localizacao_lat, localizacao_log, isImg)
     return render_template("registro.html", form = form)
 
+@app.route("/cobras/<search>")
+def pesquisa(search):
+    print("entrei na pesquisa ")
+    cobras_info, nomes_pop = get_cobras_info(search)
+    return render_template("pesquisa.html", cobras_info=cobras_info, nomes_pop=nomes_pop, search=search)
+
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
