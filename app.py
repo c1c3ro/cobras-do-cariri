@@ -82,8 +82,11 @@ def registro():
 
 @app.route("/cobras/<search>")
 def pesquisa(search):
-    print("entrei na pesquisa ")
     cobras_info, nomes_pop = get_cobras_info(search)
+    if not cobras_info:
+        print("entrei no if")
+    else:
+        print("entrei no else")
     return render_template("pesquisa.html", cobras_info=cobras_info, nomes_pop=nomes_pop, search=search)
 
 

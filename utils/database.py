@@ -31,7 +31,7 @@ def get_cobras(search):
     start_conn()
     cursor = conn.cursor()
 
-    query = """SELECT COBRA.idCOBRA, COBRA.familia, COBRA.especie, COBRA_NOME_POP.nome FROM COBRA 
+    query = """SELECT COBRA.familia, COBRA.especie, COBRA_NOME_POP.nome FROM COBRA 
             INNER JOIN COBRA_NOME_POP ON COBRA.idCOBRA = COBRA_NOME_POP.idCOBRA """
 
     if search is not None:
@@ -49,7 +49,7 @@ def get_cobras(search):
 
     cobras = []
     nomes_pop = {}
-    for id, familia, especie, nome_pop in cursor:
+    for familia, especie, nome_pop in cursor:
         nome_cientifico = "{} {}".format(familia, especie)
         cobras.append(nome_cientifico)
         if nome_cientifico not in nomes_pop.keys():
