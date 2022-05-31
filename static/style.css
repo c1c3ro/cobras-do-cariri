@@ -14,6 +14,7 @@ html, body {
     min-height: 100vh;
     height: 100%;
     width: 100%;
+    color: #282D29;
 }
 
 a {
@@ -21,6 +22,10 @@ a {
     text-decoration-line: underline;
     text-decoration-style: wavy;
     font-weight: 600;
+}
+
+.red {
+    color: #DE4645;
 }
 
 .footer {
@@ -132,6 +137,16 @@ a {
 }
 
 /*End -- Main Meny Style*/
+
+/*Introdução -- Style*/
+
+.ilust {
+    width: 100%;
+    height: auto;
+}
+
+/*End -- Introdução Style*/
+
 
 /*Explorar -- Style*/
 
