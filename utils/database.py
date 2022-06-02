@@ -27,16 +27,17 @@ def close_conn():
 
 def get_cobras(search):
     # função que retorna o nome científico das cobras no banco
-    global coon
+    global conn
     start_conn()
     cursor = conn.cursor()
 
-    query = """SELECT COBRA.familia, COBRA.especie, COBRA_NOME_POP.nome FROM COBRA 
+    query = """SELECT COBRA.familia, COBRA.especie, COBRA_NOME_POP.nome FROM COBRA
             INNER JOIN COBRA_NOME_POP ON COBRA.idCOBRA = COBRA_NOME_POP.idCOBRA """
 
     if search is not None:
         pos_query = "WHERE"
         searchSplit = search.split()
+        print(searchSplit)
         search = ['%' + i + '%' for i in searchSplit]
         for p in range(len(search)):
             pos_query += """ CONCAT(COBRA.familia, COBRA.especie, COBRA_NOME_POP.nome) LIKE %s"""
@@ -71,6 +72,22 @@ def get_cobras_info(search = None):
                 cobras_info[cobra] = []
             cobras_info[cobra].append(filename)
     return cobras_info, nomes_pop
+
+def get_hospitais():
+    global conn
+    start_conn()
+    cursor = conn.cursor()
+    query = ("SELECT nome, localizacao, municipio, telefone FROM HOSPITAL WHERE 1=1")
+    cursor.execute(query)
+    hospitais = {}
+    for nome, localizacao, municipio, telefone in cursor:
+        if nome not in hospitais.keys():
+            hospitais[nome] = {}
+        hospitais[nome]['localizacao'] = localizacao
+        hospitais[nome]['municipio'] = municipio
+        hospitais[nome]['telefone'] = telefone
+
+    return hospitais
 
 def insert_registro(localizacao, informacao_adc,
                     dateTime, localizacao_lat = '',

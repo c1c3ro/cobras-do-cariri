@@ -5,6 +5,29 @@
 
     <h3><i class="bi bi-hospital mx-2"></i> Hospitais</h3>
 
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Nome do Hospital</th>
+                <th scope="col">Município</th>
+                <th scope="col">Localização</th>
+                <th scope="col">Telefone</th>
+                <th scope="col">Soros</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for hospital, info in hospitais.items() %}
+                <tr>
+                    <td><strong>{{hospital}}</strong></td>
+                    <td>{{info['municipio']}}</td>
+                    <td>{{info['localizacao']}}</td>
+                    <td>{{info['telefone']}}</td>
+                    <td> </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 </div>
 
 {% endblock %}

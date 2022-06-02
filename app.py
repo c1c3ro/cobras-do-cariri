@@ -32,7 +32,8 @@ def login():
 
 @app.route("/hospitais")
 def hospitais():
-    return render_template("hospitais.html")
+    hospitais = get_hospitais()
+    return render_template("hospitais.html", hospitais=hospitais)
 
 @app.route("/sobre")
 def sobre():
