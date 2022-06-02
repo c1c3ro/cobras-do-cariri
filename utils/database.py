@@ -36,7 +36,7 @@ def get_cobras(search):
 
     if search is not None:
         pos_query = "WHERE"
-        searchSplit = search.split()
+        searchSplit = search.split().split('-')
         if 'cobra' in search or 'serpente' in search:
             if len(searchSplit) <= 1:
                 searchSplit = []
