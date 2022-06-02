@@ -35,17 +35,19 @@ def get_cobras(search):
             INNER JOIN COBRA_NOME_POP ON COBRA.idCOBRA = COBRA_NOME_POP.idCOBRA """
 
     if search is not None:
-        search = search.split()
         pos_query = "WHERE"
+        searchSplit = search.split()
+        search = ['%' + i + '%' for i in searchSplit]
         for p in range(len(search)):
-            pos_query += " CONCAT(COBRA.familia, COBRA.especie, COBRA_NOME_POP.nome) LIKE '%" + search[p] + "%'"
+            pos_query += """ CONCAT(COBRA.familia, COBRA.especie, COBRA_NOME_POP.nome) LIKE %s"""
             if p < len(search) - 1:
-                pos_query += " OR" 
+                pos_query += " OR"
     else:
         pos_query = "ORDER BY familia;"
 
     query = query + pos_query
-    cursor.execute(query)
+    print(query)
+    cursor.execute(query, search)
 
     cobras = []
     nomes_pop = {}
