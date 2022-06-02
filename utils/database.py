@@ -37,6 +37,7 @@ def get_cobras(search):
     if search is not None:
         pos_query = "WHERE"
         searchSplit = search.split()
+        print(searchSplit)
         search = ['%' + i + '%' for i in searchSplit]
         for p in range(len(search)):
             pos_query += """ CONCAT(COBRA.familia, COBRA.especie, COBRA_NOME_POP.nome) LIKE %s"""
