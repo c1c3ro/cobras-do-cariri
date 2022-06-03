@@ -168,4 +168,10 @@ a {
     color: #505050;
 }
 
+.collapse-link {
+    color: #505050;
+    text-decoration: none;
+    font-size: 12px;
+}
+
 /*End -- Explorar Style*/
