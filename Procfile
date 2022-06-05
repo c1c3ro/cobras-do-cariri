@@ -1,1 +1,1 @@
-web: gunicorn <cobras-do-cariri>.wsgi --log-file -
+web: gunicorn <../cobras-do-cariri>.wsgi --log-file -
