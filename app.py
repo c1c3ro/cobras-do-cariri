@@ -42,6 +42,7 @@ def sobre():
 @app.route("/registro", methods=('GET', 'POST'))
 def registro():
     form = OcorrenciaForm()
+    registroId = 0
     if form.validate_on_submit():
         localizacao = request.form['localizacao']
         informacao_adc = request.form['informacao_adc']
@@ -49,8 +50,11 @@ def registro():
         try:
             hora = request.form['hora1']
         except(KeyError):
-            hora = request.form['hora2']
-
+            try:
+                hora = request.form['hora2']
+            except(KeyError):
+                hora = '00:00'
+                
         hora = hora + ":00"
         dateTime = data + " " + hora
 
@@ -67,19 +71,19 @@ def registro():
             #lidando com as imagens
             imagens = request.files.getlist('imagem')
             # pegando o id do registro para criar uma pasta que conterá as imagens
-            imgId = insert_registro(localizacao, informacao_adc, dateTime, localizacao_lat, localizacao_log, isImg)
-            os.mkdir(os.path.join(app.config['UPLOAD_PATH'], str(imgId)))
+            registroId = insert_registro(localizacao, informacao_adc, dateTime, localizacao_lat, localizacao_log, isImg)
+            os.mkdir(os.path.join(app.config['UPLOAD_PATH'], str(registroId)))
             for imagem in imagens:
                 if imagem.filename != '':
                     nomesImg.append(secure_filename(imagem.filename))
                     file_ext = os.path.splitext(nomesImg[-1])[1]
                     if file_ext not in app.config['UPLOAD_EXTENSIONS']:
                         abort(400)
-                    imagem.save(os.path.join(app.config['UPLOAD_PATH'], str(imgId),nomesImg[-1]))
+                    imagem.save(os.path.join(app.config['UPLOAD_PATH'], str(registroId),nomesImg[-1]))
         except(KeyError):
             isImg = 0
-            insert_registro(localizacao, informacao_adc, dateTime, localizacao_lat, localizacao_log, isImg)
-    return render_template("registro.html", form = form)
+            registroId = insert_registro(localizacao, informacao_adc, dateTime, localizacao_lat, localizacao_log, isImg)
+    return render_template("registro.html", form = form, registroId = registroId)
 
 @app.route("/cobras/<search>")
 def pesquisa(search):

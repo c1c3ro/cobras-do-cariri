@@ -49,15 +49,29 @@
         </div>
     </form>
 
+
+    {% if registroId > 0 %}
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Sucesso!</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            Registramos a sua ocorrência no nosso banco de dados, obrigado por colaborar! :)
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn submit-btn shadow-sm" data-bs-dismiss="modal">Fechar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
     <script>
         $(document).ready(function(){
-            // pegando as coordenadas
-            /* $("#hora1").val("00:00");
-            hora = $("#hora1").text();
-            console.log(hora);
-            var horaTrimmed = $.trim(hora.text());
-            console.log(horaTrimmed);
-            $("#hora1").val(horaTrimmed.text()); */
+            $('#successModal').modal('show');
             if ($('#gps').prop('checked') == true) {
                 $('.coordenadas').removeClass('d-none');
                 $('.coordenadas').addClass('d-flex');
