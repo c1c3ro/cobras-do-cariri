@@ -54,7 +54,7 @@ def registro():
                 hora = request.form['hora2']
             except(KeyError):
                 hora = '00:00'
-                
+
         hora = hora + ":00"
         dateTime = data + " " + hora
 
@@ -67,9 +67,12 @@ def registro():
             localizacao_log = ''
         try:
             nomesImg = []
-            isImg = 1
             #lidando com as imagens
             imagens = request.files.getlist('imagem')
+            if imagens:
+                isImg = 1
+            else:
+                raise KeyError
             # pegando o id do registro para criar uma pasta que conterá as imagens
             registroId = insert_registro(localizacao, informacao_adc, dateTime, localizacao_lat, localizacao_log, isImg)
             os.mkdir(os.path.join(app.config['UPLOAD_PATH'], str(registroId)))
