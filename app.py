@@ -69,12 +69,14 @@ def registro():
             nomesImg = []
             #lidando com as imagens
             imagens = request.files.getlist('imagem')
-            if imagens:
+            print(imagens)
+            if imagens[0].filename != '':
                 isImg = 1
             else:
                 raise KeyError
             # pegando o id do registro para criar uma pasta que conterá as imagens
             registroId = insert_registro(localizacao, informacao_adc, dateTime, localizacao_lat, localizacao_log, isImg)
+            print(isImg)
             os.mkdir(os.path.join(app.config['UPLOAD_PATH'], str(registroId)))
             for imagem in imagens:
                 if imagem.filename != '':
@@ -86,6 +88,7 @@ def registro():
         except(KeyError):
             isImg = 0
             registroId = insert_registro(localizacao, informacao_adc, dateTime, localizacao_lat, localizacao_log, isImg)
+            print(isImg)
     return render_template("registro.html", form = form, registroId = registroId)
 
 @app.route("/cobras/<search>")
