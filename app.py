@@ -21,9 +21,9 @@ Session(app)
 
 @app.route("/")
 def index():
-    cobras_info, nomes_pop = get_cobras_info()
+    cobras_info, nomes_pop, peconhenta = get_cobras_info()
     #print(nomes_pop)
-    return render_template("index.html", cobras_info=cobras_info, nomes_pop=nomes_pop)
+    return render_template("index.html", cobras_info=cobras_info, nomes_pop=nomes_pop, peconhenta=peconhenta)
 
 @app.route("/login", methods=('GET', 'POST'))
 def login():
@@ -83,12 +83,12 @@ def registro():
 
 @app.route("/cobras/<search>")
 def pesquisa(search):
-    cobras_info, nomes_pop = get_cobras_info(search)
+    cobras_info, nomes_pop, peconhenta = get_cobras_info(search)
     if not cobras_info:
         print("entrei no if")
     else:
         print("entrei no else")
-    return render_template("pesquisa.html", cobras_info=cobras_info, nomes_pop=nomes_pop, search=search)
+    return render_template("pesquisa.html", cobras_info=cobras_info, nomes_pop=nomes_pop, search=search, peconhenta=peconhenta)
 
 
 if __name__ == "__main__":
