@@ -1,3 +1,4 @@
+from asyncio import constants
 from flask import abort
 import mysql.connector
 import os
@@ -136,4 +137,25 @@ def match_login(usuario, senha_cript):
             return True
         else:
             return False
+
+def novo_usuario(usuario, senha_cript, email):
+    global conn
+    start_conn()
+    cursor = conn.cursor()
+    values= (usuario, senha_cript, email)
+
+    query = """INSERT INTO USUARIO (user, password, email) VALUES (%s, %s, %s)"""
+    try:
+        cursor.execute(query, values)
+        print(cursor.rowcount, "Registro salvo com sucesso")
+        conn.commit()
+        idRegistro = cursor.lastrowid
+    except mysql.connector.Error as error:
+        print("Falha ao inserir o registro no banco de dados: {}".format(error))
+        idRegistro = -1
+    finally:
+        cursor.close()
+        close_conn()
+    return idRegistro
+
 

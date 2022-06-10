@@ -3,6 +3,7 @@ from utils.database import *
 from flask_wtf.csrf import CSRFProtect
 from formOcorrencia import OcorrenciaForm
 from formLogin import LoginForm
+from formCadastro import CadastroForm
 from flask_session import Session
 from werkzeug.utils import secure_filename
 from hashlib import sha256
@@ -135,11 +136,36 @@ def pesquisa(search):
 
 @app.route("/admin")
 def admin():
+    cadastro = request.args.get('cadastro', None)
     if not session.get('logged'):
         return render_template("proibido.html")
-        pass
     else:
-        return render_template("admin.html", username=session['username'])
+        return render_template("admin.html", username=session['username'], cadastro=cadastro)
+
+@app.route("/cadastro", methods=('GET', 'POST'))
+def cadastro():
+    if not session.get('logged'):
+        return render_template("proibido.html")
+    else:
+        form = CadastroForm()
+        if request.method == 'POST':
+            if form.validate_on_submit():
+                usuario = request.form['usuario']
+                senha = request.form['senha']
+                email = request.form['email']
+                senha_cript = sha256(senha.encode('utf-8')).hexdigest()
+                if novo_usuario(usuario, senha_cript, email) != -1:
+                    return redirect(url_for("admin", cadastro=True))
+                else:
+                    return render_template("cadastro.html", username=session['username'], form=form, cadastro=False)
+        return render_template("cadastro.html", username=session['username'], form=form)
+
+@app.route("/admin/registros")
+def admin_registros():
+    if not session.get('logged'):
+        return render_template("proibido.html")
+    else:
+        return render_template("admin_registros.html", username=session['username'])
 
 @app.route("/logout")
 def logout():
