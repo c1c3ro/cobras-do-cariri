@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, abort, g
+from flask import Flask, render_template, request, abort, redirect, url_for
 from utils.database import *
 from flask_wtf.csrf import CSRFProtect
 from formOcorrencia import OcorrenciaForm
@@ -22,8 +22,8 @@ Session(app)
 @app.route("/")
 def index():
     cobras_info, nomes_pop = get_cobras_info()
-    #print(nomes_pop)
-    return render_template("index.html", cobras_info=cobras_info, nomes_pop=nomes_pop)
+    noReturn = request.args.get('noReturn', None) 
+    return render_template("index.html", cobras_info=cobras_info, nomes_pop=nomes_pop, noReturn=noReturn)
 
 @app.route("/login", methods=('GET', 'POST'))
 def login():
@@ -95,9 +95,8 @@ def registro():
 def pesquisa(search):
     cobras_info, nomes_pop = get_cobras_info(search)
     if not cobras_info:
-        print("entrei no if")
-    else:
-        print("entrei no else")
+        return redirect(url_for(".index", noReturn=True))
+        #return render_template("index.html", cobras_info=cobras_info, nomes_pop=nomes_pop, noReturn = True)
     return render_template("pesquisa.html", cobras_info=cobras_info, nomes_pop=nomes_pop, search=search)
 
 
