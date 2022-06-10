@@ -158,4 +158,8 @@ def novo_usuario(usuario, senha_cript, email):
         close_conn()
     return idRegistro
 
-
+"""
+Pegar todos os registros
+Excluir registro
+Adicionar em Registros-Cobras
+"""
