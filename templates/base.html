@@ -56,7 +56,11 @@
                 </div>
                 <div class="row d-flex col-4 col-md-3 justify-content-end">
                     <div class="d-inline-flex login">
-                        <a href="/login">Login</a> <i class="bi bi-person-circle"></i>
+                        {% if username is defined %}
+                            <a href="/admin">{{username}}</a> <i class="bi bi-person-circle"></i>
+                        {% else %}
+                            <a href="/login">Login</a> <i class="bi bi-person-circle"></i>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -105,8 +109,8 @@
                     if(key == 13)  // the enter key code
                     {
                         $('#searchBtn').click();
-                        return false; 
-                    } 
+                        return false;
+                    }
                 });
             })
         </script>

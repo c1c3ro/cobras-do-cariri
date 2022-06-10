@@ -9,11 +9,11 @@
         {{ form.csrf_token }}
         <div class="input-group my-2">
             <span class="input-group-text shadow-sm" id="usuario">@</span>
-            <input type="text" class="form-control shadow-sm" placeholder="Usuário" aria-label="usuario" aria-describedby="usuario" id="usuario" required>
+            <input type="text" class="form-control shadow-sm" placeholder="Usuário" aria-label="usuario" aria-describedby="usuario" id="usuario" name="usuario" required>
         </div>
         <div class="input-group my-2">
             <span class="input-group-text shadow-sm" id="usuario"><i class="bi bi-lock"></i></span>
-            <input type="password" class="form-control shadow-sm" placeholder="Senha" aria-label="senha" aria-describedby="senha" id="senha" required>
+            <input type="password" class="form-control shadow-sm" placeholder="Senha" aria-label="senha" aria-describedby="senha" id="senha" name="senha" required>
         </div>
         <div class="col-12">
             {{ form.enviar(class="btn submit-btn shadow-sm my-2", type="submit") }}
@@ -21,5 +21,32 @@
     </form>
 
 </div>
+
+{% if loginFailed %}
+<div class="modal fade" id="loginFailedModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Login falhou</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      Usuário ou senha inválidos! Tente novamente!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn submit-btn shadow-sm" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<script>
+    $(document).ready(function(){
+        if ($('#loginFailedModal').length) {
+            $('#loginFailedModal').modal('show');
+        }
+    })
+  </script>
 
 {% endblock %}

@@ -121,3 +121,19 @@ def insert_registro(localizacao, informacao_adc,
         cursor.close()
         close_conn()
     return idRegistro
+
+def match_login(usuario, senha_cript):
+    global conn
+    start_conn()
+    cursor = conn.cursor()
+    login = (usuario, senha_cript)
+
+    query = """SELECT COUNT(idUSUARIO) AS Count FROM USUARIO WHERE USUARIO.user = %s AND USUARIO.password = %s"""
+    cursor.execute(query, login)
+
+    for count in cursor:
+        if count[0] == 1:
+            return True
+        else:
+            return False
+
