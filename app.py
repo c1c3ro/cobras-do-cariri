@@ -26,12 +26,12 @@ app.permanent_session_lifetime = timedelta(minutes=10)
 
 @app.route("/")
 def index():
-    cobras_info, nomes_pop, peconhenta = get_cobras_info()
+    ids, cobras_info, nomes_pop, peconhenta = get_cobras_info()
     noReturn = request.args.get('noReturn', None)
     if not session.get('username'):
-        return render_template("index.html", cobras_info=cobras_info, nomes_pop=nomes_pop, peconhenta=peconhenta, noReturn=noReturn)
+        return render_template("index.html", cobras_info=cobras_info, nomes_pop=nomes_pop, peconhenta=peconhenta, ids=ids, noReturn=noReturn)
     else:
-        return render_template("index.html", cobras_info=cobras_info, nomes_pop=nomes_pop, peconhenta=peconhenta, noReturn=noReturn, username=session['username'])
+        return render_template("index.html", cobras_info=cobras_info, nomes_pop=nomes_pop, peconhenta=peconhenta, noReturn=noReturn, ids=ids, username=session['username'])
 
 @app.route("/login", methods=('GET', 'POST'))
 def login():
@@ -126,13 +126,21 @@ def registro():
 
 @app.route("/cobras/<search>")
 def pesquisa(search):
-    cobras_info, nomes_pop, peconhenta = get_cobras_info(search)
+    ids, cobras_info, nomes_pop, peconhenta = get_cobras_info(search)
     if not cobras_info:
         return redirect(url_for(".index", noReturn=True))
     if not session.get('username'):
-        return render_template("pesquisa.html", cobras_info=cobras_info, nomes_pop=nomes_pop, search=search, peconhenta=peconhenta)
+        return render_template("pesquisa.html", cobras_info=cobras_info, nomes_pop=nomes_pop, search=search, ids=ids, peconhenta=peconhenta)
     else:
-        return render_template("pesquisa.html", cobras_info=cobras_info, nomes_pop=nomes_pop, search=search, peconhenta=peconhenta, username=session['username'])
+        return render_template("pesquisa.html", cobras_info=cobras_info, nomes_pop=nomes_pop, search=search, ids=ids, peconhenta=peconhenta, username=session['username'])
+
+@app.route("/cobra/<id>")
+def cobra(id):
+    info_cobra = get_cobra(id)
+    if not session.get('username'):
+        return render_template('cobra.html', info_cobra=info_cobra, cobra="{} {}".format(info_cobra['familia'], info_cobra['especie']))
+    else:
+        return render_template('cobra.html', info_cobra=info_cobra, username=session['username'], cobra="{} {}".format(info_cobra['familia'], info_cobra['especie']))
 
 @app.route("/admin")
 def admin():

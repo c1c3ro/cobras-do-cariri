@@ -32,7 +32,7 @@ def get_cobras(search):
     start_conn()
     cursor = conn.cursor()
 
-    query = """SELECT COBRA.familia, COBRA.especie, COBRA.peconhenta, COBRA_NOME_POP.nome FROM COBRA
+    query = """SELECT COBRA.idCOBRA, COBRA.familia, COBRA.especie, COBRA.peconhenta, COBRA_NOME_POP.nome FROM COBRA
             INNER JOIN COBRA_NOME_POP ON COBRA.idCOBRA = COBRA_NOME_POP.idCOBRA """
 
     if search is not None:
@@ -61,27 +61,29 @@ def get_cobras(search):
     cobras = []
     nomes_pop = {}
     peconha = {}
-    for familia, especie, peconhenta, nome_pop in cursor:
+    ids = {}
+    for id, familia, especie, peconhenta, nome_pop in cursor:
         nome_cientifico = "{} {}".format(familia, especie)
         cobras.append(nome_cientifico)
         peconha[nome_cientifico] = peconhenta
+        ids[nome_cientifico] = id
         if nome_cientifico not in nomes_pop.keys():
             nomes_pop[nome_cientifico] = []
         nomes_pop[nome_cientifico].append(nome_pop)
 
     cursor.close()
     close_conn()
-    return cobras, nomes_pop, peconha
+    return ids, cobras, nomes_pop, peconha
 
 def get_cobras_info(search = None):
-    cobras, nomes_pop, peconhenta = get_cobras(search)
+    ids, cobras, nomes_pop, peconhenta = get_cobras(search)
     cobras_info = {}
     for cobra in cobras:
         for filename in os.listdir("./static/serpentesFotos/{}".format(cobra)):
             if cobra not in cobras_info.keys():
                 cobras_info[cobra] = []
             cobras_info[cobra].append(filename)
-    return cobras_info, nomes_pop, peconhenta
+    return ids, cobras_info, nomes_pop, peconhenta
 
 def get_hospitais():
     global conn
@@ -163,3 +165,31 @@ Pegar todos os registros
 Excluir registro
 Adicionar em Registros-Cobras
 """
+def get_cobra(id):
+    global conn
+    start_conn()
+    cursor = conn.cursor()
+    #value = (id)
+
+    query = f"SELECT  COBRA.familia, COBRA.especie, COBRA.peconhenta, COBRA_NOME_POP.nome FROM COBRA INNER JOIN COBRA_NOME_POP ON COBRA.idCOBRA = COBRA_NOME_POP.idCOBRA WHERE COBRA.idCOBRA = {id}"
+
+    cursor.execute(query)
+
+    info_cobra = {}
+    for familia, especie, peconhenta, nome_pop in cursor:
+        info_cobra['familia'] = familia
+        info_cobra['especie'] = especie
+        info_cobra['peconhenta'] = peconhenta
+        if 'nome_pop' not in info_cobra.keys():
+            info_cobra['nome_pop'] = []
+        info_cobra['nome_pop'].append(nome_pop)
+
+    for filename in os.listdir("./static/serpentesFotos/{} {}".format(info_cobra['familia'], info_cobra['especie'])):
+        if 'filenames' not in info_cobra.keys():
+            info_cobra['filenames'] = []
+        info_cobra['filenames'].append(filename)
+
+    print(info_cobra)
+    return info_cobra
+
+

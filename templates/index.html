@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
-
 <div class="row align-items-center">
     <div class="col-12 col-md-6">
         <div class="alert alert-danger" role="alert">
@@ -37,7 +35,11 @@
         {% for cobra, imgs in cobras_info.items() %}
           <div class="col-12 col-md-6 col-lg-3 px-2 mb-3 flex-column align-items-center justify-content-center">
             <div id="{{cobra|replace(' ', '-')}}" class="carousel slide slider" data-ride="carousel">
-              <div class="carousel-inner shadow">
+              {% if peconhenta[cobra] == 1 %}
+                <div class="carousel-inner peconhenta-slider">
+              {% else %}
+                <div class="carousel-inner shadow br">
+              {% endif %}
                 <div class="carousel-item active">
                   <img class="d-block w-100 shadow" src='{{url_for("static", filename="serpentesFotos/{cobra}/{img}".format(cobra=cobra, img=imgs[0]))}}'>
                 </div>
@@ -57,10 +59,10 @@
               </button>
             </div>
             {% if peconhenta[cobra] == 1 %}
-              <h5 class="red"><strong>{{cobra}}</strong></h5>
+              <h5 class="red"><a href="/cobra/{{ids[cobra]}}" class="peconhenta-link"><strong>{{cobra}}</strong></a></h5>
               <span class="badge text-bg-danger"><i class="bi bi-exclamation-triangle"></i> Peçonhenta <i class="bi bi-exclamation-triangle"></i></span>
             {% else %}
-              <h5><strong>{{cobra}}</strong></h5>
+              <h5><a href="/cobra/{{ids[cobra]}}" class="cobra-link"><strong>{{cobra}}</strong></a></h5>
             {% endif %}
             <p><a class="collapse-link" data-bs-toggle="collapse" href="#collapse-{{cobra|replace(' ', '-')}}" role="button" aria-expanded="false" aria-controls="collapse-{{cobra|replace(' ', '-')}}">
               Nomes populares <i class="bi bi-chevron-down"></i>

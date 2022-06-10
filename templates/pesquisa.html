@@ -43,9 +43,11 @@
               <span class="visually-hidden">Next</span>
               </button>
             </div>
-            <h5><strong>{{cobra}}</strong></h5>
             {% if peconhenta[cobra] == 1 %}
+              <h5 class="red"><a href="/cobra/{{ids[cobra]}}" class="peconhenta-link"><strong>{{cobra}}</strong></a></h5>
               <span class="badge text-bg-danger"><i class="bi bi-exclamation-triangle"></i> Peçonhenta <i class="bi bi-exclamation-triangle"></i></span>
+            {% else %}
+              <h5><a href="/cobra/{{ids[cobra]}}" class="cobra-link"><strong>{{cobra}}</strong></a></h5>
             {% endif %}
             <p>
               {{nomes_pop[cobra] | join(', ')}}
