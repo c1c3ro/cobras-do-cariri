@@ -174,6 +174,33 @@ a {
     font-size: 12px;
 }
 
+.peconhenta-slider {
+    border-radius: 15px;
+    /*box-shadow: 0 0 10px 1px #DE4645;*/
+    border: 3px solid #DE4645;
+}
+
+.br {
+    border-radius: 15px;
+}
+
+.cobra-link, .peconhenta-link {
+    all:unset;
+    cursor: pointer;
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    transition: 0.3s;
+}
+
+.cobra-link:hover {
+    color: #2d9742;
+}
+
+.peconhenta-link:hover {
+    color: #e40404;
+}
+
+
 /*End -- Explorar Style*/
 
 /*Hospitais Style*/
