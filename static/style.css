@@ -175,3 +175,16 @@ a {
 }
 
 /*End -- Explorar Style*/
+
+/*Hospitais Style*/
+
+.card {
+    background: none;
+    border: none;
+}
+
+.card p {
+    margin-bottom: 0;
+}
+
+/*End -- Hospitais Style*/
