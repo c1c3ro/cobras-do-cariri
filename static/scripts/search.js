@@ -1,4 +1,5 @@
 function getInputValue(){
+    console.log("entrei na função?")
     var inputVal = document.getElementById("searchBar").value
     inputVal = inputVal.toLowerCase()
     inputVal = inputVal.replace(/\s/g, '%20')

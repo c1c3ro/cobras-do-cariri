@@ -28,6 +28,8 @@
         <script src="{{url_for('static', filename='scripts/location.js')}}"></script>
         <script src="{{url_for('static', filename='scripts/search.js')}}"></script>
 
+        <link rel="icon" href="{{url_for('static', filename='img/logo.png')}}">
+
     </head>
 
     <body>
@@ -47,7 +49,7 @@
                 <div class="search col-8 col-md-6 align-items-center">
                     <div class="col-12 col-md-8 d-inline-flex align-items-center">
                         <input type="text" id="searchBar" class="form-control search-input shadow-sm" aria-label="Pesquisar serpente" aria-describedby="inputGroup-sizing-default" placeholder="Pesquisar serpente"/>
-                        <button class="search-icon shadow-sm submit-btn" onclick="getInputValue()">
+                        <button id="searchBtn" class="search-icon shadow-sm submit-btn" onclick="getInputValue()">
                             <i class="bi bi-search"></i>
                         </button>
                     </div>
@@ -95,6 +97,19 @@
         </footer>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+        <script>
+            $(document).ready(function(){
+                $('#searchBar').keypress(function (e) {
+                    var key = e.which;
+                    if(key == 13)  // the enter key code
+                    {
+                        $('#searchBtn').click();
+                        return false; 
+                    } 
+                });
+            })
+        </script>
 
     </body>
 </html>
