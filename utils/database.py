@@ -116,6 +116,7 @@ def insert_registro(localizacao, informacao_adc,
         idRegistro = cursor.lastrowid
     except mysql.connector.Error as error:
         print("Falha ao inserir o registro no banco de dados: {}".format(error))
+        idRegistro = -1
     finally:
         cursor.close()
         close_conn()
