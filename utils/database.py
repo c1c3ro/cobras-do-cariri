@@ -125,6 +125,48 @@ def insert_registro(localizacao, informacao_adc,
         close_conn()
     return idRegistro
 
+def get_registros():
+    global conn
+    start_conn()
+    cursor = conn.cursor()
+    query = "SELECT idREGISTRO, localizacao, localizacao_lat, localizacao_log, imagem, informacao_adc, data_hora FROM REGISTRO WHERE 1=1"
+    cursor.execute(query)
+    registros = {}
+    for id, localizacao, loc_lat, loc_log, img, informacao_adc, dateTime in cursor:
+        registros[id] = {}
+        registros[id]['localizacao'] = localizacao
+        registros[id]['localizacao_lat'] = loc_lat
+        registros[id]['localizacao_log'] = loc_log
+        registros[id]['imagem'] = img
+        registros[id]['informacao_adc'] = informacao_adc
+        registros[id]['dateTime'] = dateTime
+    return registros
+
+def insert_registro_cobra(idRegistro, idCobra, idUsuario):
+    global conn
+    start_conn()
+    try:
+        cursor = conn.cursor()
+        insert_query = """INSERT INTO REGISTRO_COBRA (idREGISTRO, IDCOBRA, idUSUARIO) 
+                        VALUES (%s, %s, %s)"""
+        values = (idRegistro, idCobra, idUsuario)
+        cursor.execute(insert_query, values)
+        print(cursor.rowcount, "Registro salvo com sucesso")
+        conn.commit()
+    except mysql.connector.Error as error:
+        print("Falha ao inserir o registro no banco de dados: {}".format(error))
+    finally:
+        cursor.close()
+        close_conn()
+    
+
+
+"""
+Pegar todos os registros
+Excluir registro
+Adicionar em Registros-Cobras
+"""
+
 def match_login(usuario, senha_cript):
     global conn
     start_conn()
@@ -160,11 +202,6 @@ def novo_usuario(usuario, senha_cript, email):
         close_conn()
     return idRegistro
 
-"""
-Pegar todos os registros
-Excluir registro
-Adicionar em Registros-Cobras
-"""
 def get_cobra(id):
     global conn
     start_conn()
@@ -191,5 +228,3 @@ def get_cobra(id):
 
     print(info_cobra)
     return info_cobra
-
-

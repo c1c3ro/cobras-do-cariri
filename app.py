@@ -26,6 +26,7 @@ app.permanent_session_lifetime = timedelta(minutes=10)
 
 @app.route("/")
 def index():
+    print(get_registros())
     ids, cobras_info, nomes_pop, peconhenta = get_cobras_info()
     noReturn = request.args.get('noReturn', None)
     if not session.get('username'):
