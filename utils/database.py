@@ -1,21 +1,26 @@
 from asyncio import constants
 from flask import abort
 import mysql.connector
+import json
 import os
 
 conn = None
-
+credentials = {}
+with open('databaseCredentials.json') as j_file:
+    credentials = json.load(j_file)
+    
 def start_conn(host = "mysql04-farm2.uni5.net",
             user = "bessapontes23", password = "6qSLjgbR",
             database = "bessapontes23"):
     global conn
+    global credentials
     if conn is not None and conn.is_connected():
         return conn
     try:
-        conn = mysql.connector.connect(host = host,
-            user = user,
-            password = password,
-            database = database)
+        conn = mysql.connector.connect(host = credentials['host'],
+            user = credentials['user'],
+            password = credentials['password'],
+            database = credentials['database'])
     except mysql.connector.Error as error:
         print("Falha ao se conectar no banco de dados: {}".format(error))
         abort(500)

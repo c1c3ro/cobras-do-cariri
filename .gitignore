@@ -1,6 +1,9 @@
 .vscode/
 flask_session/
 
+# Credenciais do banco de dados
+databaseCredentials.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
