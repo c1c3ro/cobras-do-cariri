@@ -164,13 +164,20 @@ def insert_registro_cobra(idRegistro, idCobra, idUsuario):
         cursor.close()
         close_conn()
     
-
-
-"""
-Pegar todos os registros
-Excluir registro
-Adicionar em Registros-Cobras
-"""
+def delete_registro(idRegistro):
+    global conn
+    start_conn()
+    try:
+        cursor = conn.cursor()
+        query = """DELETE FROM REGISTRO WHERE idREGISTRO = %s;"""
+        cursor.execute(query, [idRegistro])
+        print(cursor.rowcount, "Registro deletado com sucesso")
+        conn.commit()
+    except mysql.connector.Error as error:
+        print("Falha ao deletar o registro no banco de dados: {}".format(error))
+    finally:
+        cursor.close()
+        close_conn()
 
 def match_login(usuario, senha_cript):
     global conn
