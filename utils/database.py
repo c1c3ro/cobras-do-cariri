@@ -8,10 +8,10 @@ conn = None
 credentials = {}
 with open('databaseCredentials.json') as j_file:
     credentials = json.load(j_file)
-    
-def start_conn(host = "mysql04-farm2.uni5.net",
-            user = "bessapontes23", password = "6qSLjgbR",
-            database = "bessapontes23"):
+
+def start_conn(host = credentials['host'],
+            user = credentials['user'], password = credentials['password'],
+            database = credentials['database']):
     global conn
     global credentials
     if conn is not None and conn.is_connected():
@@ -152,7 +152,7 @@ def insert_registro_cobra(idRegistro, idCobra, idUsuario):
     start_conn()
     try:
         cursor = conn.cursor()
-        insert_query = """INSERT INTO REGISTRO_COBRA (idREGISTRO, IDCOBRA, idUSUARIO) 
+        insert_query = """INSERT INTO REGISTRO_COBRA (idREGISTRO, IDCOBRA, idUSUARIO)
                         VALUES (%s, %s, %s)"""
         values = (idRegistro, idCobra, idUsuario)
         cursor.execute(insert_query, values)
