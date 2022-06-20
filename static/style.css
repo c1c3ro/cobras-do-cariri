@@ -20,7 +20,7 @@ html, body {
 
 body {
     display: table;
-}  
+}
 body > footer {
     display: table-row;
 }

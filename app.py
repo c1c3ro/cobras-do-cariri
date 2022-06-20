@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, abort, redirect, url_for, session
+from flask import Flask, render_template, request, abort, redirect, url_for, session, send_file
 from utils.database import *
 from flask_wtf.csrf import CSRFProtect
 from formOcorrencia import OcorrenciaForm
@@ -8,7 +8,7 @@ from flask_session import Session
 from werkzeug.utils import secure_filename
 from hashlib import sha256
 from datetime import timedelta
-import os
+import os, io, zipfile, time
 
 app = Flask(__name__)
 CSRFProtect(app)
@@ -179,6 +179,24 @@ def admin_registros():
             return render_template("admin_registros.html", username=session['username'], registros=registros, deleteRegistro=deleteRegistro)
         else:
             return render_template("admin_registros.html", username=session['username'], registros=registros)
+
+@app.route("/download/<id>")
+def download(id):
+    if not session.get('logged'):
+        return render_template("proibido.html")
+    else:
+        timestr = time.strftime("%Y%m%d-%H%M%S")
+        fileName = "registro{}.zip".format(id)
+        memory_file = io.BytesIO()
+        file_path = 'static/registros/{}/'.format(id)
+        with zipfile.ZipFile(memory_file, 'w', zipfile.ZIP_DEFLATED) as zipf:
+            for root, dirs, files in os.walk(file_path):
+                for file in files:
+                    zipf.write(os.path.join(root, file))
+                    print(os.path.join(root, file))
+        memory_file.seek(0)
+        return send_file(memory_file, attachment_filename=fileName, as_attachment=True)
+
 
 @app.route("/excluir/<id>")
 def excluir(id):

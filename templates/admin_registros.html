@@ -23,9 +23,9 @@
                     {% endif %}
 
                     {% if data['imagem'] == 1 %}
-                        <p><i class="bi bi-file-image mx-2"></i> <strong>Possui imagem:</strong> sim</p>
+                        <p><i class="bi bi-file-image mx-2"></i> <strong>Possui foto(s):</strong> sim</p>
                     {% else %}
-                        <p><i class="bi bi-file-image mx-2"></i> <strong>Possui imagem:</strong> não</p>
+                        <p><i class="bi bi-file-image mx-2"></i> <strong>Possui foto(s):</strong> não</p>
                     {% endif %}
 
                     {% if data['informacao_adc'] != '' %}
@@ -34,6 +34,11 @@
                         <p><i class="bi bi-chat-square-text mx-2"></i> <strong>Informações adicionais:</strong> não informada</p>
                     {% endif %}
                     <button class="btn submit-btn shadow-sm" data-bs-toggle="modal" data-bs-target="#Modal{{id}}"><i class="bi bi-trash mr-2"></i> Excluir registro</button>
+
+                    {% if data['imagem'] == 1 %}
+                        <a href="/download/{{id}}" download><button class="btn submit-btn shadow-sm"><i class="bi bi-download mr-2"></i> Baixar fotos</button></a>
+                    {% endif %}
+
 
                     <div class="modal fade" id="Modal{{id}}" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog">
