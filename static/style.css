@@ -28,7 +28,7 @@ body > footer {
 a {
     color: #DE4645;
     text-decoration-line: underline;
-    text-decoration-style: wavy;
+    text-decoration-style: solid;
     font-weight: 600;
 }
 
@@ -196,7 +196,7 @@ a {
     all:unset;
     cursor: pointer;
     text-decoration-line: underline;
-    text-decoration-style: wavy;
+    text-decoration-style:solid;
     transition: 0.3s;
 }
 
@@ -223,3 +223,7 @@ a {
 }
 
 /*End -- Hospitais Style*/
+
+/*Registros -- Style*/
+
+/*End -- Registros Style*/

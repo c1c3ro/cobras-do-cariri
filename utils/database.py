@@ -134,7 +134,7 @@ def get_registros():
     global conn
     start_conn()
     cursor = conn.cursor()
-    query = "SELECT idREGISTRO, localizacao, localizacao_lat, localizacao_log, imagem, informacao_adc, data_hora FROM REGISTRO WHERE 1=1"
+    query = "SELECT idREGISTRO, localizacao, localizacao_lat, localizacao_log, imagem, informacao_adc, data_hora FROM REGISTRO WHERE 1=1 ORDER BY data_hora DESC"
     cursor.execute(query)
     registros = {}
     for id, localizacao, loc_lat, loc_log, img, informacao_adc, dateTime in cursor:
@@ -163,7 +163,7 @@ def insert_registro_cobra(idRegistro, idCobra, idUsuario):
     finally:
         cursor.close()
         close_conn()
-    
+
 def delete_registro(idRegistro):
     global conn
     start_conn()

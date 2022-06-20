@@ -173,7 +173,8 @@ def admin_registros():
     if not session.get('logged'):
         return render_template("proibido.html")
     else:
-        return render_template("admin_registros.html", username=session['username'])
+        registros = get_registros()
+        return render_template("admin_registros.html", username=session['username'], registros=registros)
 
 @app.route("/logout")
 def logout():
