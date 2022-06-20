@@ -96,7 +96,39 @@
         <footer class="footer text-center mt-4">
             <div class="container">
                 <hr/>
-                <p><small>Desenvolvido por Cícero Samuel, Cícero José, Thiago Carlos e Samuel Cardozo - UFCA (2022)</small></p>
+                <div class="row align-items-center justify-content-around">
+                    <div class="col-8 align-self-center">
+                        <p><small>Desenvolvido por Cícero Samuel, Cícero José, Thiago Carlos e Samuel Cardozo - UFCA (2022)</small></p>
+                    </div>
+                </div>
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-3 col-12">
+                            <div
+                                class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                                data-ripple-color="light"
+                            >
+                                <img
+                                src="{{url_for('static', filename='img/assinatura-horizontal.png')}}"
+                                class="mb-3"
+                                height="30px"
+                                width="auto"
+                                />
+                            </div>
+                    </div>
+                    <div class="col-md-3 col-12">
+                            <div
+                                class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                                data-ripple-color="light"
+                            >
+                                <img
+                                src="{{url_for('static', filename='img/logo_labeas.png')}}"
+                                class="mb-3"
+                                height="63px"
+                                width="auto"
+                                />
+                            </div>
+                    </div>
+                </div>
             </div>
         </footer>
 
