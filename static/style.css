@@ -17,6 +17,14 @@ html, body {
     color: #282D29;
 }
 
+
+body {
+    display: table;
+}  
+body > footer {
+    display: table-row;
+}
+
 a {
     color: #DE4645;
     text-decoration-line: underline;
