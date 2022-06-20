@@ -1,4 +1,45 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div class="col-12 text-center d-flex flex-column justify-content-center align-items-center">
+
+    <h3><i class="bi bi-file-earmark-text"></i> Administrar registros</h3>
+
+    <div class="accordion col-12" id="accordion">
+    {% for id, data in registros.items() %}
+        <div class="accordion-item col-12">
+            <h5 class="accordion-header" id="heading{{id}}">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accordion{{id}}" aria-expanded="false" aria-controls="accordion{{id}}">
+                    Registro <strong>#{{id}}</strong> - <small>{{data['dateTime'].strftime('%d/%m/%Y %H:%M')}}</small>
+                </button>
+            </h5>
+            <div id="accordion{{id}}" class="accordion-collapse collapse" aria-labelledby="heading{{id}}" data-bs-parent="#accordion">
+                <div class="accordion-body text-start">
+                    <p><i class="bi bi-map mx-2"></i> <strong>Localização:</strong> {{data['localizacao']}}</p>
+                    {% if data['localizacao_lat'] == 0e-8 %}
+                        <p><i class="bi bi-geo-alt mx-2"></i> <strong>GPS:</strong>Não informado</p>
+                    {% else %}
+                        <p><i class="bi bi-geo-alt mx-2"></i><strong>GPS:</strong> ({{data['localizacao_lat']}}, {{data['localizacao_log']}})</p>
+                    {% endif %}
+
+                    {% if data['imagem'] == 1 %}
+                        <p><i class="bi bi-file-image mx-2"></i> <strong>Possui imagem:</strong> sim</p>
+                    {% else %}
+                        <p><i class="bi bi-file-image mx-2"></i> <strong>Possui imagem:</strong> não</p>
+                    {% endif %}
+
+                    {% if data['informacao_adc'] != '' %}
+                        <p><i class="bi bi-chat-square-text mx-2"></i> <strong>Informações adicionais:</strong> {{data['informacao_adc']}}</p>
+                    {% else %}
+                        <p><i class="bi bi-chat-square-text mx-2"></i> <strong>Informações adicionais:</strong> não informada</p>
+                    {% endif %}
+                    <button class="btn submit-btn shadow-sm">Excluir registro</button>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+</div>
+
 {% endblock %}
