@@ -174,7 +174,19 @@ def admin_registros():
         return render_template("proibido.html")
     else:
         registros = get_registros()
-        return render_template("admin_registros.html", username=session['username'], registros=registros)
+        deleteRegistro = request.args.get('deleteRegistro', None)
+        if deleteRegistro is not None:
+            return render_template("admin_registros.html", username=session['username'], registros=registros, deleteRegistro=deleteRegistro)
+        else:
+            return render_template("admin_registros.html", username=session['username'], registros=registros)
+
+@app.route("/excluir/<id>")
+def excluir(id):
+    if not session.get('logged'):
+        return render_template("proibido.html")
+    else:
+        status = delete_registro(id)
+        return redirect(url_for("admin_registros", deleteRegistro=status))
 
 @app.route("/logout")
 def logout():

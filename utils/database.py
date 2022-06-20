@@ -169,15 +169,21 @@ def delete_registro(idRegistro):
     start_conn()
     try:
         cursor = conn.cursor()
+        rowcount = 0
         query = """DELETE FROM REGISTRO WHERE idREGISTRO = %s;"""
         cursor.execute(query, [idRegistro])
         print(cursor.rowcount, "Registro deletado com sucesso")
         conn.commit()
+        rowcount = cursor.rowcount
     except mysql.connector.Error as error:
         print("Falha ao deletar o registro no banco de dados: {}".format(error))
     finally:
         cursor.close()
         close_conn()
+        if rowcount == 1:
+            return 1
+        else:
+            return 0
 
 def match_login(usuario, senha_cript):
     global conn

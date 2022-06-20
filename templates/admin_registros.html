@@ -19,7 +19,7 @@
                     {% if data['localizacao_lat'] == 0e-8 %}
                         <p><i class="bi bi-geo-alt mx-2"></i> <strong>GPS:</strong>Não informado</p>
                     {% else %}
-                        <p><i class="bi bi-geo-alt mx-2"></i><strong>GPS:</strong> ({{data['localizacao_lat']}}, {{data['localizacao_log']}})</p>
+                        <p><i class="bi bi-geo-alt mx-2"></i><strong>GPS:</strong> <a href="http://www.google.com/maps/place/{{data['localizacao_lat']}},{{data['localizacao_log']}}" target="_blank" rel="noopener noreferrer">({{data['localizacao_lat']}}, {{data['localizacao_log']}})</a></p>
                     {% endif %}
 
                     {% if data['imagem'] == 1 %}
@@ -33,7 +33,25 @@
                     {% else %}
                         <p><i class="bi bi-chat-square-text mx-2"></i> <strong>Informações adicionais:</strong> não informada</p>
                     {% endif %}
-                    <button class="btn submit-btn shadow-sm">Excluir registro</button>
+                    <button class="btn submit-btn shadow-sm" data-bs-toggle="modal" data-bs-target="#Modal{{id}}"><i class="bi bi-trash mr-2"></i> Excluir registro</button>
+
+                    <div class="modal fade" id="Modal{{id}}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Excluir registro</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Tem certeza de que deseja <strong class="red">excluir o Registro #{{id}}</strong>?
+                            </div>
+                            <div class="modal-footer">
+                                <a href="/excluir/{{id}}"><button class="btn submit-btn shadow-sm"><i class="bi bi-trash mr-2"></i> Sim, quero excluir o registro #{{id}}</button></a>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -41,5 +59,51 @@
     </div>
 
 </div>
+
+{% if deleteRegistro is defined %}
+    {% if deleteRegistro == '1' %}
+    <div class="modal fade" id="noReturnModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Sucesso</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        O registro foi excluído com sucesso!
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn submit-btn shadow-sm" data-bs-dismiss="modal">Fechar</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    {% else %}
+    <div class="modal fade" id="noReturnModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Falha</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        Não foi possível excluir o registro!
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn submit-btn shadow-sm" data-bs-dismiss="modal">Fechar</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    {% endif %}
+{% endif %}
+
+<script>
+$(document).ready(function(){
+            if ($('#noReturnModal').length) {
+                $('#noReturnModal').modal('show');
+            }
+        })
+</script>
 
 {% endblock %}
