@@ -227,3 +227,12 @@ a {
 /*Registros -- Style*/
 
 /*End -- Registros Style*/
+
+/*Cobras -- Style*/
+
+.custom-tooltip, .dotted-text {
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+}
+
+/*End -- Cobras Style*/

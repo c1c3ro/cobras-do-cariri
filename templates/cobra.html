@@ -39,8 +39,34 @@
             <p>
               {{info_cobra['nome_pop']| join(', ')}}
             </p>
+            <p><strong>Família: </strong><a href="/cobras/{{info_cobra['grupo']}}">{{info_cobra['grupo']}}</a></p>
+            <p><strong>Dentição: </strong>
+              {% if info_cobra['denticao'] is not none %}
+              <span type="button" class="dotted-text" data-bs-toggle="tooltip"
+                data-bs-placement="right" data-bs-custom-class="custom-tooltip"
+                title="{{info_cobra['dent_desc']}}">
+                  {{info_cobra['denticao']}}
+              </span>
+              {% else %}
+                Ainda não informado
+              {% endif %}
+            </p>
+            <p><strong>Tamanho máximo: </strong>
+              {% if info_cobra['tam_max'] is not none %}
+                {{info_cobra['tam_max']}}<em>cm</em>
+              {% else %}
+                Ainda não infomado
+              {% endif %}
+            </p>
         </div>
       </div>
     </div>
+
+    <script>
+      $(document).ready(function(){
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+      })
+    </script>
 
 {% endblock %}

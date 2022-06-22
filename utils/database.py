@@ -37,8 +37,9 @@ def get_cobras(search):
     start_conn()
     cursor = conn.cursor()
 
-    query = """SELECT COBRA.idCOBRA, COBRA.familia, COBRA.especie, COBRA.peconhenta, COBRA_NOME_POP.nome FROM COBRA
-            INNER JOIN COBRA_NOME_POP ON COBRA.idCOBRA = COBRA_NOME_POP.idCOBRA """
+    query = """SELECT COBRA.idCOBRA, COBRA.familia, COBRA.especie, COBRA.peconhenta, COBRA_NOME_POP.nome, FAMILIA.nome FROM COBRA
+            INNER JOIN COBRA_NOME_POP ON COBRA.idCOBRA = COBRA_NOME_POP.idCOBRA
+            INNER JOIN FAMILIA ON COBRA.grupo = FAMILIA.idFam """
 
     if search is not None:
         pos_query = "WHERE"
@@ -53,7 +54,7 @@ def get_cobras(search):
                         searchSplit.remove(i)
         search = ['%' + i + '%' for i in searchSplit]
         for p in range(len(search)):
-            pos_query += """ CONCAT(COBRA.familia, COBRA.especie, COBRA_NOME_POP.nome) LIKE %s"""
+            pos_query += """ CONCAT(COBRA.familia, COBRA.especie, COBRA_NOME_POP.nome, FAMILIA.nome) LIKE %s"""
             if p < len(search) - 1:
                 pos_query += " OR"
     else:
@@ -67,7 +68,7 @@ def get_cobras(search):
     nomes_pop = {}
     peconha = {}
     ids = {}
-    for id, familia, especie, peconhenta, nome_pop in cursor:
+    for id, familia, especie, peconhenta, nome_pop, fam in cursor:
         nome_cientifico = "{} {}".format(familia, especie)
         cobras.append(nome_cientifico)
         peconha[nome_cientifico] = peconhenta
@@ -226,15 +227,19 @@ def get_cobra(id):
     cursor = conn.cursor()
     #value = (id)
 
-    query = f"SELECT  COBRA.familia, COBRA.especie, COBRA.peconhenta, COBRA_NOME_POP.nome FROM COBRA INNER JOIN COBRA_NOME_POP ON COBRA.idCOBRA = COBRA_NOME_POP.idCOBRA WHERE COBRA.idCOBRA = {id}"
+    query = f"SELECT  COBRA.familia, COBRA.especie, COBRA.peconhenta, COBRA_NOME_POP.nome, FAMILIA.nome, DENTICAO.nome, DENTICAO.descricao, COBRA.tam_max FROM COBRA INNER JOIN COBRA_NOME_POP ON COBRA.idCOBRA = COBRA_NOME_POP.idCOBRA INNER JOIN FAMILIA ON COBRA.grupo = FAMILIA.idFam INNER JOIN DENTICAO ON DENTICAO.idDenticao = COBRA.idDenticao WHERE COBRA.idCOBRA = {id}"
 
     cursor.execute(query)
 
     info_cobra = {}
-    for familia, especie, peconhenta, nome_pop in cursor:
+    for familia, especie, peconhenta, nome_pop, grupo, denticao, dent_desc, tam_max in cursor:
         info_cobra['familia'] = familia
         info_cobra['especie'] = especie
         info_cobra['peconhenta'] = peconhenta
+        info_cobra['grupo'] = grupo
+        info_cobra['denticao'] = denticao
+        info_cobra['dent_desc'] = dent_desc
+        info_cobra['tam_max'] = tam_max
         if 'nome_pop' not in info_cobra.keys():
             info_cobra['nome_pop'] = []
         info_cobra['nome_pop'].append(nome_pop)
