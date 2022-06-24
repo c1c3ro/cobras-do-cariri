@@ -95,16 +95,17 @@ def get_hospitais():
     global conn
     start_conn()
     cursor = conn.cursor()
-    query = ("SELECT idHOSPITAL, nome, localizacao, municipio, telefone FROM HOSPITAL WHERE 1=1")
+    query = ("SELECT idHOSPITAL, nome, localizacao, municipio, telefone, mapa FROM HOSPITAL WHERE 1=1")
     cursor.execute(query)
     hospitais = {}
-    for id, nome, localizacao, municipio, telefone in cursor:
+    for id, nome, localizacao, municipio, telefone, mapa in cursor:
         if nome not in hospitais.keys():
             hospitais[nome] = {}
         hospitais[nome]['id'] = id
         hospitais[nome]['localizacao'] = localizacao
         hospitais[nome]['municipio'] = municipio
         hospitais[nome]['telefone'] = telefone
+        hospitais[nome]['mapa'] = mapa
 
     return hospitais
 
