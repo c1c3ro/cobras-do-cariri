@@ -55,6 +55,12 @@ a {
     color: white;
 }
 
+.equipe_img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+
 /*End General Style*/
 
 /*Header Style*/

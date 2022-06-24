@@ -33,10 +33,10 @@
                     {% else %}
                         <p><i class="bi bi-chat-square-text mx-2"></i> <strong>Informações adicionais:</strong> não informada</p>
                     {% endif %}
-                    <button class="btn submit-btn shadow-sm" data-bs-toggle="modal" data-bs-target="#Modal{{id}}"><i class="bi bi-trash mr-2"></i> Excluir registro</button>
+                    <button class="btn submit-btn shadow-sm my-1" data-bs-toggle="modal" data-bs-target="#Modal{{id}}"><i class="bi bi-trash mr-2"></i> Excluir registro</button>
 
                     {% if data['imagem'] == 1 %}
-                        <a href="/download/{{id}}" download><button class="btn submit-btn shadow-sm"><i class="bi bi-download mr-2"></i> Baixar fotos</button></a>
+                        <a href="/download/{{id}}" download><button class="btn submit-btn shadow-sm my-1"><i class="bi bi-download mr-2"></i> Baixar fotos</button></a>
                     {% endif %}
 
 
