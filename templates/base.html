@@ -37,12 +37,12 @@
             <!--Header-->
             <div class="header row align-items-center justify-content-center text-center">
                 <div class="logo d-none d-md-flex col-3 justify-content-start">
-                    <a href="/">
+                    <a href="{{url_for('index')}}">
                         <img class="logo-img" alt="Logo Cobras do Cariri" src="{{url_for('static', filename='img/logo-verde-vermelho.png')}}"/>
                     </a>
                 </div>
                 <div class="logo-mobile d-flex d-md-none col-12 justify-content-center">
-                    <a href="/">
+                    <a href="{{url_for('index')}}">
                         <img class="logo-img mb-3" alt="Logo Cobras do Cariri" src="{{url_for('static', filename='img/logo-verde-vermelho.png')}}"/>
                     </a>
                 </div>
@@ -57,9 +57,9 @@
                 <div class="row d-flex col-4 col-md-3 justify-content-end">
                     <div class="d-inline-flex login">
                         {% if username is defined %}
-                            <a href="/admin">{{username}}</a> <i class="bi bi-person-circle"></i>
+                            <a href="{{url_for('admin')}}">{{username}}</a> <i class="bi bi-person-circle"></i>
                         {% else %}
-                            <a href="/login">Login</a> <i class="bi bi-person-circle"></i>
+                            <a href="{{url_for('login')}}">Login</a> <i class="bi bi-person-circle"></i>
                         {% endif %}
                     </div>
                 </div>
@@ -68,7 +68,7 @@
 
             <div class="main-menu row align-items-center text-center">
                 <div class="col-12 col-sm main-menu-item">
-                    <a href="/#explorar"><div><i class="bi bi-eye mx-2"></i></div>
+                    <a href="{{url_for('index')}}"><div><i class="bi bi-eye mx-2"></i></div>
                     Explorar</a>
                 </div>
                 <div class="col-12 col-sm main-menu-item">
@@ -76,15 +76,15 @@
                     Identificar
                 </div>
                 <div class="col-12 col-sm main-menu-item">
-                    <a href="/hospitais"><div><i class="bi bi-hospital mx-2"></i></div>
+                    <a href="{{url_for('hospitais')}}"><div><i class="bi bi-hospital mx-2"></i></div>
                     Hospitais</a>
                 </div>
                 <div class="col-12 col-sm main-menu-item">
-                    <a href="/registro"><div><i class="bi bi-journal-richtext mx-2"></i></div>
+                    <a href="{{url_for('registro')}}"><div><i class="bi bi-journal-richtext mx-2"></i></div>
                     Ocorrência</a>
                 </div>
                 <div class="col-12 col-sm main-menu-item">
-                    <a href="/sobre"><div><i class="bi bi-info-circle mx-2"></i></div>
+                    <a href="{{url_for('sobre')}}"><div><i class="bi bi-info-circle mx-2"></i></div>
                     Sobre</a>
                 </div>
             </div>
@@ -92,7 +92,7 @@
 
             {% block content %}{% endblock %}
 
-        </div> 
+        </div>
         <footer class="footer text-center mt-4">
             <div class="container">
                 <hr/>

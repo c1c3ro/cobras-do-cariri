@@ -36,7 +36,7 @@
                     <button class="btn submit-btn shadow-sm my-1" data-bs-toggle="modal" data-bs-target="#Modal{{id}}"><i class="bi bi-trash mr-2"></i> Excluir registro</button>
 
                     {% if data['imagem'] == 1 %}
-                        <a href="/download/{{id}}" download><button class="btn submit-btn shadow-sm my-1"><i class="bi bi-download mr-2"></i> Baixar fotos</button></a>
+                        <a href="{{url_for('download', id=id)}}" download><button class="btn submit-btn shadow-sm my-1"><i class="bi bi-download mr-2"></i> Baixar fotos</button></a>
                     {% endif %}
 
 
@@ -51,7 +51,7 @@
                                 Tem certeza de que deseja <strong class="red">excluir o Registro #{{id}}</strong>?
                             </div>
                             <div class="modal-footer">
-                                <a href="/excluir/{{id}}"><button class="btn submit-btn shadow-sm"><i class="bi bi-trash mr-2"></i> Sim, quero excluir o registro #{{id}}</button></a>
+                                <a href="{{url_for('excluir', id=id)}}"><button class="btn submit-btn shadow-sm"><i class="bi bi-trash mr-2"></i> Sim, quero excluir o registro #{{id}}</button></a>
                             </div>
                             </div>
                         </div>

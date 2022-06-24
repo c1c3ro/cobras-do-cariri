@@ -13,7 +13,7 @@
     <div class="col col-md-6">
         <div class="alert alert-danger" role="alert">
             <i class="bi bi-hospital"></i> <strong>Foi picado por uma cobra?</strong>
-            <a href="#">Descubra aqui</a> onde você pode buscar tratamento!
+            <a href="{{url_for('hospitais')}}">Descubra aqui</a> onde você pode buscar tratamento!
         </div>
     </div>
 </div>
@@ -48,10 +48,10 @@
               </button>
             </div>
             {% if peconhenta[cobra] == 1 %}
-              <h5 class="red"><a href="/cobra/{{ids[cobra]}}" class="peconhenta-link"><strong>{{cobra}}</strong></a></h5>
+              <h5 class="red"><a href="{{url_for('cobra', id=ids[cobra])}}" class="peconhenta-link"><strong>{{cobra}}</strong></a></h5>
               <span class="badge text-bg-danger"><i class="bi bi-exclamation-triangle"></i> Peçonhenta <i class="bi bi-exclamation-triangle"></i></span>
             {% else %}
-              <h5><a href="/cobra/{{ids[cobra]}}" class="cobra-link"><strong>{{cobra}}</strong></a></h5>
+              <h5><a href="{{url_for('cobra', id=ids[cobra])}}" class="cobra-link"><strong>{{cobra}}</strong></a></h5>
             {% endif %}
             <p><a class="collapse-link" data-bs-toggle="collapse" href="#collapse-{{cobra|replace(' ', '-')}}" role="button" aria-expanded="false" aria-controls="collapse-{{cobra|replace(' ', '-')}}">
               Nomes populares <i class="bi bi-chevron-down"></i>
