@@ -6,15 +6,15 @@
 
     <div class="main-menu row align-items-center text-center">
         <div class="col-12 col-sm main-menu-item">
-            <a href="/cadastro"><div><i class="bi bi-clipboard-plus"></i></div>
+            <a href="{{url_for('cadastro')}}"><div><i class="bi bi-clipboard-plus"></i></div>
              Cadastrar novo usuário</a>
         </div>
         <div class="col-12 col-sm main-menu-item">
-            <a href="/admin/registros"><div><i class="bi bi-file-earmark-text"></i></div>
+            <a href="{{url_for('admin_registros')}}"><div><i class="bi bi-file-earmark-text"></i></div>
              Administrar registros</a>
         </div>
         <div class="col-12 col-sm main-menu-item">
-            <a href="/logout"><div><i class="bi bi-box-arrow-left"></i></div>
+            <a href="{{url_for('logout')}}"><div><i class="bi bi-box-arrow-left"></i></div>
              Log-out</a>
         </div>
     </div>

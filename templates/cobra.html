@@ -39,7 +39,7 @@
             <p>
               {{info_cobra['nome_pop']| join(', ')}}
             </p>
-            <p><strong>Família: </strong><a href="/cobras/{{info_cobra['grupo']}}">{{info_cobra['grupo']}}</a></p>
+            <p><strong>Família: </strong><a href="{{url_for('pesquisa', search=info_cobra['grupo'])}}">{{info_cobra['grupo']}}</a></p>
             <p><strong>Dentição: </strong>
               {% if info_cobra['denticao'] is not none %}
               <span type="button" class="dotted-text" data-bs-toggle="tooltip"
