@@ -33,6 +33,13 @@ def index():
     else:
         return render_template("index.html", cobras_info=cobras_info, nomes_pop=nomes_pop, peconhenta=peconhenta, noReturn=noReturn, ids=ids, username=session['username'])
 
+@app.route("/identificar")
+def identificar():
+    if not session.get('username'):
+        return render_template("identificar.html")
+    else:
+        return render_template("identificar.html", username=session['username'])
+
 @app.route("/login", methods=('GET', 'POST'))
 def login():
     form = LoginForm()
