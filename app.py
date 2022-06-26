@@ -76,37 +76,25 @@ def registro():
     if form.validate_on_submit():
         localizacao = request.form['localizacao']
         informacao_adc = request.form['informacao_adc']
-        data = request.form['data']
         try:
             hora = request.form['hora1']
         except(KeyError):
-            try:
-                hora = request.form['hora2']
-            except(KeyError):
-                hora = '00:00'
+            hora = request.form.get('hora2', '00:00')
+        
+        dateTime = request.form['data'] + " " + hora + ":00"
+        localizacao_lat = request.form.get('localizacao_lat', '')
+        localizacao_log = request.form.get('localizacao_log', '')
 
-        hora = hora + ":00"
-        dateTime = data + " " + hora
-
-        try:
-            localizacao_lat = request.form['localizacao_lat']
-            localizacao_log = request.form['localizacao_log']
-        except KeyError as err:
-            print(err)
-            localizacao_lat = ''
-            localizacao_log = ''
+        #lidando com as imagens
         try:
             nomesImg = []
-            #lidando com as imagens
             imagens = request.files.getlist('imagem')
-            print(imagens)
             if imagens[0].filename != '':
                 isImg = 1
             else:
                 raise KeyError
             # pegando o id do registro para criar uma pasta que conterá as imagens
             registroId = insert_registro(localizacao, informacao_adc, dateTime, localizacao_lat, localizacao_log, isImg)
-            print(isImg)
             os.mkdir(os.path.join(app.config['UPLOAD_PATH'], str(registroId)))
             for imagem in imagens:
                 if imagem.filename != '':
@@ -114,11 +102,10 @@ def registro():
                     file_ext = os.path.splitext(nomesImg[-1])[1]
                     if file_ext not in app.config['UPLOAD_EXTENSIONS']:
                         abort(400)
-                    imagem.save(os.path.join(app.config['UPLOAD_PATH'], str(registroId),nomesImg[-1]))
+                    imagem.save(os.path.join(app.config['UPLOAD_PATH'], str(registroId), nomesImg[-1]))
         except(KeyError):
             isImg = 0
             registroId = insert_registro(localizacao, informacao_adc, dateTime, localizacao_lat, localizacao_log, isImg)
-            print(isImg)
     if not session.get('username'):
         return render_template("registro.html", form = form, registroId = registroId)
     else:

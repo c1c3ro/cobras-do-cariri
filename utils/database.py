@@ -9,6 +9,29 @@ credentials = {}
 with open('databaseCredentials.json') as j_file:
     credentials = json.load(j_file)
 
+def execute_query(query, params = None, isAlteration = False, lastRowId = False, rowCount = False):
+    global conn
+    start_conn()
+    results = {}
+    try:
+        cursor = conn.cursor()
+        cursor.execute(query, params)
+        if isAlteration:
+            conn.commit()
+    except mysql.connector.Error as error:
+        print("Falha ao executar a query: {}, parâmetros: {}, erro: {}".format(query, params, error))
+    finally:
+        results['rows'] = cursor.fetchall()
+        if lastRowId:
+            results['lastRowId'] = cursor.lastrowid
+        elif rowCount:
+            results['rowCount'] = cursor.rowcount
+        cursor.close()
+        close_conn()
+    
+    return results
+    
+
 def start_conn(host = credentials['host'],
             user = credentials['user'], password = credentials['password'],
             database = credentials['database']):
@@ -33,9 +56,6 @@ def close_conn():
 
 def get_cobras(search):
     # função que retorna o nome científico das cobras no banco
-    global conn
-    start_conn()
-    cursor = conn.cursor()
 
     query = """SELECT COBRA.idCOBRA, COBRA.familia, COBRA.especie, COBRA.peconhenta, COBRA_NOME_POP.nome, FAMILIA.nome FROM COBRA
             INNER JOIN COBRA_NOME_POP ON COBRA.idCOBRA = COBRA_NOME_POP.idCOBRA
@@ -61,14 +81,14 @@ def get_cobras(search):
         pos_query = "ORDER BY familia;"
 
     query = query + pos_query
-    print(query)
-    cursor.execute(query, search)
+
+    cursor = execute_query(query, search)
 
     cobras = []
     nomes_pop = {}
     peconha = {}
     ids = {}
-    for id, familia, especie, peconhenta, nome_pop, fam in cursor:
+    for id, familia, especie, peconhenta, nome_pop, fam in cursor['rows']:
         nome_cientifico = "{} {}".format(familia, especie)
         cobras.append(nome_cientifico)
         peconha[nome_cientifico] = peconhenta
@@ -77,8 +97,6 @@ def get_cobras(search):
             nomes_pop[nome_cientifico] = []
         nomes_pop[nome_cientifico].append(nome_pop)
 
-    cursor.close()
-    close_conn()
     return ids, cobras, nomes_pop, peconha
 
 def get_cobras_info(search = None):
@@ -92,13 +110,10 @@ def get_cobras_info(search = None):
     return ids, cobras_info, nomes_pop, peconhenta
 
 def get_hospitais():
-    global conn
-    start_conn()
-    cursor = conn.cursor()
     query = ("SELECT idHOSPITAL, nome, localizacao, municipio, telefone, mapa FROM HOSPITAL WHERE 1=1")
-    cursor.execute(query)
+    cursor = execute_query(query)
     hospitais = {}
-    for id, nome, localizacao, municipio, telefone, mapa in cursor:
+    for id, nome, localizacao, municipio, telefone, mapa in cursor['rows']:
         if nome not in hospitais.keys():
             hospitais[nome] = {}
         hospitais[nome]['id'] = id
@@ -112,34 +127,22 @@ def get_hospitais():
 def insert_registro(localizacao, informacao_adc,
                     dateTime, localizacao_lat = '',
                     localizacao_log = '', isImg = 0):
-    global coon
-    start_conn()
-    cursor = conn.cursor()
-    idRegistro = None
-    try:
-        insert_query = """INSERT INTO REGISTRO (localizacao, localizacao_lat, localizacao_log, imagem, informacao_adc, data_hora)
-                        VALUES (%s, %s, %s, %s, %s, %s)"""
-        values = (localizacao, localizacao_lat, localizacao_log, isImg, informacao_adc, dateTime)
-        cursor.execute(insert_query, values)
-        print(cursor.rowcount, "Registro salvo com sucesso")
-        conn.commit()
-        idRegistro = cursor.lastrowid
-    except mysql.connector.Error as error:
-        print("Falha ao inserir o registro no banco de dados: {}".format(error))
+
+    insert_query = """INSERT INTO REGISTRO (localizacao, localizacao_lat, localizacao_log, imagem, informacao_adc, data_hora)
+                    VALUES (%s, %s, %s, %s, %s, %s)"""
+    values = (localizacao, localizacao_lat, localizacao_log, isImg, informacao_adc, dateTime)
+    cursor = execute_query(insert_query, values, isAlteration = True, lastRowId=True)
+    if cursor['lastRowId'] is not None:
+        idRegistro = cursor['lastRowId']
+    else:
         idRegistro = -1
-    finally:
-        cursor.close()
-        close_conn()
     return idRegistro
 
 def get_registros():
-    global conn
-    start_conn()
-    cursor = conn.cursor()
     query = "SELECT idREGISTRO, localizacao, localizacao_lat, localizacao_log, imagem, informacao_adc, data_hora FROM REGISTRO WHERE 1=1 ORDER BY data_hora DESC"
-    cursor.execute(query)
+    cursor = execute_query(query)
     registros = {}
-    for id, localizacao, loc_lat, loc_log, img, informacao_adc, dateTime in cursor:
+    for id, localizacao, loc_lat, loc_log, img, informacao_adc, dateTime in cursor['rows']:
         registros[id] = {}
         registros[id]['localizacao'] = localizacao
         registros[id]['localizacao_lat'] = loc_lat
@@ -150,90 +153,52 @@ def get_registros():
     return registros
 
 def insert_registro_cobra(idRegistro, idCobra, idUsuario):
-    global conn
-    start_conn()
-    try:
-        cursor = conn.cursor()
-        insert_query = """INSERT INTO REGISTRO_COBRA (idREGISTRO, IDCOBRA, idUSUARIO)
-                        VALUES (%s, %s, %s)"""
-        values = (idRegistro, idCobra, idUsuario)
-        cursor.execute(insert_query, values)
-        print(cursor.rowcount, "Registro salvo com sucesso")
-        conn.commit()
-    except mysql.connector.Error as error:
-        print("Falha ao inserir o registro no banco de dados: {}".format(error))
-    finally:
-        cursor.close()
-        close_conn()
+    insert_query = """INSERT INTO REGISTRO_COBRA (idREGISTRO, IDCOBRA, idUSUARIO)
+                    VALUES (%s, %s, %s)"""
+    values = (idRegistro, idCobra, idUsuario)
+    execute_query(insert_query, values, True)
 
 def delete_registro(idRegistro):
-    global conn
-    start_conn()
-    try:
-        cursor = conn.cursor()
-        rowcount = 0
-        query = """DELETE FROM REGISTRO WHERE idREGISTRO = %s;"""
-        cursor.execute(query, [idRegistro])
-        print(cursor.rowcount, "Registro deletado com sucesso")
-        conn.commit()
-        rowcount = cursor.rowcount
-    except mysql.connector.Error as error:
-        print("Falha ao deletar o registro no banco de dados: {}".format(error))
-    finally:
-        cursor.close()
-        close_conn()
-        if rowcount == 1:
-            return 1
-        else:
-            return 0
+    rowcount = 0
+    query = """DELETE FROM REGISTRO WHERE idREGISTRO = %s;"""
+    cursor = execute_query(query, [idRegistro], isAlteration = True, rowCount=True)
+    if cursor['rowCount'] == 1:
+        return 1
+    else:
+        return 0
 
 def match_login(usuario, senha_cript):
-    global conn
-    start_conn()
-    cursor = conn.cursor()
     login = (usuario, senha_cript)
 
     query = """SELECT COUNT(idUSUARIO) AS Count FROM USUARIO WHERE USUARIO.user = %s AND USUARIO.password = %s"""
-    cursor.execute(query, login)
+    
+    cursor = execute_query(query, login)
 
-    for count in cursor:
+    for count in cursor['rows']:
         if count[0] == 1:
             return True
         else:
             return False
 
 def novo_usuario(usuario, senha_cript, email):
-    global conn
-    start_conn()
-    cursor = conn.cursor()
     values= (usuario, senha_cript, email)
 
     query = """INSERT INTO USUARIO (user, password, email) VALUES (%s, %s, %s)"""
-    try:
-        cursor.execute(query, values)
-        print(cursor.rowcount, "Registro salvo com sucesso")
-        conn.commit()
+    cursor = execute_query(query, values, lastRowId=True)
+    if cursor['lastRowId'] is not None:
         idRegistro = cursor.lastrowid
-    except mysql.connector.Error as error:
-        print("Falha ao inserir o registro no banco de dados: {}".format(error))
+    else:
         idRegistro = -1
-    finally:
-        cursor.close()
-        close_conn()
     return idRegistro
 
 def get_cobra(id):
-    global conn
-    start_conn()
-    cursor = conn.cursor()
-    #value = (id)
 
     query = f"SELECT  COBRA.familia, COBRA.especie, COBRA.peconhenta, COBRA_NOME_POP.nome, FAMILIA.nome, DENTICAO.nome, DENTICAO.descricao, COBRA.tam_max FROM COBRA INNER JOIN COBRA_NOME_POP ON COBRA.idCOBRA = COBRA_NOME_POP.idCOBRA INNER JOIN FAMILIA ON COBRA.grupo = FAMILIA.idFam INNER JOIN DENTICAO ON DENTICAO.idDenticao = COBRA.idDenticao WHERE COBRA.idCOBRA = {id}"
 
-    cursor.execute(query)
+    cursor = execute_query(query)
 
     info_cobra = {}
-    for familia, especie, peconhenta, nome_pop, grupo, denticao, dent_desc, tam_max in cursor:
+    for familia, especie, peconhenta, nome_pop, grupo, denticao, dent_desc, tam_max in cursor['rows']:
         info_cobra['familia'] = familia
         info_cobra['especie'] = especie
         info_cobra['peconhenta'] = peconhenta
@@ -250,5 +215,4 @@ def get_cobra(id):
             info_cobra['filenames'] = []
         info_cobra['filenames'].append(filename)
 
-    print(info_cobra)
     return info_cobra
