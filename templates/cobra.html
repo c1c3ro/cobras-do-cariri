@@ -4,7 +4,7 @@
 <div class="explorar col-12 row flex-column align-items-center justify-content-center" id="explorar"></div>
     <div class="row mt-3 slider-item justify-content-center">
       <div class="col-12 col-md-12 col-lg-8 px-2 mb-3 flex-column align-items-center justify-content-center">
-        <div id="{{info_cobra['familia']}}-{{info_cobra['especie']}}" class="carousel slide slider" data-ride="carousel">
+        <div id="{{cobra|replace(' ', '-')}}" class="carousel slide slider" data-ride="carousel">
           {% if info_cobra['peconhenta'] == 1 %}
             <div class="carousel-inner peconhenta-slider">
           {% else %}

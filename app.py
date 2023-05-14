@@ -132,9 +132,9 @@ def pesquisa(search):
 def cobra(id):
     info_cobra = get_cobra(id)
     if not session.get('username'):
-        return render_template('cobra.html', info_cobra=info_cobra, cobra="{} {}".format(info_cobra['familia'], info_cobra['especie']))
+        return render_template('cobra.html', info_cobra=info_cobra, cobra=info_cobra['especie'])
     else:
-        return render_template('cobra.html', info_cobra=info_cobra, username=session['username'], cobra="{} {}".format(info_cobra['familia'], info_cobra['especie']))
+        return render_template('cobra.html', info_cobra=info_cobra, username=session['username'], cobra=info_cobra['especie'])
 
 @app.route("/admin")
 def admin():

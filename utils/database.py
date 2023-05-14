@@ -47,6 +47,7 @@ def start_conn(host = credentials['host'],
     except mysql.connector.Error as error:
         print("Falha ao se conectar no banco de dados: {}".format(error))
         abort(500)
+    return conn
 
 def close_conn():
     global conn
@@ -57,9 +58,9 @@ def close_conn():
 def get_cobras(search):
     # função que retorna o nome científico das cobras no banco
 
-    query = """SELECT COBRA.idCOBRA, COBRA.familia, COBRA.especie, COBRA.peconhenta, COBRA_NOME_POP.nome, FAMILIA.nome FROM COBRA
-            INNER JOIN COBRA_NOME_POP ON COBRA.idCOBRA = COBRA_NOME_POP.idCOBRA
-            INNER JOIN FAMILIA ON COBRA.grupo = FAMILIA.idFam """
+    query = """SELECT cobra.idCOBRA, cobra.familia, cobra.especie, cobra.peconhenta, cobra_nome_pop.nome, familia.nome FROM cobra
+            INNER JOIN cobra_nome_pop ON cobra.idCOBRA = cobra_nome_pop.idCOBRA
+            INNER JOIN familia ON cobra.grupo = familia.idFam """
 
     if search is not None:
         pos_query = "WHERE"
@@ -88,8 +89,9 @@ def get_cobras(search):
     nomes_pop = {}
     peconha = {}
     ids = {}
+
     for id, familia, especie, peconhenta, nome_pop, fam in cursor['rows']:
-        nome_cientifico = "{} {}".format(familia, especie)
+        nome_cientifico = especie
         cobras.append(nome_cientifico)
         peconha[nome_cientifico] = peconhenta
         ids[nome_cientifico] = id
@@ -210,7 +212,7 @@ def get_cobra(id):
             info_cobra['nome_pop'] = []
         info_cobra['nome_pop'].append(nome_pop)
 
-    for filename in os.listdir("./static/serpentesFotos/{} {}".format(info_cobra['familia'], info_cobra['especie'])):
+    for filename in os.listdir("./static/serpentesFotos/{}".format(info_cobra['especie'])):
         if 'filenames' not in info_cobra.keys():
             info_cobra['filenames'] = []
         info_cobra['filenames'].append(filename)
