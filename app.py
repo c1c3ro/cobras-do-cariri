@@ -8,6 +8,7 @@ from flask_session import Session
 from werkzeug.utils import secure_filename
 from hashlib import sha256
 from datetime import timedelta
+from waitress import serve
 import os, io, zipfile, time
 
 app = Flask(__name__)
@@ -207,4 +208,5 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    #app.run(debug=True)
+    serve(app, host='0.0.0.0', port=80, url_prefix='/cobras')

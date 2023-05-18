@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 15-Maio-2023 às 00:35
+-- Tempo de geração: 18-Maio-2023 às 17:43
 -- Versão do servidor: 10.4.24-MariaDB
 -- versão do PHP: 8.1.6
 
@@ -29,6 +29,7 @@ USE `cobras`;
 -- Estrutura da tabela `cobra`
 --
 
+DROP TABLE IF EXISTS `cobra`;
 CREATE TABLE `cobra` (
   `idCOBRA` int(10) UNSIGNED NOT NULL,
   `peconhenta` tinyint(4) NOT NULL DEFAULT 0,
@@ -91,13 +92,13 @@ INSERT INTO `cobra` (`idCOBRA`, `peconhenta`, `idUSUARIO`, `familia`, `grupo`, `
 (40, 0, 1, 'Dipsadidae', 3, 'Dryophylax almae', 2, '54.0', 'Anfibios, lagartos, peixes e mamiferos', 'Terrestre', 'Noturna/crepuscular', 'Pouco frequente', 'Viviparo', '', 0, '', '', '', 'COELHO, Rafael Damasceno Fernandes et al. Overview of the distribution of snakes of the genus Thamnodynastes (Dipsadidae) in northeastern Brazil, with new records and remarks on their morphometry and pholidosis. Herpetology Notes, v. 6, p. 355-360, 2013. /// FRANCO, Francisco L. et al. A new species of Thamnodynastes from the open areas of central and northeastern Brazil (Serpentes: Dipsadidae: Tachymenini). Salamandra, v. 53, n. 3, p. 339-350, 2017.'),
 (42, 0, 1, 'Dipsadidae', 3, 'Thamnodynastes sertanejo', 2, '67.0', 'Anfibios, lagartos, peixes e mamiferos', 'Arborícola', 'Noturna/crepuscular', 'Pouco frequente', 'Viviparo', '', 0, '', '', '', 'COELHO, Rafael Damasceno Fernandes et al. Overview of the distribution of snakes of the genus Thamnodynastes (Dipsadidae) in northeastern Brazil, with new records and remarks on their morphometry and pholidosis. Herpetology Notes, v. 6, p. 355-360, 2013.   ///  ZAHER, HUSSAM. A new species of  Thamnodynastes Wagler, 1830 from western Amazonia, with notes on morphology for members of the Thamnodynastes pallidus group (Serpentes, Dipsadidae, Tachymenini). Zootaxa, v. 4952, n. 2, p. 235-256, 2021. /// FRANCO, Francisco L. et al. A new species of Thamnodynastes from the open areas of central and northeastern Brazil (Serpentes: Dipsadidae: Tachymenini). Salamandra, v. 53, n. 3, p. 339-350, 2017.'),
 (43, 0, 1, 'Dipsadidae', 3, 'Xenodon merremii', 1, NULL, NULL, 'Terrestre', 'Diurna', 'Frequente', 'Ovípara', '', 0, '', '', '', 'Costa, H. C.; Pantoja, D. L.; Pontes, J. L.; Feio, R. N. Serpentes do Município de Viçosa, Mata Atlântica do Sudeste do Brasil. Biota Neotrop. 10 (3), 2010.'),
-(44, 0, 1, 'Elapidae', 4, 'Micrurus ibiboboca', 3, '150.0', 'Anfíbios, lagartos, Amphisbaeneas e outras serpentes', 'Terrestre (fossorial)', 'Diurna/noturna', 'Frequente', 'Ovípara', '', 0, '', '', '', 'BARBOSA, Vanessa do Nascimento. et al. Comportamento alimentar de Micrurus ibiboboca (Merrem, 1828) – Ingestão de regurgito. Natureza online,  17 (1): 061-063, jun 2019.   /   GOUVEIA, Soares Gouveia. et al. Case report of a coral snake bite (micrurus ibiboboca) in the state of pernambuco, northeast brazil, Umuarama, v. 24, n. 2cont., e2406, 2021.'),
-(45, 0, 1, 'Elapidae ', 4, 'Micrurus lemniscatus', 3, NULL, 'Peixes, gimnofionos, anfisbênios, serpentes e lagartos', NULL, 'Noturna', 'Pouco frequente', 'Ovípara', '', 0, 'Preto, vermelho e branco', 'Padrão de anéis sequenciais vermelho, preto, branco, preto, branco, preto e vermelho', '', '1ª - PIRES, Matheus Godoy. Revisão taxonômica do complexo Micrurus lemniscatus (Linnaeus, 1758)(Serpentes: Elapidae). 2011. Tese de Doutorado. Universidade de São Paulo. 2ª - Cunha, O.R. & Nascimento, F.P. 1993. Ofídios da Amazônia: As cobras da Região Leste do Pará. Boletim do Museu Paraense Emílio Goeldi 9 (1): 1-191. 3ª - Martins, M. & Oliveira, M.E. 1998. Natural history of snakes in forests of the Manaus region, Central Amazonia, Brazil. Herpetological Natural History 6 (2): 78-150. '),
+(44, 1, 1, 'Elapidae', 4, 'Micrurus ibiboboca', 3, '150.0', 'Anfíbios, lagartos, Amphisbaeneas e outras serpentes', 'Terrestre (fossorial)', 'Diurna/noturna', 'Frequente', 'Ovípara', '', 0, '', '', '', 'BARBOSA, Vanessa do Nascimento. et al. Comportamento alimentar de Micrurus ibiboboca (Merrem, 1828) – Ingestão de regurgito. Natureza online,  17 (1): 061-063, jun 2019.   /   GOUVEIA, Soares Gouveia. et al. Case report of a coral snake bite (micrurus ibiboboca) in the state of pernambuco, northeast brazil, Umuarama, v. 24, n. 2cont., e2406, 2021.'),
+(45, 1, 1, 'Elapidae ', 4, 'Micrurus lemniscatus', 3, NULL, 'Peixes, gimnofionos, anfisbênios, serpentes e lagartos', NULL, 'Noturna', 'Pouco frequente', 'Ovípara', '', 0, 'Preto, vermelho e branco', 'Padrão de anéis sequenciais vermelho, preto, branco, preto, branco, preto e vermelho', '', '1ª - PIRES, Matheus Godoy. Revisão taxonômica do complexo Micrurus lemniscatus (Linnaeus, 1758)(Serpentes: Elapidae). 2011. Tese de Doutorado. Universidade de São Paulo. 2ª - Cunha, O.R. & Nascimento, F.P. 1993. Ofídios da Amazônia: As cobras da Região Leste do Pará. Boletim do Museu Paraense Emílio Goeldi 9 (1): 1-191. 3ª - Martins, M. & Oliveira, M.E. 1998. Natural history of snakes in forests of the Manaus region, Central Amazonia, Brazil. Herpetological Natural History 6 (2): 78-150. '),
 (46, 0, 1, 'Leptotyphlopidae ', 5, 'Trilepida brasiliensis', 1, '15.0', NULL, 'Terrestre (fossorial)', 'Noturna', 'Raro', 'Ovípara', '', 0, '', '', '', 'SILVA, Raiany Cristine Cruz da. O ambiente e a diversidade das serpentes no estado do Tocantins–Brasil. 2017.'),
 (47, 0, 1, 'Leptotyphlopidae ', 5, 'Epictia borapeliotes', 1, '15.0', 'Artrópodes ', 'Terrestre (fossorial)', 'Noturna', 'Pouco frequente', 'Ovípara', '', 0, '', '', '', 'Campos, Gabriel Leite dos Santos. SERPENTES EM ÁREAS  SINANTROPICAS NO BREJO DE ALTITUDE PARAIBANO: UM INVENTÁRIO PARA EDUCAÇÃO '),
-(48, 0, 1, 'Viperidae', 6, 'Bothrops erythromelas', 4, NULL, NULL, NULL, 'Noturna', 'Pouco frequente', 'Vivípara', '', 0, '', '', '', ''),
-(51, 0, 1, 'Viperidae', 6, 'Bothrops atrox', 4, NULL, NULL, NULL, 'Noturna', 'Frequente', 'Vivípara', '', 0, '', '', '', ''),
-(52, 0, 1, 'Viperidae', 6, 'Crotalus durissus', 4, NULL, NULL, 'Terrestre', 'Noturna (predominantemente)', 'Pouco frequente', 'Vivípara', '', 0, '', '', '', '');
+(48, 1, 1, 'Viperidae', 6, 'Bothrops erythromelas', 4, NULL, NULL, NULL, 'Noturna', 'Pouco frequente', 'Vivípara', '', 0, '', '', '', ''),
+(51, 1, 1, 'Viperidae', 6, 'Bothrops atrox', 4, NULL, NULL, NULL, 'Noturna', 'Frequente', 'Vivípara', '', 0, '', '', '', ''),
+(52, 1, 1, 'Viperidae', 6, 'Crotalus durissus', 4, NULL, NULL, 'Terrestre', 'Noturna (predominantemente)', 'Pouco frequente', 'Vivípara', '', 0, '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -105,6 +106,7 @@ INSERT INTO `cobra` (`idCOBRA`, `peconhenta`, `idUSUARIO`, `familia`, `grupo`, `
 -- Estrutura da tabela `cobra_nome_pop`
 --
 
+DROP TABLE IF EXISTS `cobra_nome_pop`;
 CREATE TABLE `cobra_nome_pop` (
   `idCOBRA` int(10) UNSIGNED NOT NULL,
   `nome` varchar(50) NOT NULL
@@ -452,6 +454,7 @@ INSERT INTO `cobra_nome_pop` (`idCOBRA`, `nome`) VALUES
 -- Estrutura da tabela `denticao`
 --
 
+DROP TABLE IF EXISTS `denticao`;
 CREATE TABLE `denticao` (
   `idDenticao` int(11) NOT NULL,
   `nome` varchar(50) NOT NULL,
@@ -463,10 +466,11 @@ CREATE TABLE `denticao` (
 --
 
 INSERT INTO `denticao` (`idDenticao`, `nome`, `descricao`) VALUES
-(1, 'Áglifa', ''),
-(2, 'Opistóglifa', ''),
-(3, 'Proteróglifa', ''),
-(4, 'Solenóglifa', '');
+(1, 'Áglifa', 'As serpentes que estão no grupo das áglifas caracterizam-se pela ausência de dentes com a capacidade de inocular o veneno.'),
+(2, 'Opistóglifa', 'A dentição opistóglifa é caracterizada pela presença de dentes capazes de inocular o veneno, porém encontrados na região posterior da boca das serpentes. Assim como na dentição proteróglifa, os dentes apresentam um sulco por onde o veneno escorre. Em virtude de esses dentes serem encontrados na região posterior da boca, dificilmente as serpentes com esse tipo de dentição conseguem injetar o veneno durante uma mordida. Entretanto, eles são capazes de aplicar o veneno nas vítimas que estão no interior da sua boca.'),
+(3, 'Proteróglifa', 'As serpentes com dentição proteróglifa caracterizam-se por possuírem dentes capazes de inocular o veneno na região anterior da boca. Esses dentes apresentam um sulco por onde o veneno escorre.'),
+(4, 'Solenóglifa', 'A dentição solenóglifa se caracteriza pela presença de dentes inoculadores na região anterior da boca. As cobras com essa dentição possuem um canal no interior do dente por onde passa o veneno. Esse tipo de dentição é o mais especializado de todos os tipos descritos e, por isso, nesse grupo estão inclusas as cobras que mais causam acidentes ofídicos.'),
+(5, 'Não informado', 'A dentição para esta cobra não foi informada ainda');
 
 -- --------------------------------------------------------
 
@@ -474,6 +478,7 @@ INSERT INTO `denticao` (`idDenticao`, `nome`, `descricao`) VALUES
 -- Estrutura da tabela `familia`
 --
 
+DROP TABLE IF EXISTS `familia`;
 CREATE TABLE `familia` (
   `idFam` int(11) NOT NULL,
   `nome` varchar(100) NOT NULL
@@ -490,7 +495,8 @@ INSERT INTO `familia` (`idFam`, `nome`) VALUES
 (3, 'Dipsadidae'),
 (4, 'Elapidae'),
 (5, 'Leptotyphlopidae'),
-(6, 'Viperidae');
+(6, 'Viperidae'),
+(7, 'Não informado');
 
 -- --------------------------------------------------------
 
@@ -498,14 +504,23 @@ INSERT INTO `familia` (`idFam`, `nome`) VALUES
 -- Estrutura da tabela `hospital`
 --
 
+DROP TABLE IF EXISTS `hospital`;
 CREATE TABLE `hospital` (
+  `idHOSPITAL` int(10) UNSIGNED NOT NULL,
   `nome` varchar(100) NOT NULL,
   `localizacao` varchar(300) NOT NULL,
   `municipio` varchar(50) NOT NULL,
-  `telefone` varchar(20) NOT NULL,
-  `mapa` varchar(300) NOT NULL,
-  `idHOSPITAL` int(10) UNSIGNED NOT NULL
+  `telefone` varchar(20) DEFAULT NULL,
+  `mapa` varchar(300) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `hospital`
+--
+
+INSERT INTO `hospital` (`idHOSPITAL`, `nome`, `localizacao`, `municipio`, `telefone`, `mapa`) VALUES
+(1, 'Hospital São Lucas', 'Rua São Benedito, nº 243 - São Miguel. CEP 63020-080', 'Juazeiro do Norte', '(88) 3587 3353', 'https://www.google.com/maps/place/Hospital+Maternidade+S%C3%A3o+Lucas/@-7.205665,-39.310192,15z/data=!4m5!3m4!1s0x0:0x6cb7789d4c312b35!8m2!3d-7.205665!4d-39.310192?hl=pt'),
+(2, 'HRC - Hospital Regional do Cariri', 'Rua Catulo da Paixão, s/n - Triângulo. CEP 63041-162', 'Juazeiro do Norte', '(88) 3566 3600', 'https://www.google.com/maps/place/Hospital+Regional+do+Cariri+(HRC)/@-7.2263193,-39.3254599,15z/data=!4m5!3m4!1s0x0:0x9f3b3df2b38469ec!8m2!3d-7.2263193!4d-39.3254599?hl=pt');
 
 -- --------------------------------------------------------
 
@@ -513,6 +528,7 @@ CREATE TABLE `hospital` (
 -- Estrutura da tabela `hospital_soro`
 --
 
+DROP TABLE IF EXISTS `hospital_soro`;
 CREATE TABLE `hospital_soro` (
   `idHOSPITAL` int(10) UNSIGNED NOT NULL,
   `idCOBRA` int(10) UNSIGNED NOT NULL,
@@ -525,15 +541,26 @@ CREATE TABLE `hospital_soro` (
 -- Estrutura da tabela `registro`
 --
 
+DROP TABLE IF EXISTS `registro`;
 CREATE TABLE `registro` (
   `idREGISTRO` int(10) UNSIGNED NOT NULL,
-  `locarlizacao` text NOT NULL,
-  `localizacao_lat` decimal(11,0) NOT NULL,
-  `localizacao_log` decimal(11,0) NOT NULL,
-  `imagem` tinyint(4) NOT NULL,
-  `informacao_adc` text NOT NULL,
+  `localizacao` text NOT NULL,
+  `localizacao_lat` decimal(11,8) DEFAULT NULL,
+  `localizacao_log` decimal(11,8) DEFAULT NULL,
+  `imagem` tinyint(4) DEFAULT NULL,
+  `informacao_adc` text DEFAULT NULL,
   `data_hora` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `registro`
+--
+
+INSERT INTO `registro` (`idREGISTRO`, `localizacao`, `localizacao_lat`, `localizacao_log`, `imagem`, `informacao_adc`, `data_hora`) VALUES
+(26, 'Registro teste, não exclua por enquanto', '-7.14670000', '-39.24700000', 1, 'Não excluir esse registro', '2020-05-20 11:05:00'),
+(50, 'Rua Farias Brito 1667', '-7.23606840', '-39.31666810', 1, 'Ela é bem feia viu\r\nSe quiser me contatar, meu whatsapp é 88 9 9207 5140', '2022-06-20 19:03:00'),
+(51, 'Teste de envio sem arquivos', '0.00000000', '0.00000000', 0, 'Não tem foto nenhuma porque eu não sou doido de ver uma cobra e sair tirando foto', '2022-06-20 19:05:00'),
+(52, 'Teste Heroku', '0.00000000', '0.00000000', 1, 'Teste teste teste teste teste', '2022-06-24 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -541,11 +568,12 @@ CREATE TABLE `registro` (
 -- Estrutura da tabela `registro_cobra`
 --
 
+DROP TABLE IF EXISTS `registro_cobra`;
 CREATE TABLE `registro_cobra` (
   `idREGISTRO` int(10) UNSIGNED NOT NULL,
   `IDCOBRA` int(10) UNSIGNED NOT NULL,
   `idUSUARIO` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -553,20 +581,24 @@ CREATE TABLE `registro_cobra` (
 -- Estrutura da tabela `usuario`
 --
 
+DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
   `idUSUARIO` int(10) UNSIGNED NOT NULL,
   `password` varchar(65) NOT NULL,
   `user` varchar(20) NOT NULL,
   `email` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `usuario`
 --
 
 INSERT INTO `usuario` (`idUSUARIO`, `password`, `user`, `email`) VALUES
-(1, 'Thiago', 'Thiago', 'thiago.carlos@aluno.ufca.edu.br'),
-(7, '400030bc46b7498638dbaaf8c5b6f793fa60651ec38eff8a579a5a15c0044a40', 'Thiago', 'thiago.carlos@aluno.uca.edu.br');
+(1, 'aef660c03b813f2de3e11c37465c472f6ad84e2dcdc24a4c3e0d16b49a50514f', 'csamuelssm', 'csamuelssm@gmail.com'),
+(2, '12345678', 'teste', 'teste205@gmail.com'),
+(3, '27f8cb5ae83708175944c94bd32e9f86c5c076b538e32bf4d1a88e9d769e423d', 'Rinvox', 'thiagocarlossilvapereira@gmail.com'),
+(4, '9e6f791d2433656aa89788079cb4db22fdd812353d7cd7ed0cb08b85198e35ec', 'samuel.cardozo', 'samuel.ribeiro@ufca.edu.br'),
+(18, '94689279d21cae7afb73dbe78d4022b2036b95e0c7498af6eb076274a878e027', 'c1c3ro', 'cicerosousa205@gmail.com');
 
 --
 -- Índices para tabelas despejadas
@@ -618,22 +650,25 @@ ALTER TABLE `hospital_soro`
 --
 ALTER TABLE `registro`
   ADD PRIMARY KEY (`idREGISTRO`),
-  ADD KEY `localizacao_lat` (`localizacao_lat`,`localizacao_log`,`imagem`);
+  ADD UNIQUE KEY `idREGISTRO_UNIQUE` (`idREGISTRO`);
 
 --
 -- Índices para tabela `registro_cobra`
 --
 ALTER TABLE `registro_cobra`
   ADD PRIMARY KEY (`idREGISTRO`),
-  ADD KEY `IDCOBRA` (`IDCOBRA`,`idUSUARIO`),
-  ADD KEY `idUSUARIO` (`idUSUARIO`);
+  ADD KEY `fk_REGISTRO_COBRA_COBRA1_idx` (`IDCOBRA`),
+  ADD KEY `fk_REGISTRO_COBRA_USUARIO1_idx` (`idUSUARIO`),
+  ADD KEY `idREGISTRO` (`idREGISTRO`,`IDCOBRA`);
 
 --
 -- Índices para tabela `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`idUSUARIO`),
-  ADD UNIQUE KEY `user` (`user`,`email`);
+  ADD UNIQUE KEY `idUSUARIO_UNIQUE` (`idUSUARIO`),
+  ADD UNIQUE KEY `user_UNIQUE` (`user`),
+  ADD UNIQUE KEY `email_UNIQUE` (`email`);
 
 --
 -- AUTO_INCREMENT de tabelas despejadas
@@ -655,19 +690,19 @@ ALTER TABLE `denticao`
 -- AUTO_INCREMENT de tabela `hospital`
 --
 ALTER TABLE `hospital`
-  MODIFY `idHOSPITAL` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idHOSPITAL` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `registro`
 --
 ALTER TABLE `registro`
-  MODIFY `idREGISTRO` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idREGISTRO` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUSUARIO` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idUSUARIO` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Restrições para despejos de tabelas
@@ -698,9 +733,9 @@ ALTER TABLE `hospital_soro`
 -- Limitadores para a tabela `registro_cobra`
 --
 ALTER TABLE `registro_cobra`
-  ADD CONSTRAINT `registro_cobra_ibfk_1` FOREIGN KEY (`idUSUARIO`) REFERENCES `usuario` (`idUSUARIO`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `registro_cobra_ibfk_2` FOREIGN KEY (`IDCOBRA`) REFERENCES `cobra` (`idCOBRA`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `registro_cobra_ibfk_3` FOREIGN KEY (`idREGISTRO`) REFERENCES `registro` (`idREGISTRO`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_REGISTRO_COBRA_COBRA1` FOREIGN KEY (`IDCOBRA`) REFERENCES `cobra` (`idCOBRA`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_REGISTRO_COBRA_REGISTRO1` FOREIGN KEY (`idREGISTRO`) REFERENCES `registro` (`idREGISTRO`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_REGISTRO_COBRA_USUARIO1` FOREIGN KEY (`idUSUARIO`) REFERENCES `usuario` (`idUSUARIO`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

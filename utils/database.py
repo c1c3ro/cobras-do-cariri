@@ -185,10 +185,10 @@ def match_login(usuario, senha_cript):
 def novo_usuario(usuario, senha_cript, email):
     values= (usuario, senha_cript, email)
 
-    query = """INSERT INTO USUARIO (user, password, email) VALUES (%s, %s, %s)"""
-    cursor = execute_query(query, values, lastRowId=True)
+    query = """INSERT INTO usuario (user, password, email) VALUES (%s, %s, %s)"""
+    cursor = execute_query(query, values, lastRowId=True, isAlteration = True)
     if cursor['lastRowId'] is not None:
-        idRegistro = cursor.lastrowid
+        idRegistro = cursor['lastRowId']
     else:
         idRegistro = -1
     return idRegistro
