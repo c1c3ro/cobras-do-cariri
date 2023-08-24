@@ -18,10 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `cobras`
+-- Banco de dados: `sql10642106`
 --
-CREATE DATABASE IF NOT EXISTS `cobras` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `cobras`;
+CREATE DATABASE IF NOT EXISTS `sql10642106` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `sql10642106`;
 
 -- --------------------------------------------------------
 

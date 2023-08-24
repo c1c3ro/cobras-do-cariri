@@ -75,7 +75,7 @@ def get_cobras(search):
                         searchSplit.remove(i)
         search = ['%' + i + '%' for i in searchSplit]
         for p in range(len(search)):
-            pos_query += """ CONCAT(COBRA.familia, COBRA.especie, COBRA_NOME_POP.nome, FAMILIA.nome) LIKE %s"""
+            pos_query += """ CONCAT(cobra.familia, cobra.especie, cobra_nome_pop.nome, familia.nome) LIKE %s"""
             if p < len(search) - 1:
                 pos_query += " OR"
     else:
@@ -130,7 +130,7 @@ def insert_registro(localizacao, informacao_adc,
                     dateTime, localizacao_lat = '',
                     localizacao_log = '', isImg = 0):
 
-    insert_query = """INSERT INTO REGISTRO (localizacao, localizacao_lat, localizacao_log, imagem, informacao_adc, data_hora)
+    insert_query = """INSERT INTO registro (localizacao, localizacao_lat, localizacao_log, imagem, informacao_adc, data_hora)
                     VALUES (%s, %s, %s, %s, %s, %s)"""
     values = (localizacao, localizacao_lat, localizacao_log, isImg, informacao_adc, dateTime)
     cursor = execute_query(insert_query, values, isAlteration = True, lastRowId=True)
@@ -141,7 +141,7 @@ def insert_registro(localizacao, informacao_adc,
     return idRegistro
 
 def get_registros():
-    query = "SELECT idREGISTRO, localizacao, localizacao_lat, localizacao_log, imagem, informacao_adc, data_hora FROM REGISTRO WHERE 1=1 ORDER BY data_hora DESC"
+    query = "SELECT idREGISTRO, localizacao, localizacao_lat, localizacao_log, imagem, informacao_adc, data_hora FROM registro WHERE 1=1 ORDER BY data_hora DESC"
     cursor = execute_query(query)
     registros = {}
     for id, localizacao, loc_lat, loc_log, img, informacao_adc, dateTime in cursor['rows']:
@@ -155,14 +155,14 @@ def get_registros():
     return registros
 
 def insert_registro_cobra(idRegistro, idCobra, idUsuario):
-    insert_query = """INSERT INTO REGISTRO_COBRA (idREGISTRO, IDCOBRA, idUSUARIO)
+    insert_query = """INSERT INTO registro_cobra (idREGISTRO, IDCOBRA, idUSUARIO)
                     VALUES (%s, %s, %s)"""
     values = (idRegistro, idCobra, idUsuario)
     execute_query(insert_query, values, True)
 
 def delete_registro(idRegistro):
     rowcount = 0
-    query = """DELETE FROM REGISTRO WHERE idREGISTRO = %s;"""
+    query = """DELETE FROM registro WHERE idREGISTRO = %s;"""
     cursor = execute_query(query, [idRegistro], isAlteration = True, rowCount=True)
     if cursor['rowCount'] == 1:
         return 1
@@ -172,7 +172,7 @@ def delete_registro(idRegistro):
 def match_login(usuario, senha_cript):
     login = (usuario, senha_cript)
 
-    query = """SELECT COUNT(idUSUARIO) AS Count FROM USUARIO WHERE USUARIO.user = %s AND USUARIO.password = %s"""
+    query = """SELECT COUNT(idUSUARIO) AS Count FROM usuario WHERE usuario.user = %s AND usuario.password = %s"""
     
     cursor = execute_query(query, login)
 
@@ -195,7 +195,7 @@ def novo_usuario(usuario, senha_cript, email):
 
 def get_cobra(id):
 
-    query = f"SELECT  COBRA.familia, COBRA.especie, COBRA.peconhenta, COBRA_NOME_POP.nome, FAMILIA.nome, DENTICAO.nome, DENTICAO.descricao, COBRA.tam_max FROM COBRA INNER JOIN COBRA_NOME_POP ON COBRA.idCOBRA = COBRA_NOME_POP.idCOBRA INNER JOIN FAMILIA ON COBRA.grupo = FAMILIA.idFam INNER JOIN DENTICAO ON DENTICAO.idDenticao = COBRA.idDenticao WHERE COBRA.idCOBRA = {id}"
+    query = f"SELECT  cobra.familia, cobra.especie, cobra.peconhenta, cobra_nome_pop.nome, familia.nome, denticao.nome, denticao.descricao, cobra.tam_max FROM cobra INNER JOIN cobra_nome_pop ON cobra.idCOBRA = cobra_nome_pop.idCOBRA INNER JOIN familia ON cobra.grupo = familia.idFam INNER JOIN denticao ON denticao.idDenticao = cobra.idDenticao WHERE cobra.idCOBRA = {id}"
 
     cursor = execute_query(query)
 
@@ -211,6 +211,8 @@ def get_cobra(id):
         if 'nome_pop' not in info_cobra.keys():
             info_cobra['nome_pop'] = []
         info_cobra['nome_pop'].append(nome_pop)
+    
+    print(info_cobra)
 
     for filename in os.listdir("./static/serpentesFotos/{}".format(info_cobra['especie'])):
         if 'filenames' not in info_cobra.keys():
