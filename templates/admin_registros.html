@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="col-12 text-center d-flex flex-column justify-content-center align-items-center">
+
+    <h3><i class="bi bi-file-earmark-text"></i> Administrar registros</h3>
+
+    <div class="accordion col-12" id="accordion">
+    {% for id, data in registros.items() %}
+        <div class="accordion-item col-12">
+            <h5 class="accordion-header" id="heading{{id}}">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accordion{{id}}" aria-expanded="false" aria-controls="accordion{{id}}">
+                    Registro <strong>#{{id}}</strong> - <small>{{data['dateTime'].strftime('%d/%m/%Y %H:%M')}}</small>
+                </button>
+            </h5>
+            <div id="accordion{{id}}" class="accordion-collapse collapse" aria-labelledby="heading{{id}}" data-bs-parent="#accordion">
+                <div class="accordion-body text-start">
+                    <p><i class="bi bi-map mx-2"></i> <strong>Localização:</strong> {{data['localizacao']}}</p>
+                    {% if data['localizacao_lat'] == 0e-8 %}
+                        <p><i class="bi bi-geo-alt mx-2"></i> <strong>GPS:</strong>Não informado</p>
+                    {% else %}
+                        <p><i class="bi bi-geo-alt mx-2"></i><strong>GPS:</strong> <a href="http://www.google.com/maps/place/{{data['localizacao_lat']}},{{data['localizacao_log']}}" target="_blank" rel="noopener noreferrer">({{data['localizacao_lat']}}, {{data['localizacao_log']}})</a></p>
+                    {% endif %}
+
+                    {% if data['imagem'] == 1 %}
+                        <p><i class="bi bi-file-image mx-2"></i> <strong>Possui foto(s):</strong> sim</p>
+                    {% else %}
+                        <p><i class="bi bi-file-image mx-2"></i> <strong>Possui foto(s):</strong> não</p>
+                    {% endif %}
+
+                    {% if data['informacao_adc'] != '' %}
+                        <p><i class="bi bi-chat-square-text mx-2"></i> <strong>Informações adicionais:</strong> {{data['informacao_adc']}}</p>
+                    {% else %}
+                        <p><i class="bi bi-chat-square-text mx-2"></i> <strong>Informações adicionais:</strong> não informada</p>
+                    {% endif %}
+                    <button class="btn submit-btn shadow-sm my-1" data-bs-toggle="modal" data-bs-target="#Modal{{id}}"><i class="bi bi-trash mr-2"></i> Excluir registro</button>
+
+                    {% if data['imagem'] == 1 %}
+                        <a href="{{url_for('download', id=id)}}" download><button class="btn submit-btn shadow-sm my-1"><i class="bi bi-download mr-2"></i> Baixar fotos</button></a>
+                    {% endif %}
+
+
+                    <div class="modal fade" id="Modal{{id}}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Excluir registro</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Tem certeza de que deseja <strong class="red">excluir o Registro #{{id}}</strong>?
+                            </div>
+                            <div class="modal-footer">
+                                <a href="{{url_for('excluir', id=id)}}"><button class="btn submit-btn shadow-sm"><i class="bi bi-trash mr-2"></i> Sim, quero excluir o registro #{{id}}</button></a>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+</div>
+
+{% if deleteRegistro is defined %}
+    {% if deleteRegistro == '1' %}
+    <div class="modal fade" id="noReturnModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Sucesso</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        O registro foi excluído com sucesso!
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn submit-btn shadow-sm" data-bs-dismiss="modal">Fechar</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    {% else %}
+    <div class="modal fade" id="noReturnModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Falha</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        Não foi possível excluir o registro!
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn submit-btn shadow-sm" data-bs-dismiss="modal">Fechar</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    {% endif %}
+{% endif %}
+
+<script>
+$(document).ready(function(){
+            if ($('#noReturnModal').length) {
+                $('#noReturnModal').modal('show');
+            }
+        })
+</script>
+
+{% endblock %}

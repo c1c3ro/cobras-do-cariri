@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="col-12 text-center d-flex flex-column justify-content-center align-items-center">
+
+    <h3><i class="bi bi-hospital mx-2"></i> Hospitais</h3>
+    <p>Clique no nome para abrir o mapa</p>
+
+    <div class="col-12 row">
+
+        {% for hospital, info in hospitais.items() %}
+            <div class="card col-12 col-md-6 col-lg-6 px-2 mb-3 flex-column align-items-center justify-content-center">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{{info['mapa']}}" target="_blank" rel="noopener noreferrer"><strong>{{hospital}}</strong></a></h5>
+                    <a class="collapse-link" data-bs-toggle="collapse" href="#collapse{{info['id']}}" role="button" aria-expanded="false" aria-controls="collapse{{info['id']}}">
+                        <h6 class="card-subtitle mb-2 text-muted">Mais informações <i class="bi bi-chevron-down"></i></h6>
+                    </a>
+                    <div class="collapse" id="collapse{{info['id']}}">
+                        <div>
+                            <p>
+                                <strong>Município: </strong>
+                                {{info['municipio']}}
+                            </p>
+                            <p>
+                                <strong>Endereço: </strong>
+                                {{info['localizacao']}}
+                            </p>
+                            <p>
+                                <strong>Telefone: </strong>
+                                {{info['telefone']}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

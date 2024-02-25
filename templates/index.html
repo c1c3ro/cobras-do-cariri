@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row align-items-center">
+    <div class="col-12 col-md-6">
+        <div class="alert alert-danger" role="alert">
+            <i class="bi bi-exclamation-diamond"></i> <strong>Viu uma serpente?</strong>
+            Se possível, não mate ela. Assim você ajuda a preservar a fauna e o equilíbrio da nossa região!
+        </div>
+    </div>
+    <div class="col col-md-6">
+        <div class="alert alert-danger" role="alert">
+            <i class="bi bi-hospital"></i> <strong>Foi picado por uma cobra?</strong>
+            <a href="{{url_for('hospitais')}}">Descubra aqui</a> onde você pode buscar tratamento!
+        </div>
+    </div>
+</div>
+
+<div class="introducao col-12 row flex-row align-items-center justify-content-center">
+  <div class="col-10 col-md-6">
+    <h3><span class="red"><strong>Na região da Chapada do Araripe (Ceará), existem cerca de 40 espécies de cobras.</strong></span></h3>
+    <h4>Delas, <span class="red"><strong>apenas 4 são peçonhentas.</strong></span></h4>
+    <h5>Porém, devido ao medo e à falta de informação, as pessoas acabam <span class="red"><strong>matando todas elas, sejam peçonhentas ou não.</strong></span></h5>
+    <h5>Por causa disso, o <span class="red"><strong>nível de mortalidade de cobras</strong></span> na região do Cariri e da Chapada do Araripe está muito alto.</h5>
+    <h6>Aqui, você vai poder conhecer mais sobre as Cobras do Cariri e aprender a identificá-las, podendo contribuir para a conservação e a ciência da nossa região!</h6>
+  </div>
+  <div class="col-12 col-md-6 text-center">
+    <img alt="ilustração da chapada do araripe" class="ilust" src="{{url_for('static', filename='img/ilustracao-chapada.png')}}"/>
+  </div>
+</div>
+
+<div class="explorar col-12 flex-column align-items-center justify-content-center" id="explorar">
+    <h2><i class="bi bi-eye mx-2"></i> Explorar</h2>
+    <div class="row mt-3 slider-item justify-content-center">
+        {% for cobra, imgs in cobras_info.items() %}
+          <div class="col-12 col-md-6 col-lg-3 px-2 mb-3 flex-column align-items-center justify-content-center">
+            <div id="{{cobra|replace(' ', '-')}}" class="carousel slide slider" data-ride="carousel">
+              {% if peconhenta[cobra] == 1 %}
+                <div class="carousel-inner peconhenta-slider">
+              {% else %}
+                <div class="carousel-inner shadow br">
+              {% endif %}
+                <div class="carousel-item active">
+                  <img class="d-block w-100 shadow" src='{{url_for("static", filename="serpentesFotos/{cobra}/{img}".format(cobra=cobra, img=imgs[0]))}}'>
+                </div>
+                {% for i in range(1, imgs|length) %}
+                  <div class="carousel-item">
+                    <img class="d-block w-100 shadow" src='{{url_for("static", filename="serpentesFotos/{cobra}/{img}".format(cobra=cobra, img=imgs[i]))}}'>
+                  </div>
+                {% endfor %}
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#{{cobra|replace(' ', '-')}}" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#{{cobra|replace(' ', '-')}}" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+            {% if peconhenta[cobra] == 1 %}
+              <h5 class="red"><a href="{{url_for('cobra', id=ids[cobra])}}" class="peconhenta-link"><strong>{{cobra}}</strong></a></h5>
+              <span class="badge text-bg-danger"><i class="bi bi-exclamation-triangle"></i> Peçonhenta <i class="bi bi-exclamation-triangle"></i></span>
+            {% else %}
+              <h5><a href="{{url_for('cobra', id=ids[cobra])}}" class="cobra-link"><strong>{{cobra}}</strong></a></h5>
+            {% endif %}
+            <p><a class="collapse-link" data-bs-toggle="collapse" href="#collapse-{{cobra|replace(' ', '-')}}" role="button" aria-expanded="false" aria-controls="collapse-{{cobra|replace(' ', '-')}}">
+              Nomes populares <i class="bi bi-chevron-down"></i>
+            </a></p>
+            <div class="collapse" id="collapse-{{cobra|replace(' ', '-')}}">
+              <div>
+                <p>
+                  {{nomes_pop[cobra] | join(', ')}}
+                </p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% if noReturn %}
+<div class="modal fade" id="noReturnModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sem resultados!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      Sua pesquisa não retornou nenhum resultado! :(
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn submit-btn shadow-sm" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<script>
+  $(document).ready(function(){
+    if ($('#noReturnModal').length) {
+      $('#noReturnModal').modal('show');
+    } 
+  })
+</script>
+{% endblock %}

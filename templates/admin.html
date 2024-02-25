@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="col-12 text-center d-flex flex-column justify-content-center align-items-center">
+    <h3>Olá, <em>@</em><strong>{{username}}</strong>!</h3>
+
+    <div class="main-menu row align-items-center text-center">
+        <div class="col-12 col-sm main-menu-item">
+            <a href="{{url_for('cadastro')}}"><div><i class="bi bi-clipboard-plus"></i></div>
+             Cadastrar novo usuário</a>
+        </div>
+        <div class="col-12 col-sm main-menu-item">
+            <a href="{{url_for('admin_registros')}}"><div><i class="bi bi-file-earmark-text"></i></div>
+             Administrar registros</a>
+        </div>
+        <div class="col-12 col-sm main-menu-item">
+            <a href="{{url_for('logout')}}"><div><i class="bi bi-box-arrow-left"></i></div>
+             Log-out</a>
+        </div>
+    </div>
+
+</div>
+
+{% if cadastro is defined%}
+    {% if cadastro %}
+        <div class="modal fade" id="cadastroSucesso" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cadastro realizado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            O cadastro do novo usuário foi realizado com sucesso!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn submit-btn shadow-sm" data-bs-dismiss="modal">Fechar</button>
+            </div>
+            </div>
+        </div>
+        </div>
+    {% endif %}
+{% endif %}
+
+<script>
+    $(document).ready(function(){
+        if ($('#cadastroSucesso').length) {
+            $('#cadastroSucesso').modal('show');
+        }
+    })
+</script>
+
+{% endblock %}

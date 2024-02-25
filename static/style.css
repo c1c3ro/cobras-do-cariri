@@ -1,0 +1,244 @@
+/*
+CORES
+Beje/Amarelo: #F2E8C0
+Vermelho: #DE4645
+Verde Escuro: #282D29
+*/
+
+/*General Style*/
+
+html, body {
+    font-family: "Plus Jakarta Sans", "Roboto", "Open Sans", sans-serif;
+    padding-top: 10px;
+    background-color: #F2E8C0;
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    color: #282D29;
+}
+
+
+body {
+    display: table;
+}
+body > footer {
+    display: table-row;
+}
+
+a {
+    color: #DE4645;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    font-weight: 600;
+}
+
+.red {
+    color: #DE4645;
+}
+
+.footer {
+    background-color: #F2E8C0;
+    width: 100%;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.submit-btn {
+    background-color: #DE4645;
+    color: white;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #c72b2b;
+    color: white;
+}
+
+.equipe_img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+
+/*End General Style*/
+
+/*Header Style*/
+
+.logo {
+    text-align: start;
+}
+
+.logo-mobile .logo-img {
+    width: 40%;
+    height: auto;
+}
+
+.logo-img {
+    width: 60%;
+    height: auto;
+}
+
+.search {
+    display: flex;
+    justify-content: center;
+}
+
+.search-icon {
+    padding: 7px 10px 7px 10px;
+    border-radius: 100%;
+    margin-left: 5px;
+    background-color: #DE4645;
+    color: #F2E8C0;
+    font-size: 12px;
+    cursor: pointer;
+    border: none;
+}
+
+.login {
+    display: inline-flex;
+    width: min-content;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.login > i {
+    font-size: 20px;
+    margin-left: 5px;
+}
+
+/*End -- Header Style*/
+
+/*Main Menu Style*/
+
+.main-menu {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.main-menu-item a {
+    all:unset;
+}
+
+.main-menu-item {
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.main-menu-item:hover {
+    color: #DE4645;
+}
+
+.main-menu-item i {
+    font-size: 20px;
+}
+
+@media only screen and (max-width: 576px) {
+
+    .main-menu-item, .main-menu-item a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+    }
+
+    .main-menu-item i {
+        font-size: 24px;
+    }
+}
+
+/*End -- Main Meny Style*/
+
+/*Introdução -- Style*/
+
+.ilust {
+    width: 100%;
+    height: auto;
+}
+
+/*End -- Introdução Style*/
+
+
+/*Explorar -- Style*/
+
+.slider img {
+    width:95%;
+    aspect-ratio: 4 / 3;
+    /*height: auto;*/
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+.slider-item h5{
+    margin-bottom: 2px;
+}
+
+.slider-item p{
+    font-size: 14px;
+    color: #505050;
+}
+
+.collapse-link {
+    color: #505050;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.peconhenta-slider {
+    border-radius: 15px;
+    /*box-shadow: 0 0 10px 1px #DE4645;*/
+    border: 3px solid #DE4645;
+}
+
+.br {
+    border-radius: 15px;
+}
+
+.cobra-link, .peconhenta-link {
+    all:unset;
+    cursor: pointer;
+    text-decoration-line: underline;
+    text-decoration-style:solid;
+    transition: 0.3s;
+}
+
+.cobra-link:hover {
+    color: #2d9742;
+}
+
+.peconhenta-link:hover {
+    color: #e40404;
+}
+
+
+/*End -- Explorar Style*/
+
+/*Hospitais Style*/
+
+.card {
+    background: none;
+    border: none;
+}
+
+.card p {
+    margin-bottom: 0;
+}
+
+/*End -- Hospitais Style*/
+
+/*Registros -- Style*/
+
+/*End -- Registros Style*/
+
+/*Cobras -- Style*/
+
+.custom-tooltip, .dotted-text {
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+}
+
+/*End -- Cobras Style*/
