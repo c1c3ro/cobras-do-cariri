@@ -48,8 +48,8 @@ def login():
         if form.validate_on_submit():
             usuario = request.form['usuario']
             senha = request.form['senha']
-            senha_cript = sha256(senha.encode('utf-8')).hexdigest()
-            if(match_login(usuario, senha_cript)):
+            # senha_cript = sha256(senha.encode('utf-8')).hexdigest()
+            if(match_login(usuario, senha)):
                 # Login realizado com sucesso
                 session['username'] = usuario
                 session['logged'] = True
@@ -88,7 +88,7 @@ def registro():
             hora = request.form['hora1']
         except(KeyError):
             hora = request.form.get('hora2', '00:00')
-        
+
         dateTime = request.form['data'] + " " + hora + ":00"
         localizacao_lat = request.form.get('localizacao_lat', '')
         localizacao_log = request.form.get('localizacao_log', '')

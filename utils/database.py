@@ -6,7 +6,7 @@ import os
 
 conn = None
 credentials = {}
-with open('/home/cobrasdocariri/mysite/utils/databaseCredentials.json') as j_file:
+with open('/home/cobrasdocariri/mysite/databaseCredentials.json') as j_file:
     credentials = json.load(j_file)
 
 def execute_query(query, params = None, isAlteration = False, lastRowId = False, rowCount = False):
