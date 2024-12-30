@@ -48,8 +48,8 @@ def login():
         if form.validate_on_submit():
             usuario = request.form['usuario']
             senha = request.form['senha']
-            # senha_cript = sha256(senha.encode('utf-8')).hexdigest()
-            if(match_login(usuario, senha)):
+            senha_cript = sha256(senha.encode('utf-8')).hexdigest()
+            if(match_login(usuario, senha_cript)):
                 # Login realizado com sucesso
                 session['username'] = usuario
                 session['logged'] = True

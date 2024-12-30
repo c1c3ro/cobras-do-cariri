@@ -18,9 +18,7 @@ def execute_query(query, params = None, isAlteration = False, lastRowId = False,
         cursor.execute(query, params)
         if isAlteration:
             conn.commit()
-    except mysql.connector.Error as error:
-        print("Falha ao executar a query: {}, parâmetros: {}, erro: {}".format(query, params, error))
-    finally:
+
         results['rows'] = cursor.fetchall()
         if lastRowId:
             results['lastRowId'] = cursor.lastrowid
@@ -28,6 +26,9 @@ def execute_query(query, params = None, isAlteration = False, lastRowId = False,
             results['rowCount'] = cursor.rowcount
         cursor.close()
         close_conn()
+
+    except mysql.connector.Error as error:
+        print("Falha ao executar a query: {}, parâmetros: {}, erro: {}".format(query, params, error))
 
     return results
 
