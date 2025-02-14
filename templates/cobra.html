@@ -58,6 +58,41 @@
                 Ainda não infomado
               {% endif %}
             </p>
+            <p><strong>Alimentação: </strong>
+              {% if info_cobra['alimentacao'] is not none %}
+                {{info_cobra['alimentacao']}}
+              {% else %}
+                Ainda não infomado
+              {% endif %}
+            </p>
+            <p><strong>Habitat: </strong>
+              {% if info_cobra['habitat'] is not none %}
+                {{info_cobra['habitat']}}
+              {% else %}
+                Ainda não infomado
+              {% endif %}
+            </p>
+            <p><strong>Atividade: </strong>
+              {% if info_cobra['atividade'] is not none %}
+                {{info_cobra['atividade']}}
+              {% else %}
+                Ainda não infomado
+              {% endif %}
+            </p>
+            <p><strong>Possibilidade de encontro: </strong>
+              {% if info_cobra['encontro'] is not none %}
+                {{info_cobra['encontro']}}
+              {% else %}
+                Ainda não infomado
+              {% endif %}
+            </p>
+            <p><strong>Reprodução: </strong>
+              {% if info_cobra['reproducao'] is not none %}
+                {{info_cobra['reproducao']}}
+              {% else %}
+                Ainda não infomado
+              {% endif %}
+            </p>
         </div>
       </div>
     </div>

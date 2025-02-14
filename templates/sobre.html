@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="col-12 text-center d-flex flex-column justify-content-center align-items-center">
+<!-- <div class="col-12 text-center d-flex flex-column justify-content-center align-items-center">
 
-    <h3><i class="bi bi-info-circle mx-2"></i> Sobre nós</h3>
+    <h3><i class="bi bi-info-circle mx-2 my-3"></i> Sobre nós</h3>
 
-</div>
+</div> -->
 
-<div class="introducao col-12 row flex-row align-items-center justify-content-center" id="explorar">
+<!-- <div class="introducao col-12 row flex-row align-items-center justify-content-center" id="explorar">
     <div class="col-10 col-md-6">
       <h3><span class="red"><strong>Na região da Chapada do Araripe (Ceará), existem cerca de 40 espécies de cobras.</strong></span></h3>
     <h4>Delas, <span class="red"><strong>apenas 4 são peçonhentas.</strong></span></h4>
@@ -17,16 +17,16 @@
     </div>
     <div class="col-12 col-md-6 text-center">
       <img alt="ilustração da chapada do araripe" class="ilust" src="{{url_for('static', filename='img/ilustracao-chapada.png')}}"/>
-    </div>
-  </div>
-  <hr/>
+    </div> 
+  </div> -->
+  <!-- <hr/> -->
   <div class="introducao col-12 row flex-row align-items-center justify-content-center text-center">
-    <h3><i class="bi bi-person-bounding-box mx-2"></i> Equipe do projeto</h3>
-    <p>Conheça os criadores do projeto</p>
+    <h3 class="mt-3"><i class="bi bi-person-bounding-box mx-2"></i> Equipe do projeto</h3>
+    <p class="mb-4">Conheça os criadores do projeto</p>
     <div class="col-12 col-md-6 row my-2">
       <div class="col-4 text-center">
         <img src="{{url_for('static', filename='img/equipe/cicero_jose.jpeg')}}" alt="foto cícero josé" class="equipe_img shadow"/>
-        <h5><strong>Cícero José</strong></h5>
+        <h5 class="mt-2"><strong>Cícero José</strong></h5>
       </div>
       <div class="col-8 text-start">
         <p>Graduando em Ciência da Computação na Universidade Federal do Cariri (UFCA). Atuou como desenvolvedor <span type="button" class="dotted-text" data-bs-toggle="tooltip"
@@ -35,13 +35,14 @@
           <ul>
             <li><a href ="https://github.com/c1c3ro" target="_blank" rel="noopener noreferrer"><i class="bi bi-github mx-2"></i> Github</a></li>
             <li><a href ="https://www.linkedin.com/in/c%C3%ADcero-jos%C3%A9-36b6a51a9/" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin mx-2"></i> LinkedIn</a></li>
+            <li><a href ="https://www.linkedin.com/in/c%C3%ADcero-jos%C3%A9-36b6a51a9/" target="_blank" rel="noopener noreferrer"><i class="mx-0"></i> Lattes </a></li>
           </ul>
       </div>
     </div>
     <div class="col-12 col-md-6 row my-2">
       <div class="col-4 text-center">
         <img src="{{url_for('static', filename='img/equipe/samuel_santos.jpeg')}}" alt="foto cícero samuel" class="equipe_img shadow"/>
-        <h5><strong>Cícero Samuel</strong></h5>
+        <h5 class="mt-2"><strong>Cícero Samuel</strong></h5>
       </div>
       <div class="col-8 text-start">
         <p>Graduando em Ciência da Computação na Universidade Federal do Cariri (UFCA). Atuou como desenvolvedor <span type="button" class="dotted-text" data-bs-toggle="tooltip"
@@ -56,7 +57,7 @@
     <div class="col-12 col-md-6 row my-2">
       <div class="col-4 text-center">
         <img src="{{url_for('static', filename='img/equipe/thiago_carlos.jpeg')}}" alt="foto thiago carlos" class="equipe_img shadow"/>
-        <h5><strong>Thiago Carlos</strong></h5>
+        <h5 class="mt-2"><strong>Thiago Carlos</strong></h5>
       </div>
       <div class="col-8 text-start">
         <p>Graduando em Ciência da Computação na Universidade Federal do Cariri (UFCA). Atuou como desenvolvedor <span type="button" class="dotted-text" data-bs-toggle="tooltip"
@@ -71,7 +72,7 @@
     <div class="col-12 col-md-6 row my-2">
       <div class="col-4 text-center">
         <img src="{{url_for('static', filename='img/equipe/samuel_cardozo.jpg')}}" alt="foto samuel cardozo" class="equipe_img shadow"/>
-        <h5><strong>Samuel Cardozo</strong></h5>
+        <h5 class="mt-2"><strong>Samuel Cardozo</strong></h5>
       </div>
       <div class="col-8 text-start">
         <p>Professor do Instituto de Formação de Educadores (IFE) na Universidade Federal do Cariri (UFCA). Pesquisador no  <a href="https://www.instagram.com/labeas.ufca/" target="_blank" rel="noopener noreferrer">Laboratório de Biologia e Ecologia de Animais Silvestres (LaBEAS)</a>. Atuou como orientador e consultor científico do projeto.</p>
@@ -79,11 +80,20 @@
     </div>
   </div>
   <hr/>
-  <div class="introducao col-12 row flex-row align-items-center justify-content-center text-center mt-3">
-    <h3><i class="bi bi-book mx-2"></i> Referências bibliográficas</h3>
-    <p>Nosso projeto é baseado em ciência. E ciência feita na região do Cariri!<br/>
-    Aqui você pode ver os trabalhos científicos que embasaram nosso aplicativo.</p>
-    <h5><i class="bi bi-tools mx-2"></i> <strong>Em construção...</strong></h5>
+  <div class="introducao col-12 row flex-row align-items-center justify-content-center text-left mt-3">
+    <h3 class="text-center mb-4"><i class="bi bi-book mx-2"></i> Referências bibliográficas</h3>
+    <p class="text-left">
+      RIBEIRO, S. C.; ROBERTO, I. J.; OLIVEIRA, H. F.; OLIVEIRA, R. H.; SILVA, M. C.; ALMEIDA, W. O.; AVILA, R. W. Herpetofauna da Chapada do Araripe: Composição, Distribuição e Conservação. In: Albuquerque, U.P. & Meiado, M.V.. (Org.). Pessoas, Plantas e Animais no Semiárido Brasileiro Sociobiodiversidade na Chapada do Araripe. 1ed.Recife, PE: Nupea, 2015, v. , p. 235-272.
+      <br><br>
+      SILVA NETA, A. F.; FERREIRA, A. J. M. G.; MATIAS, C. S. L.; OLIVEIRA, C. R.; SILVA, C. F.; OLIVEIRA, D. B.; AMORIM, D. M.; OLIVEIRA, D. B.; ALCANTARA, E. P.; OLIVEIRA, H. F.; ROBERTO, I. J.; SANTOS, J. S.; SILVA, M. C.; ÁVILA, R.W.; OLIVEIRA, R. H.; RIBEIRO, S.C.; QUIRINO, T. F. Herpetologia do Sul do Ceará e Sertão Pernambucano. 1. ed. Fortaleza: , 2016. 160p .
+      <br><br>
+      NOVAIS, F. F. M.; LACERDA, G. M. C.; RIBEIRO, S. C.  Acidentes ofídicos na Região do Cariri, estado do Ceará, Brasil. Pesquisa e Ensino em Ciências Exatas e da Natureza, v. 6, p. 1733, 2022.
+      <br><br>
+      RIBEIRO, S. C.; ROBERTO, I. J. ; SALES, D. L. ; AVILA, R. W.; ALMEIDA, W. O. Amphibians and reptiles from Araripe Bioregion, Northeastern Brazil. SALAMANDRA, v. 48, p. 133-146, 2012.
+      <br><br>
+      RIBEIRO, S. C.; FERREIRA, F. S .; BRITO, S. V.; SANTANA, G. G.; VIEIRA, W. L. S. ; ALVES, R. R. N.; ALMEIDA, W. O. The Squamata Fauna of the Chapada do Araripe, Northeastern Brazil. Cadernos de Cultura e Ciência (URCA), v. 3, p. 67-76, 2008.
+    </p>
+    
   </div>
 
   <script>

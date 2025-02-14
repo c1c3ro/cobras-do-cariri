@@ -6,7 +6,7 @@ import os
 
 conn = None
 credentials = {}
-with open('/home/cobrasdocariri/mysite/databaseCredentials.json') as j_file:
+with open('./databaseCredentials.json') as j_file: # PROD: /home/cobrasdocariri/mysite
     credentials = json.load(j_file)
 
 def execute_query(query, params = None, isAlteration = False, lastRowId = False, rowCount = False):
@@ -105,12 +105,14 @@ def get_cobras(search):
 def get_cobras_info(search = None):
     ids, cobras, nomes_pop, peconhenta = get_cobras(search)
     cobras_info = {}
+    cobras = list(set(cobras))
     for cobra in cobras:
-        for filename in os.listdir("/home/cobrasdocariri/mysite/static/serpentesFotos/{}".format(cobra)):
+        for filename in os.listdir("./static/serpentesFotos/{}".format(cobra)): # PROD: /home/cobrasdocariri/mysite
             if cobra not in cobras_info.keys():
                 cobras_info[cobra] = []
             cobras_info[cobra].append(filename)
-    return ids, cobras_info, nomes_pop, peconhenta
+    sorted_info = dict(sorted(cobras_info.items()))
+    return ids, sorted_info, nomes_pop, peconhenta
 
 def get_hospitais():
     query = ("SELECT idHOSPITAL, nome, localizacao, municipio, telefone, mapa FROM hospital WHERE 1=1")
@@ -196,12 +198,12 @@ def novo_usuario(usuario, senha_cript, email):
 
 def get_cobra(id):
 
-    query = f"SELECT  cobra.familia, cobra.especie, cobra.peconhenta, cobra_nome_pop.nome, familia.nome, denticao.nome, denticao.descricao, cobra.tam_max FROM cobra INNER JOIN cobra_nome_pop ON cobra.idCOBRA = cobra_nome_pop.idCOBRA INNER JOIN familia ON cobra.grupo = familia.idFam INNER JOIN denticao ON denticao.idDenticao = cobra.idDenticao WHERE cobra.idCOBRA = {id}"
+    query = f"SELECT  cobra.familia, cobra.especie, cobra.peconhenta, cobra_nome_pop.nome, familia.nome, denticao.nome, denticao.descricao, cobra.tam_max, cobra.alimentacao, cobra.habitat, cobra.atividade, cobra.encontro, cobra.reproducao FROM cobra INNER JOIN cobra_nome_pop ON cobra.idCOBRA = cobra_nome_pop.idCOBRA INNER JOIN familia ON cobra.grupo = familia.idFam INNER JOIN denticao ON denticao.idDenticao = cobra.idDenticao WHERE cobra.idCOBRA = {id}"
 
     cursor = execute_query(query)
 
     info_cobra = {}
-    for familia, especie, peconhenta, nome_pop, grupo, denticao, dent_desc, tam_max in cursor['rows']:
+    for familia, especie, peconhenta, nome_pop, grupo, denticao, dent_desc, tam_max, alimentacao, habitat, atividade, encontro, reproducao in cursor['rows']:
         info_cobra['familia'] = familia
         info_cobra['especie'] = especie
         info_cobra['peconhenta'] = peconhenta
@@ -209,13 +211,17 @@ def get_cobra(id):
         info_cobra['denticao'] = denticao
         info_cobra['dent_desc'] = dent_desc
         info_cobra['tam_max'] = tam_max
+        info_cobra['alimentacao'] = alimentacao
+        info_cobra['habitat'] = habitat
+        info_cobra['atividade'] = atividade
+        info_cobra['encontro'] = encontro
+        info_cobra['reproducao'] = reproducao
         if 'nome_pop' not in info_cobra.keys():
             info_cobra['nome_pop'] = []
         info_cobra['nome_pop'].append(nome_pop)
 
-    print(info_cobra)
-
-    for filename in os.listdir("/home/cobrasdocariri/mysite/static/serpentesFotos/{}".format(info_cobra['especie'])):
+    
+    for filename in os.listdir("./static/serpentesFotos/{}".format(info_cobra['especie'])): # PROD: /home/cobrasdocariri/mysite
         if 'filenames' not in info_cobra.keys():
             info_cobra['filenames'] = []
         info_cobra['filenames'].append(filename)
