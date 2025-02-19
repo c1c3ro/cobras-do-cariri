@@ -19,8 +19,9 @@ app.config['SECRET_KEY'] = os.urandom(24)
 app.config['WTF_CSRF_SSL_STRICT'] = False
 
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 50
-app.config['UPLOAD_EXTENSIONS'] = [".png", ".jpg", ".jpeg", ".gif"]
-app.config['UPLOAD_PATH'] = os.path.join('static', 'registros')
+app.config['UPLOAD_EXTENSIONS'] = [".png", ".jpg", ".jpeg", ".gif", ".webp"]
+app.config['UPLOAD_PATH'] = os.path.join('static', 'registros')  # PROD "/home/cobrasdocariri/mysite/static/registros"
+app.config['SNAKE_IMAGES'] = os.path.join('static', 'serpentesFotos')  # PROD "/home/cobrasdocariri/mysite/static/serpentesFotos"
 
 Session(app)
 app.permanent_session_lifetime = timedelta(minutes=10)
@@ -174,6 +175,39 @@ def admin_registros():
             return render_template("admin_registros.html", username=session['username'], registros=registros, deleteRegistro=deleteRegistro)
         else:
             return render_template("admin_registros.html", username=session['username'], registros=registros)
+        
+@app.route("/admin/cobras", methods=('GET', 'POST'))
+def admin_cobras():
+    form = OcorrenciaForm()
+    if not session.get('logged'):
+        return render_template("proibido.html")
+    else:
+        if form.validate_on_submit():
+            #lidando com as imagens
+            try:
+                nomesImg = []
+                imagens = request.files.getlist('imagem')
+                if imagens[0].filename != '':
+                    isImg = 1
+                else:
+                    raise KeyError
+                
+                for imagem in imagens:
+                    if imagem.filename != '':
+                        nomesImg.append(secure_filename(imagem.filename))
+                        file_ext = os.path.splitext(nomesImg[-1])[1]
+                        if file_ext not in app.config['UPLOAD_EXTENSIONS']:
+                            abort(400)
+                        imagem.save(os.path.join(app.config['SNAKE_IMAGES'], request.form['snake'], nomesImg[-1]))
+            except(KeyError):
+                print("Não foram enviadas fotos!");
+                
+        ids, cobras_info, nomes_pop, peconhenta = get_cobras_info()
+        deleteRegistro = request.args.get('deleteRegistro', None)
+        if deleteRegistro is not None:
+            return render_template("admin_cobras.html", cobras_info=cobras_info, nomes_pop=nomes_pop, peconhenta=peconhenta, ids=ids, deleteRegistro=deleteRegistro, form = form, username=session['username'])
+        else:
+            return render_template("admin_cobras.html", cobras_info=cobras_info, nomes_pop=nomes_pop, peconhenta=peconhenta, ids=ids, username=session['username'], form = form)
 
 @app.route("/download/<id>")
 def download(id):
@@ -183,11 +217,11 @@ def download(id):
         timestr = time.strftime("%Y%m%d-%H%M%S")
         fileName = "registro{}.zip".format(id)
         memory_file = io.BytesIO()
-        file_path = 'static/registros/{}/'.format(id)
+        file_path = 'static/registros/{}/'.format(id) # PROD '/home/cobrasdocariri/mysite/static/registros/{}/'.format(id)
         with zipfile.ZipFile(memory_file, 'w', zipfile.ZIP_DEFLATED) as zipf:
             for root, dirs, files in os.walk(file_path):
                 for file in files:
-                    zipf.write(os.path.join(root, file))
+                    zipf.write(os.path.join(root, file), arcname=os.path.join(root.replace(file_path, ""), file))
                     print(os.path.join(root, file))
         memory_file.seek(0)
         return send_file(memory_file, attachment_filename=fileName, as_attachment=True)
@@ -200,6 +234,21 @@ def excluir(id):
     else:
         status = delete_registro(id)
         return redirect(url_for("admin_registros", deleteRegistro=status))
+    
+@app.route("/excluir-img/<snake>/<id>")
+def excluir_img(snake, id):
+    if not session.get('logged'):
+        return render_template("proibido.html")
+    else:
+        status = 0
+        caminho_arquivo = os.path.join(app.config['SNAKE_IMAGES'], snake, id)
+        if os.path.exists(caminho_arquivo):
+            os.remove(caminho_arquivo)
+            print("Arquivo deletado com sucesso!")
+            status = 1
+        else:
+            print("O arquivo não existe.")
+        return redirect(url_for("admin_cobras", deleteRegistro=status))
 
 @app.route("/logout")
 def logout():

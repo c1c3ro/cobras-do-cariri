@@ -22,6 +22,7 @@ def execute_query(query, params = None, isAlteration = False, lastRowId = False,
         results['rows'] = cursor.fetchall()
         if lastRowId:
             results['lastRowId'] = cursor.lastrowid
+
         elif rowCount:
             results['rowCount'] = cursor.rowcount
         cursor.close()

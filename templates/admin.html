@@ -2,19 +2,24 @@
 {% block content %}
 
 <div class="col-12 text-center d-flex flex-column justify-content-center align-items-center">
+    
     <h3>Olá, <em>@</em><strong>{{username}}</strong>!</h3>
 
-    <div class="main-menu row align-items-center text-center">
-        <div class="col-12 col-sm main-menu-item">
-            <a href="{{url_for('cadastro')}}"><div><i class="bi bi-clipboard-plus"></i></div>
+    <div class="main-menu row align-items-center text-center mt-sm-3">
+        <div class="col-12 col-sm main-menu-item mt-2 mt-sm-0">
+            <a href="{{url_for('cadastro')}}"><div><i class="bi bi-clipboard-plus me-2 me-sm-0"></i></div>
              Cadastrar novo usuário</a>
         </div>
-        <div class="col-12 col-sm main-menu-item">
-            <a href="{{url_for('admin_registros')}}"><div><i class="bi bi-file-earmark-text"></i></div>
+        <div class="col-12 col-sm main-menu-item mt-2 mt-sm-0">
+            <a href="{{url_for('admin_registros')}}"><div><i class="bi bi-file-earmark-text me-2 me-sm-0"></i></div>
              Administrar registros</a>
         </div>
-        <div class="col-12 col-sm main-menu-item">
-            <a href="{{url_for('logout')}}"><div><i class="bi bi-box-arrow-left"></i></div>
+        <div class="col-12 col-sm main-menu-item mt-2 mt-sm-0">
+            <a href="{{url_for('admin_cobras')}}"><div><i class="bi bi-gear me-2 me-sm-0"></i></div>
+             Administrar cobras</a>
+        </div>
+        <div class="col-12 col-sm main-menu-item mt-2 mt-sm-0">
+            <a href="{{url_for('logout')}}"><div><i class="bi bi-box-arrow-left me-2 me-sm-0"></i></div>
              Log-out</a>
         </div>
     </div>
