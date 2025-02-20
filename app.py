@@ -34,7 +34,6 @@ app.permanent_session_lifetime = timedelta(minutes=10)
 def index():
     ids, cobras_info, nomes_pop, peconhenta = get_cobras_info()
     noReturn = request.args.get('noReturn', None)
-    print(cobras_info)
     if not session.get('username'):
         return render_template("index.html", cobras_info=cobras_info, nomes_pop=nomes_pop, peconhenta=peconhenta, ids=ids, noReturn=noReturn)
     else:
