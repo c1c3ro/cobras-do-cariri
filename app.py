@@ -9,21 +9,15 @@ from werkzeug.utils import secure_filename
 from hashlib import sha256
 from datetime import timedelta
 from waitress import serve
+from config import Config
 import os, io, zipfile, time
 
 
 app = Flask(__name__)
 CSRFProtect(app)
 
-app.config['PRODUCTION'] = False
+app.config.from_object(Config)
 
-app.config["SESSION_PERMANENT"] = False
-app.config['SESSION_TYPE'] = 'filesystem'
-app.config['SECRET_KEY'] = os.urandom(24)
-app.config['WTF_CSRF_SSL_STRICT'] = False
-
-app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 50
-app.config['UPLOAD_EXTENSIONS'] = [".png", ".jpg", ".jpeg", ".gif", ".webp"]
 app.config['UPLOAD_PATH'] = "/home/cobrasdocariri/mysite/static/registros" if app.config['PRODUCTION'] else os.path.join('static', 'registros') 
 app.config['SNAKE_IMAGES'] = "/home/cobrasdocariri/mysite/static/serpentesFotos" if app.config['PRODUCTION'] else os.path.join('static', 'serpentesFotos')
 
