@@ -3,7 +3,7 @@
 
 <div class="col-12 text-center d-flex flex-column justify-content-center align-items-center">
 
-    <h3 class="mb-3"><i class="bi bi-file-earmark-text"></i> Administrar cobras</h3>
+    <h3 class="mb-3"><i class="bi bi-card-image"></i> Administrar imagens das cobras</h3>
 
     <div class="accordion col-12" id="accordion">
     {% for cobra, imgs in cobras_info.items() %}
@@ -21,7 +21,6 @@
                             <div class="card mb-4" style="width: 18rem;">
                                 <img class="d-block w-100 shadow" src='{{url_for("static", filename="serpentesFotos/{cobra}/{img}".format(cobra=cobra, img=imgs[i]))}}'>
                                 <div class="card-body">
-                                <h6 class="card-title">{{imgs[i]}}</h5>
                                     <a href="{{url_for('excluir_img', snake=cobra, id=imgs[i])}}"><button class="btn submit-btn shadow-sm"><i class="bi bi-trash mr-2"></i> Excluir</button></a>
                                 </div>
                             </div>
@@ -30,13 +29,9 @@
 
                     <form class="col-sm-6 col-md-8 col-10 mt-2 align-items-center justify-content-start" action="" method='POST' enctype="multipart/form-data">
                         {{ form.csrf_token }}
-                        <div class="input-group my-2">
+                        <div class="input-group my-2 visually-hidden">
                             <span class="input-group-text shadow-sm"> Espécie: *</span>
                             <input name="snake" type="text" value="{{cobra}}" class="form-control shadow-sm" placeholder="Espécie da cobra" aria-label="espécie" aria-describedby= "espécie" required>
-                        </div>
-                        <div class="input-group my-2">
-                            <span class="input-group-text shadow-sm"> Nomes populares: *</span>
-                            <textarea name="nomes_populares" rows="3" class="form-control shadow-sm" aria-label="nomes populares" placeholder="Nomes populares" required> {{nomes_pop[cobra] | join(', ')}} </textarea>
                         </div>
                         <div class="input-group mt-2">
                             <label class="input-group-text" for="foto">Adicionar imagens</label>

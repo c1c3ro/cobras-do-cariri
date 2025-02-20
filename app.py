@@ -11,8 +11,12 @@ from datetime import timedelta
 from waitress import serve
 import os, io, zipfile, time
 
+
 app = Flask(__name__)
 CSRFProtect(app)
+
+app.config['PRODUCTION'] = False
+
 app.config["SESSION_PERMANENT"] = False
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SECRET_KEY'] = os.urandom(24)
@@ -20,8 +24,8 @@ app.config['WTF_CSRF_SSL_STRICT'] = False
 
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 50
 app.config['UPLOAD_EXTENSIONS'] = [".png", ".jpg", ".jpeg", ".gif", ".webp"]
-app.config['UPLOAD_PATH'] = os.path.join('static', 'registros')  # PROD "/home/cobrasdocariri/mysite/static/registros"
-app.config['SNAKE_IMAGES'] = os.path.join('static', 'serpentesFotos')  # PROD "/home/cobrasdocariri/mysite/static/serpentesFotos"
+app.config['UPLOAD_PATH'] = "/home/cobrasdocariri/mysite/static/registros" if app.config['PRODUCTION'] else os.path.join('static', 'registros') 
+app.config['SNAKE_IMAGES'] = "/home/cobrasdocariri/mysite/static/serpentesFotos" if app.config['PRODUCTION'] else os.path.join('static', 'serpentesFotos')
 
 Session(app)
 app.permanent_session_lifetime = timedelta(minutes=10)
@@ -30,6 +34,7 @@ app.permanent_session_lifetime = timedelta(minutes=10)
 def index():
     ids, cobras_info, nomes_pop, peconhenta = get_cobras_info()
     noReturn = request.args.get('noReturn', None)
+    print(cobras_info)
     if not session.get('username'):
         return render_template("index.html", cobras_info=cobras_info, nomes_pop=nomes_pop, peconhenta=peconhenta, ids=ids, noReturn=noReturn)
     else:
@@ -217,7 +222,7 @@ def download(id):
         timestr = time.strftime("%Y%m%d-%H%M%S")
         fileName = "registro{}.zip".format(id)
         memory_file = io.BytesIO()
-        file_path = 'static/registros/{}/'.format(id) # PROD '/home/cobrasdocariri/mysite/static/registros/{}/'.format(id)
+        file_path = os.path.join(app.config["UPLOAD_PATH"], id)
         with zipfile.ZipFile(memory_file, 'w', zipfile.ZIP_DEFLATED) as zipf:
             for root, dirs, files in os.walk(file_path):
                 for file in files:

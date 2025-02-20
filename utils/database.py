@@ -1,12 +1,14 @@
 from asyncio import constants
 from flask import abort
+from app import app
 import mysql.connector
 import json
 import os
 
 conn = None
 credentials = {}
-with open('./databaseCredentials.json') as j_file: # PROD: /home/cobrasdocariri/mysite
+
+with open("/home/cobrasdocariri/mysite/databaseCredentials.json" if app.config['PRODUCTION'] else './databaseCredentials.json') as j_file: # PROD: /home/cobrasdocariri/mysite
     credentials = json.load(j_file)
 
 def execute_query(query, params = None, isAlteration = False, lastRowId = False, rowCount = False):
@@ -108,7 +110,7 @@ def get_cobras_info(search = None):
     cobras_info = {}
     cobras = list(set(cobras))
     for cobra in cobras:
-        for filename in os.listdir("./static/serpentesFotos/{}".format(cobra)): # PROD: /home/cobrasdocariri/mysite
+        for filename in os.listdir("/home/cobrasdocariri/mysite/static/serpentesFotos/{}".format(cobra) if app.config['PRODUCTION'] else "./static/serpentesFotos/{}".format(cobra)): # PROD: /home/cobrasdocariri/mysite
             if cobra not in cobras_info.keys():
                 cobras_info[cobra] = []
             cobras_info[cobra].append(filename)
@@ -222,7 +224,7 @@ def get_cobra(id):
         info_cobra['nome_pop'].append(nome_pop)
 
     
-    for filename in os.listdir("./static/serpentesFotos/{}".format(info_cobra['especie'])): # PROD: /home/cobrasdocariri/mysite
+    for filename in os.listdir("/home/cobrasdocariri/mysite/static/serpentesFotos/{}".format(info_cobra['especie']) if app.config['PRODUCTION'] else "./static/serpentesFotos/{}".format(info_cobra['especie'])): # PROD: /home/cobrasdocariri/mysite
         if 'filenames' not in info_cobra.keys():
             info_cobra['filenames'] = []
         info_cobra['filenames'].append(filename)
