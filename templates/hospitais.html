@@ -3,6 +3,43 @@
 
 <div class="col-12 text-center d-flex flex-column justify-content-center align-items-center">
 
+    <h3 class="mt-3 mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="mb-1" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M216,88H168V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V88H40a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16H88v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V168h48a16,16,0,0,0,16-16V104A16,16,0,0,0,216,88Zm0,64H160a8,8,0,0,0-8,8v56H104V160a8,8,0,0,0-8-8H40V104H96a8,8,0,0,0,8-8V40h48V96a8,8,0,0,0,8,8h56Z"></path></svg>
+        Primeiros Socorros   </h3>
+    <!-- <p>Clique no nome para abrir o mapa</p> -->
+
+    <div class="text-start px-4 mb-5" style="max-width: 800px;">
+    
+        <h4 class="" style="line-height: 2rem;">Se você ou outra pessoa foi mordida por uma cobra, mantenha a calma e siga estes passos rapidamente:</h4>
+
+        <ul class="my-4">
+            <li>Lavar a ferida com <span class="red"><strong>água e sabão</strong></span>;</li>
+            <li>Ficar deitado e <span class="red"><strong>elevar o membro</strong></span> que levou a picada;</li>
+            <li>Retirar os acessórios;</li>
+            <li>Se possível, e em segurança, tire uma <span class="red"><strong>foto da cobra</strong></span> para ser identificada;</li>
+            <li>Ir para um <span class="red"><strong>hospital</strong></span> para que seja administrado o soro antiofídico.</li>
+        </ul>
+
+        <h4 class="">O que <span class="red"><strong>NÃO</strong></span> fazer:</h4>
+
+        <ul class="my-4">
+                <li><strong>Não</strong> fazer torniquetes (amarrar o local para tentar interromper a circulação do veneno);</li>
+                <li><strong>Não</strong> passar nada no local da picada;</li>
+                <li><strong>Não</strong> cortar a região da picada para “extrair” o veneno;</li>
+                <li><strong>Não</strong> consumir bebidas alcoólicas;</li>
+                <li><strong>Não</strong> sugar o local para tentar extrair o veneno.</li>
+        </ul>
+
+        <h6>Confira abaixo os hospitais na região do Cariri que disponibilizam soro antiofídico para a população.</h6>
+
+        <style>
+            ul li {
+                margin-bottom: 10px; /* Ajuste conforme necessário */
+            }
+        </style>
+
+    </div>
+
     <h3><i class="bi bi-hospital mx-2"></i> Hospitais</h3>
     <p>Clique no nome para abrir o mapa</p>
 
@@ -37,6 +74,52 @@
 
     </div>
 
+    <div>
+        <canvas width="350px" height="400px" id="myChart"></canvas>
+    </div>
+
 </div>
+  
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+    <script>
+        const ctx = document.getElementById('myChart');
+    
+        new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['2019', '2020', '2021', '2022', '2023'],
+            datasets: [{
+            label: 'Casos por ano',
+            data: [253, 206, 264, 233, 306],
+            barPercentage: 1,
+            backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 205, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(54, 162, 235, 1)',
+            ],
+            borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)',
+            ],
+            borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+            y: {
+                beginAtZero: true
+            }
+            }
+        }
+        });
+    </script>
+   
+
 
 {% endblock %}
