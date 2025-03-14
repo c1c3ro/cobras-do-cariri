@@ -2,8 +2,8 @@
 {% block content %}
 
 <div class="col-12 text-center d-flex flex-column justify-content-center align-items-center">
-    <h3>Você viu uma cobra?</h3>
-    <p>Conte para nós abaixo. Assim, você contribui para a ciência da região e para a preservação das cobras!</p>
+    <h3 class="mt-4 mb-3">Você viu uma cobra? <br>Mande uma foto!</h3>
+    <p class="mb-4">Conte para nós abaixo. Assim, você contribui para a ciência da região e para a preservação das cobras!</p>
 
     <form class="col-sm-6 col-md-8 col-10 mt-2 align-items-center justify-content-start" action="" method='POST' enctype="multipart/form-data">
         {{ form.csrf_token }}
@@ -13,7 +13,7 @@
         </div>
         <div class="input-group my-2">
             <span class="input-group-text">Data *</span>
-            <input name="data" type="date" class="form-control  shadow-sm" placeholder="Data" aria-label="data" required>
+            <input id="data" name="data" type="date" class="form-control  shadow-sm" placeholder="Data" aria-label="data" required>
             <span class="input-group-text d-none d-md-block">Hora</span>
             <input name="hora1" type="time" class="form-control  shadow-sm  d-none  d-md-block" placeholder="Horas" aria-label="horas">
         </div>
@@ -87,6 +87,9 @@
     {% endif %}
 
     <script>
+
+        document.getElementById('data').valueAsDate = new Date();
+
         $(document).ready(function(){
             if ($('#successModal').length) {
                 $('#successModal').modal('show');

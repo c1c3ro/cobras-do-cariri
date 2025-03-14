@@ -43,7 +43,7 @@
     <h3><i class="bi bi-hospital mx-2"></i> Hospitais</h3>
     <p>Clique no nome para abrir o mapa</p>
 
-    <div class="col-12 row">
+    <div class="col-12 row py-4">
 
         {% for hospital, info in hospitais.items() %}
             <div class="card col-12 col-md-6 col-lg-6 px-2 mb-3 flex-column align-items-center justify-content-center">
@@ -74,9 +74,31 @@
 
     </div>
 
-    <div>
+    <h3><i class="bi bi-exclamation-circle mx-2"></i> Casos na Região do Cariri </h3>
+    <p>Confira a quantidade de acidentes ofídicos notificados no Cariri</p>
+
+    <div class="pt-5 pb-3">
         <canvas width="350px" height="400px" id="myChart"></canvas>
     </div>
+
+    <div class="pb-5 ps-5 text-end">
+        <p class="dados">
+            Dados extraídos do <a href="http://tabnet.datasus.gov.br/cgi/deftohtm.exe?sinannet/cnv/animaisce.def"> Sistema de Informação de Agravo de Notificação (SINAN)</a> do Ministério da Saúde no dia 07/03/2025 referente aos anos de 2019 a 2023.
+        </p>
+    </div>
+
+    <div class="casos pb-5">
+        <h6 class="px-4 pb-4">
+            Entre os <strong>1.259</strong> casos registrados entre 2019 e 2023, a grande maioria teve recuperação completa, com apenas <strong>5</strong> casos evoluindo para óbito.
+        </h6>
+
+        <h4 class="">
+            O tratamento adequado salva vidas! Em caso de acidente, busque <span class="red"><strong>atendimento médico</strong></span> o quanto antes.
+        </h4>
+
+    </div>
+
+
 
 </div>
   
@@ -91,7 +113,7 @@
             labels: ['2019', '2020', '2021', '2022', '2023'],
             datasets: [{
             label: 'Casos por ano',
-            data: [253, 206, 264, 233, 306],
+            data: [253, 206, 263, 233, 304],
             barPercentage: 1,
             backgroundColor: [
                 'rgba(255, 99, 132, 1)',
@@ -120,6 +142,25 @@
         });
     </script>
    
+   <style>
+
+        .dados {
+            font-size: 10px;
+        }
+
+        @media screen and (min-width: 992px) {
+            .casos{
+                padding-left: 20% !important; 
+                padding-right: 20% !important;
+            }
+
+            .dados {
+                padding-left: 40%;
+                padding-right: 30%;
+            }
+        }
+    </style>
 
 
 {% endblock %}
+
