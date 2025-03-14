@@ -255,5 +255,5 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(debug=True) # PROD: False
+    app.run(debug=False if app.config['PRODUCTION'] else True) # PROD: False
     #serve(app, host='0.0.0.0', port=80, url_prefix='/cobras')
