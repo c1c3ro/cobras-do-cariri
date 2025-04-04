@@ -106,15 +106,16 @@ def get_cobras(search):
 
     return ids, cobras, nomes_pop, peconha
 
-def get_cobras_info(search = None):
+def get_cobras_info(search=None):
     ids, cobras, nomes_pop, peconhenta = get_cobras(search)
     cobras_info = {}
     cobras = list(set(cobras))
     for cobra in cobras:
-        for filename in os.listdir("/home/cobrasdocariri/mysite/static/serpentesFotos/{}".format(cobra) if Config.PRODUCTION else "./static/serpentesFotos/{}".format(cobra)): # PROD: /home/cobrasdocariri/mysite
-            if cobra not in cobras_info.keys():
-                cobras_info[cobra] = []
-            cobras_info[cobra].append(filename)
+        path = "/home/cobrasdocariri/mysite/static/serpentesFotos/{}".format(cobra) if Config.PRODUCTION else "./static/serpentesFotos/{}".format(cobra)
+        filenames = sorted(os.listdir(path))  # Sort the filenames alphabetically
+        if cobra not in cobras_info:
+            cobras_info[cobra] = []
+        cobras_info[cobra].extend(filenames)
     sorted_info = dict(sorted(cobras_info.items()))
     return ids, sorted_info, nomes_pop, peconhenta
 
@@ -224,7 +225,7 @@ def get_cobra(id):
             info_cobra['nome_pop'] = []
         info_cobra['nome_pop'].append(nome_pop)
 
-    
+
     for filename in os.listdir("/home/cobrasdocariri/mysite/static/serpentesFotos/{}".format(info_cobra['especie']) if Config.PRODUCTION else "./static/serpentesFotos/{}".format(info_cobra['especie'])): # PROD: /home/cobrasdocariri/mysite
         if 'filenames' not in info_cobra.keys():
             info_cobra['filenames'] = []
