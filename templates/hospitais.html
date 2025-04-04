@@ -9,7 +9,7 @@
     <!-- <p>Clique no nome para abrir o mapa</p> -->
 
     <div class="text-start px-4 mb-5" style="max-width: 800px;">
-    
+
         <h4 class="" style="line-height: 2rem;">Se você ou outra pessoa foi mordida por uma cobra, mantenha a calma e siga estes passos rapidamente:</h4>
 
         <ul class="my-4">
@@ -46,13 +46,13 @@
     <div class="col-12 row py-4">
 
         {% for hospital, info in hospitais.items() %}
-            <div class="card col-12 col-md-6 col-lg-6 px-2 mb-3 flex-column align-items-center justify-content-center">
+            <div class="card col-12 col-md-6 col-lg-6 px-2 mb-5 flex-column align-items-center justify-content-center">
                 <div class="card-body">
                     <h5 class="card-title"><a href="{{info['mapa']}}" target="_blank" rel="noopener noreferrer"><strong>{{hospital}}</strong></a></h5>
-                    <a class="collapse-link" data-bs-toggle="collapse" href="#collapse{{info['id']}}" role="button" aria-expanded="false" aria-controls="collapse{{info['id']}}">
-                        <h6 class="card-subtitle mb-2 text-muted">Mais informações <i class="bi bi-chevron-down"></i></h6>
-                    </a>
-                    <div class="collapse" id="collapse{{info['id']}}">
+                    <!--<a class="collapse-link" data-bs-toggle="collapse" href="#collapse{{info['id']}}" role="button" aria-expanded="false" aria-controls="collapse{{info['id']}}">-->
+                    <!--    <h6 class="card-subtitle mb-2 text-muted">Mais informações <i class="bi bi-chevron-down"></i></h6>-->
+                    <!--</a>-->
+                    <div class="" id="collapse{{info['id']}}">
                         <div>
                             <p>
                                 <strong>Município: </strong>
@@ -64,7 +64,14 @@
                             </p>
                             <p>
                                 <strong>Telefone: </strong>
-                                {{info['telefone']}}
+                                <span class="destaque-telefone">{{info['telefone']}}</span>
+                                <a href="tel:{{info['telefone']}}" class="btn btn-sm btn-danger ms-2 mb-2">
+                                    <i class="bi bi-telephone-fill"></i> Ligar agora
+                                </a>
+                                <br>
+                                <small class="texto-avisando">
+                                    <i class="bi bi-info-circle"></i> Recomendamos ligar antes para verificar a disponibilidade do soro antiofídico.
+                                </small>
                             </p>
                         </div>
                     </div>
@@ -101,56 +108,77 @@
 
 
 </div>
-  
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
+
     <script>
         const ctx = document.getElementById('myChart');
-    
+
         new Chart(ctx, {
         type: 'bar',
         data: {
             labels: ['2019', '2020', '2021', '2022', '2023'],
             datasets: [{
-            label: 'Casos por ano',
-            data: [253, 206, 263, 233, 304],
-            barPercentage: 1,
-            backgroundColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 205, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(54, 162, 235, 1)',
-            ],
-            borderColor: [
-                'rgb(255, 99, 132)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 205, 86)',
-                'rgb(75, 192, 192)',
-                'rgb(54, 162, 235)',
-            ],
-            borderWidth: 1
+                // label: 'Casos por ano',  ⬅️ Pode remover ou deixar sem problema
+                data: [253, 206, 263, 233, 304],
+                barPercentage: 1,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 205, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(54, 162, 235, 1)',
+                ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                ],
+                borderWidth: 1
             }]
         },
         options: {
+            plugins: {
+                legend: {
+                    display: false // 👈 Aqui você remove a legenda
+                }
+            },
             scales: {
-            y: {
-                beginAtZero: true
+                y: {
+                    beginAtZero: true
+                }
             }
             }
-        }
         });
     </script>
-   
+
    <style>
 
         .dados {
             font-size: 10px;
         }
 
+        .destaque-telefone {
+            font-weight: bold;
+            color: #d00000; /* Vermelho escuro para chamar atenção */
+            font-size: 1.1rem;
+        }
+
+        .texto-avisando {
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .texto-avisando i {
+            color: #d00000;
+            margin-right: 4px;
+        }
+
         @media screen and (min-width: 992px) {
             .casos{
-                padding-left: 20% !important; 
+                padding-left: 20% !important;
                 padding-right: 20% !important;
             }
 
