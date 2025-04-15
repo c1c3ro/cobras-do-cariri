@@ -78,6 +78,7 @@
 
         {% endfor %}
         {% for cobra, imgs in cobras_info.items() %}
+         {% if peconhenta[cobra] != 1 %}
           <div class="col-12 col-md-6 col-lg-3 px-2 mb-3 flex-column align-items-center justify-content-center">
             <div id="{{cobra|replace(' ', '-')}}" class="carousel slide slider" data-ride="carousel">
 
@@ -113,6 +114,7 @@
               </div>
             </div>
           </div>
+          {% endif %}
           {% endfor %}
           </div>
     </div>
