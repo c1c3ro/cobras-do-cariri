@@ -56,7 +56,7 @@
                     </a>
                 </div>
                 <div class="search col-10 col-md-9 align-items-end">
-                    <div class="col-12 col-md-5 d-inline-flex align-items-end">
+                    <div class="col-12 col-md-7 d-inline-flex align-items-end">
                         <input type="text" id="searchBar" class="form-control search-input shadow-sm" aria-label="Pesquisar serpente" aria-describedby="inputGroup-sizing-default" placeholder="Pesquisar serpente"/>
                         <button id="searchBtn" class="search-icon shadow-sm submit-btn" onclick="getInputValue()">
                             <i class="bi bi-search"></i>
@@ -105,9 +105,9 @@
                 <hr/>
                     <div class="d-inline-flex login mb-3">
                         {% if username is defined %}
-                            <a href="{{url_for('admin')}}">{{username}}</a> <i class="bi bi-person-circle"></i>
+                            <a class="login-link" href="{{url_for('admin')}}">{{username}}</a> <i class="bi bi-person-circle"></i>
                         {% else %}
-                            <a href="{{url_for('login')}}">Login</a> <i class="bi bi-person-circle"></i>
+                            <a class="login-link" href="{{url_for('login')}}">Login administrador</a> <i class="bi bi-person-circle"></i>
                         {% endif %}
                     </div>
                 <div class="row align-items-center justify-content-around">

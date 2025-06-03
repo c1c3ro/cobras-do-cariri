@@ -102,11 +102,16 @@ a {
 }
 
 .login {
+    
     display: inline-flex;
-    width: min-content;
+    width: max-content;
     align-items: center;
     font-size: 14px;
     font-weight: 600;
+}
+
+.login-link {
+    text-decoration: none !important;
 }
 
 .login > i {
@@ -198,19 +203,19 @@ a {
 .cobra-slider {
     border-radius: 15px;
     /*box-shadow: 0 0 10px 1px #DE4645;*/
-    border: 3px solid #198754;
+    border: 3.5px solid #198754;
 }
 
 .peconhenta-slider {
     border-radius: 15px;
     /*box-shadow: 0 0 10px 1px #DE4645;*/
-    border: 3px solid #DE4645;
+    border: 3.5px solid #DE4645;
 }
 
 .semi-peconhenta-slider {
     border-radius: 15px;
     /*box-shadow: 0 0 10px 1px #DE4645;*/
-    border: 3px solid #FFC107;
+    border: 3.5px solid #FFC107;
 }
 
 .br {
