@@ -3,13 +3,13 @@
 
 <div class="row align-items-center my-4">
     <div class="col-12 col-md-6">
-        <div class="alert alert-danger" role="alert">
-            <i class="bi bi-exclamation-diamond"></i> <strong>Viu uma serpente?</strong>
-            Se possível, não mate ela. <a href="{{url_for('registro')}}">Tire uma foto e envie para nós! </a> Você também pode acionar as equipes de resgate pelos números 193 ou 190.
-         </div><!-- Assim você ajuda a preservar a fauna e o equilíbrio da nossa região! -->
+      <div class="alert" style="background-color: #F8D7DA; color: #842029; border: 1px solid #8420286a;">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> <strong>Viu uma serpente?</strong> 
+        Se possível, não mate ela. <a href="{{url_for('registro')}}">Tire uma foto e envie para nós! </a> Você também pode acionar as equipes de resgate pelos números 193 ou 190.
+      </div>
     </div>
     <div class="col col-md-6">
-        <div class="alert alert-danger" role="alert">
+        <div class="alert" style="background-color: #F8D7DA; color: #842029; border: 1px solid #8420286a;">
             <i class="bi bi-hospital"></i> <strong>Foi picado por uma cobra?</strong>
             <a href="{{url_for('hospitais')}}">Descubra aqui</a> o que fazer e onde você pode buscar tratamento!
         </div>
@@ -17,108 +17,80 @@
 </div>
 
 <div class="introducao col-12 row flex-row align-items-center my-4 justify-content-center">
-  <div class="col-11 col-md-6 text-justify lh-base">
+  <div class="col-11 col-md-6 text-justify lh-base mx-0">
     <h3 class="lh-base"><span class="red"><strong>Conheça as cobras da Chapada do Araripe e ajude a preservá-las!</strong></span></h3>
     <h5 class="lh-base">Na região da <strong><span class="red">Chapada do Araripe</span></strong> (abrangendo os estados do Ceará, Pernambuco e Piauí), <strong><span class="red">existem cerca de 40 espécies de cobras registradas.</span></strong> Dessas, <strong><span class="red">apenas 4 são consideradas de interesse médico</span></strong>, pois podem causar acidentes ofídicos relevantes, com envenenamento.</h5>
-    <h5 class="lh-base">No entanto, devido ao medo e à <span class="red"><strong>falta de informação</strong></span>, muitas dessas serpentes acabam sendo mortas indiscriminadamente. </h5>
-    <!-- Aqui, você terá a oportunidade de conhecer melhor as <strong><span class="red">cobras do Cariri</span></strong> e das regiões vizinhas. Aprenda a identificá-las corretamente e descubra detalhes importantes, como seus hábitos, alimentação e locais onde vivem. -->
+    <h5 class="lh-base">No entanto, devido ao medo e à <span class="red"><strong>falta de informação</strong></span>, muitas dessas serpentes acabam sendo mortas indiscriminadamente.</h5>
     <h5 class="lh-base">Todas as informações disponíveis aqui são baseadas em pesquisas científicas realizadas na região do Cariri <strong><span class="red">desde a década de 80</span></strong>. Que foram reunidas, complementadas e apresentadas pelo nosso coordenador, o biólogo e Prof. Dr. Samuel C. Ribeiro.</h5>
     <h5 class="lh-base">Com essa ferramenta, qualquer pessoa pode acessar <strong><span class="red">dados confiáveis</span></strong> sobre todas as serpentes que ocorrem na Chapada do Araripe e nos municípios ao seu redor — e até um pouco além.</h5>
     <h5 class="lh-base"><strong><span class="red">Ajude a preservar esses animais incríveis!</span></strong> Não os mate. <strong><span class="red">Tire fotos</span></strong>, aprenda a identificá-los e compartilhe o conhecimento. Juntos, podemos fazer a diferença!</h5>
   </div>
-  <div class="col-12 col-md-6 text-center">
+  <div class="col-12 col-md-6 text-center ms-4 ms-md-0">
     <img alt="ilustração da chapada do araripe" class="ilust" src="{{url_for('static', filename='img/ilustracao-chapada.png')}}"/>
     <small class="px-1">
-      As imagens abaixo são de autoria de <strong>Igor J. Roberto</strong>, <strong>Willianilson Pessoa</strong>, <strong>Herivelton Oliveira</strong> e <strong>Samuel C. Ribeiro</strong>.
+      As imagens abaixo são de autoria de <strong>Igor J. Roberto</strong>, <strong>Willianilson Pessoa</strong>,<br class="d-none d-md-block"> <strong>Herivelton Oliveira</strong> e <strong>Samuel C. Ribeiro</strong>.
     </small>
   </div>
 </div>
 
 <div class="explorar col-12 flex-column align-items-center justify-content-center" id="explorar">
-    <h2><i class="bi bi-eye mx-2"></i> Explorar</h2>
-    <div class="row mt-3 slider-item justify-content-center">
-        {% for cobra, imgs in cobras_info.items() %}
+  <h2><i class="bi bi-eye mx-2"></i> Explorar</h2>
+  <div class="row mt-3 slider-item justify-content-center">
+    {% for tipo in [1, 2, 0] %}
+      {% for cobra, imgs in cobras_info.items() if peconhenta[cobra] == tipo %}
+        {% set classe = ['cobra-slider', 'peconhenta-slider', 'semi-peconhenta-slider'][tipo] %}
+        {% set badge = ['text-bg-success', 'text-bg-danger', 'text-bg-warning'][tipo] %}
+        {% set label = ['Não peçonhenta', 'Peçonhenta', 'Semi-peçonhenta'][tipo] %}
+        {% set icone = ['bi-shield-check', 'bi-exclamation-triangle', 'bi-exclamation-circle'][tipo] %}
+        {% set cor = ['#2d9742', '#E40404', '#FF8F00'][tipo] %}
+        {% set link_classe = ['cobra-link', 'peconhenta-link', 'semi-peconhenta-link'][tipo] %}
+        {% set tooltip = [
+          'Serpentes que não possuem peçonha e/ou agressividade.',
+          'Podem causar acidentes graves devido à ação da peçonha.',
+          'Possuem peçonha fraca e só causam efeitos leves, se morderem com os dentes da parte de trás da boca.'
+        ][tipo] %}
 
-        {% if peconhenta[cobra] == 1 %}
-            <div class="col-12 col-md-6 col-lg-3 px-2 mb-3 flex-column align-items-center justify-content-center">
-                <div id="{{cobra|replace(' ', '-')}}" class="carousel slide slider" data-ride="carousel">
-                    <div class="carousel-inner peconhenta-slider">
-                        <div class="carousel-item active">
-                          <img class="d-block w-100 shadow" src='{{url_for("static", filename="serpentesFotos/{cobra}/{img}".format(cobra=cobra, img=imgs[0]))}}'>
-                        </div>
-                        {% for i in range(1, imgs|length) %}
-                          <div class="carousel-item">
-                            <img class="d-block w-100 shadow" src='{{url_for("static", filename="serpentesFotos/{cobra}/{img}".format(cobra=cobra, img=imgs[i]))}}'>
-                          </div>
-                        {% endfor %}
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#{{cobra|replace(' ', '-')}}" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#{{cobra|replace(' ', '-')}}" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-                  </button>
-                </div>
-                 <h5 class="red"><a href="{{url_for('cobra', id=ids[cobra])}}" class="peconhenta-link"><strong>{{cobra}}</strong></a></h5>
-                 <span class="badge text-bg-danger"><i class="bi bi-exclamation-triangle"></i> Peçonhenta <i class="bi bi-exclamation-triangle"></i></span>
-                <p><a class="collapse-link" data-bs-toggle="collapse" href="#collapse-{{cobra|replace(' ', '-')}}" role="button" aria-expanded="false" aria-controls="collapse-{{cobra|replace(' ', '-')}}">
-                  Nomes populares <i class="bi bi-chevron-down"></i>
-                </a></p>
-                <div class="collapse" id="collapse-{{cobra|replace(' ', '-')}}">
-                  <div>
-                    <p>
-                      {{nomes_pop[cobra] | join(', ')}}
-                    </p>
-                  </div>
-                </div>
-              </div>
-        {% endif %}
-
-        {% endfor %}
-        {% for cobra, imgs in cobras_info.items() %}
-         {% if peconhenta[cobra] != 1 %}
-          <div class="col-12 col-md-6 col-lg-3 px-2 mb-3 flex-column align-items-center justify-content-center">
+        <div class="col-12 col-md-6 col-lg-3 px-2 mb-3 flex-column align-items-center justify-content-center">
+          <a href="{{url_for('cobra', id=ids[cobra])}}">
             <div id="{{cobra|replace(' ', '-')}}" class="carousel slide slider" data-ride="carousel">
-
-                <div class="carousel-inner shadow br">
-                    <div class="carousel-item active">
-                      <img class="d-block w-100 shadow" src='{{url_for("static", filename="serpentesFotos/{cobra}/{img}".format(cobra=cobra, img=imgs[0]))}}'>
-                    </div>
-                    {% for i in range(1, imgs|length) %}
-                      <div class="carousel-item">
-                        <img class="d-block w-100 shadow" src='{{url_for("static", filename="serpentesFotos/{cobra}/{img}".format(cobra=cobra, img=imgs[i]))}}'>
-                      </div>
-                    {% endfor %}
+              <div class="carousel-inner {{classe}}">
+                {% for i in range(imgs|length) %}
+                <div class="carousel-item {% if i == 0 %}active{% endif %}">
+                  <img class="d-block w-100 shadow" src='{{url_for("static", filename="serpentesFotos/{cobra}/{img}".format(cobra=cobra, img=imgs[i]))}}'>
+                </div>
+                {% endfor %}
               </div>
               <button class="carousel-control-prev" type="button" data-bs-target="#{{cobra|replace(' ', '-')}}" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
               </button>
               <button class="carousel-control-next" type="button" data-bs-target="#{{cobra|replace(' ', '-')}}" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
               </button>
             </div>
-
-            <h5><a href="{{url_for('cobra', id=ids[cobra])}}" class="cobra-link"><strong>{{cobra}}</strong></a></h5>
-            <p><a class="collapse-link" data-bs-toggle="collapse" href="#collapse-{{cobra|replace(' ', '-')}}" role="button" aria-expanded="false" aria-controls="collapse-{{cobra|replace(' ', '-')}}">
+          </a>
+          <h5 class="{{ 'red' if tipo == 1 else '' }}">
+            <a href="{{url_for('cobra', id=ids[cobra])}}" class="{{link_classe}}"><strong>{{cobra}}</strong></a>
+          </h5>
+          <span class="badge {{badge}}">
+            <i class="bi {{icone}}"></i> {{label}} <i class="bi {{icone}}"></i>
+          </span>
+          <span type="button" class="dotted-text" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" title="{{tooltip}}">
+            <i class="bi bi-info-circle mx-1 fs-6" style="position: relative; top: 1px; color: {{cor}};"></i>
+          </span>
+          <p>
+            <a class="collapse-link" data-bs-toggle="collapse" href="#collapse-{{cobra|replace(' ', '-')}}" role="button" aria-expanded="false" aria-controls="collapse-{{cobra|replace(' ', '-')}}">
               Nomes populares <i class="bi bi-chevron-down"></i>
-            </a></p>
-            <div class="collapse" id="collapse-{{cobra|replace(' ', '-')}}">
-              <div>
-                <p>
-                  {{nomes_pop[cobra] | join(', ')}}
-                </p>
-              </div>
-            </div>
+            </a>
+          </p>
+          <div class="collapse" id="collapse-{{cobra|replace(' ', '-')}}">
+            <div><p>{{nomes_pop[cobra] | join(', ')}}</p></div>
           </div>
-          {% endif %}
-          {% endfor %}
-          </div>
-    </div>
-</div>
+        </div>
+      {% endfor %}
+    {% endfor %}
+  </div>
 </div>
 
 {% if noReturn %}
@@ -154,4 +126,12 @@
     }
   })
 </script>
+
+<script>
+  $(document).ready(function(){
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+  })
+</script>
+
 {% endblock %}

@@ -7,8 +7,10 @@
         <div id="{{cobra|replace(' ', '-')}}" class="carousel slide slider" data-ride="carousel">
           {% if info_cobra['peconhenta'] == 1 %}
             <div class="carousel-inner peconhenta-slider">
+          {% elif info_cobra['peconhenta'] == 2 %}
+            <div class="carousel-inner semi-peconhenta-slider">
           {% else %}
-            <div class="carousel-inner shadow br">
+            <div class="carousel-inner cobra-slider">
           {% endif %}
             <div class="carousel-item active">
               <img class="d-block w-100 shadow" src='{{url_for("static", filename="serpentesFotos/{cobra}/{img}".format(cobra=cobra, img=info_cobra["filenames"][0]))}}'>
@@ -32,9 +34,31 @@
         <div class="col">
         {% if info_cobra['peconhenta'] == 1 %}
           <h1 class="red"><strong>{{cobra}}</strong></h1>
-          <h3><span class="badge text-bg-danger"><i class="bi bi-exclamation-triangle"></i> Peçonhenta <i class="bi bi-exclamation-triangle"></i></span></h3>
+          <h3><span class="badge text-bg-danger"><i class="bi bi-exclamation-triangle"></i> Peçonhenta <i class="bi bi-exclamation-triangle"></i></span>
+            <span type="button" class="dotted-text" data-bs-toggle="tooltip"
+              data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+              title="Possuem glândulas de veneno e presas especializadas para inoculação eficiente. Podem causar acidentes graves em humanos.">
+              <i class="bi bi-info-circle red mx-1 fs-4" style="position: relative; top: 1px;"></i>
+            </span>
+          </h3>
+        {% elif info_cobra['peconhenta'] == 2 %}
+          <h1 class="" style="color: #FF8F00;"><strong>{{cobra}}</strong></h1>
+          <h3><span class="badge text-bg-warning"><i class="bi bi-exclamation-circle"></i> Semi-peçonhenta <i class="bi bi-exclamation-circle"></i></span>
+            <span type="button" class="dotted-text" data-bs-toggle="tooltip"
+              data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+              title="Têm glândulas produtoras de veneno e dentes modificados. A inoculação é pouco eficiente e, em geral, causa acidentes leves ou raros em humanos.">
+                <i class="bi bi-info-circle mx-1 fs-4" style="position: relative; top: 1px; color: #FF8F00;"></i>
+            </span>
+          </h3>
         {% else %}
           <h1><strong>{{cobra}}</strong></h1>
+          <h3><span class="badge text-bg-success"><i class="bi bi-shield-check"></i> Não peçonhenta <i class="bi bi-shield-check"></i></span>
+            <span type="button" class="dotted-text" data-bs-toggle="tooltip"
+              data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+              title="Não possuem glândulas de veneno nem dentes especializados. São inofensivas para humanos.">
+              <i class="bi bi-info-circle mx-1 fs-4" style="position: relative; top: 1px; color:#2d9742;"></i>
+            </span>
+          </h3>
         {% endif %}
             <p>
               {{info_cobra['nome_pop']| join(', ')}}
