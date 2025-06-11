@@ -1,7 +1,7 @@
 import os
 
 class Config:
-    PRODUCTION = False
+    PRODUCTION = True
     SESSION_PERMANENT = False
     SESSION_TYPE = 'filesystem'
     SECRET_KEY = os.urandom(24)
