@@ -44,14 +44,14 @@ a {
 }
 
 .submit-btn {
-    background-color: #DE4645;
+    background-color: #296634;
     color: white;
     font-weight: 700;
     transition: 0.3s;
 }
 
 .submit-btn:hover {
-    background-color: #c72b2b;
+    background-color: #409c50;
     color: white;
 }
 
@@ -94,7 +94,7 @@ a {
     padding: 7px 10px 7px 10px;
     border-radius: 100%;
     margin-left: 5px;
-    background-color: #DE4645;
+    background-color: #296634;
     color: #F2E8C0;
     font-size: 12px;
     cursor: pointer;
@@ -102,7 +102,7 @@ a {
 }
 
 .login {
-    
+
     display: inline-flex;
     width: max-content;
     align-items: center;
@@ -112,6 +112,7 @@ a {
 
 .login-link {
     text-decoration: none !important;
+    color: #296634;
 }
 
 .login > i {
@@ -141,8 +142,8 @@ a {
 }
 
 .main-menu-item:hover {
-    color: #DE4645;
-    fill: #DE4645;
+    color: #296634;
+    fill: #296634;
 }
 
 .main-menu-item i,  .main-menu-item svg{
@@ -170,6 +171,29 @@ a {
 .ilust {
     width: 100%;
     height: auto;
+}
+
+.explicativo {
+    width: 95%;
+    height: auto;
+}
+
+.explicativo-full {
+    width: 520px;
+    height: auto;
+}
+
+@media only screen and (min-width: 768px) {
+
+    .explicativo {
+        width: 400px;
+        height: auto;
+    }
+
+    .ilust {
+        width: 520px;
+        height: auto;
+    }
 }
 
 /*End -- Introdução Style*/
