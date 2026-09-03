@@ -3,29 +3,40 @@
 
 <div class="row align-items-center my-4">
     <div class="col-12 col-md-6">
-      <div class="alert" style="background-color: #F8D7DA; color: #842029; border: 1px solid #8420286a;">
+      <div class="alert" style="background-color: #e8e09f; color: #24582b; border: 1px solid #24582b6a;">
         <i class="bi bi-exclamation-triangle-fill me-2"></i> <strong>Viu uma serpente?</strong>
-        Se possível, não mate ela. <a href="{{url_for('registro')}}">Tire uma foto e envie para nós! </a> Você também pode acionar as equipes de resgate pelos números 193 ou 190.
+        Se possível, não mate ela. <a href="{{url_for('registro')}}" style="color: #24582b;">Tire uma foto e envie para nós! </a> Você também pode acionar as equipes de resgate pelos números 193 ou 190.
       </div>
     </div>
     <div class="col col-md-6">
-        <div class="alert" style="background-color: #F8D7DA; color: #842029; border: 1px solid #8420286a;">
+        <div class="alert" style="background-color: #e8e09f; color: #24582b; border: 1px solid #24582b6a;">
             <i class="bi bi-hospital"></i> <strong>Foi picado por uma cobra?</strong>
-            <a href="{{url_for('hospitais')}}">Descubra aqui</a> o que fazer e onde você pode buscar tratamento!
+            <a href="{{url_for('hospitais')}}" style="color: #24582b;">Descubra aqui</a> o que fazer e onde você pode buscar tratamento!
         </div>
     </div>
 </div>
 
 <div class="introducao col-12 row flex-row align-items-center my-4 justify-content-center">
   <div class="col-12 col-md-6 text-center ms-4 ms-md-0">
+
     <img alt="Explicativo 1" class="explicativo mx-auto" src="{{url_for('static', filename='img/explicativo-1.webp')}}"/>
-    <img alt="Explicativo 2" class="explicativo mx-auto my-3" src="{{url_for('static', filename='img/explicativo-2.webp')}}"/>
-    <img alt="Explicativo 3" class="explicativo mx-auto d-md-none" src="{{url_for('static', filename='img/explicativo-3.webp')}}"/>
+    <img alt="Explicativo 2" class="explicativo mx-auto my-3 d-none d-md-block" src="{{url_for('static', filename='img/explicativo-2.webp')}}"/>
+    <div class="px-1 fs-6 fw-normal mt-3 d-md-none">
+      Vista Geral da <span class="fw-bold">Chapada do Araripe</span>
+    </div>
+    <img alt="ilustração da chapada do araripe" class="ilust mx-auto mb-md-4 my-3 d-md-none" src="{{url_for('static', filename='img/chapada.webp')}}"/>
+
   </div>
   <div class="col-12 col-md-6 text-center ms-4 ms-md-0">
 
-    <img alt="ilustração da chapada do araripe" class="ilust mx-auto mb-md-4 my-3" src="{{url_for('static', filename='img/chapada.webp')}}"/>
-    <img alt="Explicativo 4" class="explicativo-full mx-auto d-none d-md-block mb-4" src="{{url_for('static', filename='img/explicativo-4.webp')}}"/>
+    <img alt="Explicativo 2" class="explicativo mx-auto my-3 d-md-none" src="{{url_for('static', filename='img/explicativo-2.webp')}}"/>
+    <img alt="Explicativo 3" class="explicativo mx-auto d-md-none mb-3" src="{{url_for('static', filename='img/explicativo-3.webp')}}"/>
+    <img alt="Explicativo 4" class="explicativo-full mx-auto d-none d-md-block" src="{{url_for('static', filename='img/explicativo-4.webp')}}"/>
+
+    <div class="px-1 fs-6 fw-normal mt-3 d-none d-md-block">
+      Vista Geral da <span class="fw-bold">Chapada do Araripe</span>
+    </div>
+    <img alt="ilustração da chapada do araripe" class="ilust mx-auto mb-md-4 my-3 d-none d-md-block" src="{{url_for('static', filename='img/chapada.webp')}}"/>
 
     <small class="px-1">
       As imagens abaixo são de autoria de <strong>Igor J. Roberto</strong>, <strong>Willianilson Pessoa</strong>,<br class="d-none d-md-block"> <strong>Herivelton Oliveira</strong> e <strong>Samuel C. Ribeiro</strong>.
@@ -36,19 +47,32 @@
 <div class="explorar col-12 flex-column align-items-center justify-content-center" id="explorar">
   <h2><i class="bi bi-eye mx-2"></i> Explorar</h2>
   <div class="row mt-3 slider-item justify-content-center">
-    {% for tipo in [1, 2, 0] %}
+    {% for tipo in [1, 2, 0, 3] %}
       {% for cobra, imgs in cobras_info.items() if peconhenta[cobra] == tipo %}
-        {% set classe = ['cobra-slider', 'peconhenta-slider', 'semi-peconhenta-slider'][tipo] %}
-        {% set badge = ['text-bg-success', 'text-bg-danger', 'text-bg-warning'][tipo] %}
-        {% set label = ['Não perigosa', 'Perigosa', 'Risco leve'][tipo] %}
-        {% set icone = ['bi-shield-check', 'bi-exclamation-triangle', 'bi-exclamation-circle'][tipo] %}
-        {% set cor = ['#2d9742', '#E40404', '#FF8F00'][tipo] %}
-        {% set link_classe = ['cobra-link', 'peconhenta-link', 'semi-peconhenta-link'][tipo] %}
+        {% set classe = ['cobra-slider', 'peconhenta-slider', 'semi-peconhenta-slider', 'cobra-slider'][tipo] %}
+        {% set badge = ['text-bg-success', 'text-bg-danger', 'text-bg-warning', 'text-bg-success'][tipo] %}
+        {% set label = ['Não perigosa', 'Perigosa', 'Risco leve', 'Não perigosa'][tipo] %}
+        {% set icone = ['bi-shield-check', 'bi-exclamation-triangle', 'bi-exclamation-circle', 'bi-shield-check'][tipo] %}
+        {% set cor = ['#2d9742', '#E40404', '#FF8F00', '#2d9742'][tipo] %}
+        {% set link_classe = ['cobra-link', 'peconhenta-link', 'semi-peconhenta-link', 'cobra-link'][tipo] %}
         {% set tooltip = [
           'Não representam riscos.',
           'Possuem peçonha e podem causar acidentes sérios.',
-          'Possuem peçonha fraca. Podem ocasionar acidentes leves, se conseguirem morder com as presas do final da boca.'
+          'Possuem peçonha fraca. Podem ocasionar acidentes leves, se conseguirem morder com as presas do final da boca.',
+          'Não representam riscos.'
         ][tipo] %}
+
+
+        {% if peconhenta[cobra] == 3 and cobra == "Amphisbaena alba" %}
+
+        <div class="col-12 text-center">
+
+            <img alt="Explicativo 5" class="explicativo-cega mx-auto my-3" src="{{url_for('static', filename='img/explicativo5.webp')}}"/>
+
+        </div>
+
+        {% endif %}
+
 
         <div class="col-12 col-md-6 col-lg-3 px-2 mb-3 flex-column align-items-center justify-content-center">
           <a href="{{url_for('cobra', id=ids[cobra])}}">

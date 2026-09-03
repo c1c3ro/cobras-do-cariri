@@ -178,6 +178,13 @@ a {
     height: auto;
 }
 
+.explicativo-cega {
+    width: 100%;
+    height: auto;
+    margin-top: 25px !important;
+    margin-bottom: 75px !important;
+}
+
 .explicativo-full {
     width: 520px;
     height: auto;
@@ -188,6 +195,11 @@ a {
     .explicativo {
         width: 400px;
         height: auto;
+    }
+
+    .explicativo-cega {
+        width: 50%;
+
     }
 
     .ilust {
