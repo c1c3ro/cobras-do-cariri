@@ -4,7 +4,7 @@
 <div class="explorar col-12 row flex-column align-items-center justify-content-center" id="explorar"></div>
     <div class="row mt-3 slider-item justify-content-center">
       <div class="col-12 col-md-12 col-lg-8 px-2 mb-3 flex-column align-items-center justify-content-center">
-        <div id="{{cobra|replace(' ', '-')}}" class="carousel slide slider" data-ride="carousel">
+        <div id="{{cobra|slug}}" class="carousel slide slider" data-ride="carousel">
           {% if info_cobra['peconhenta'] == 1 %}
             <div class="carousel-inner peconhenta-slider">
           {% elif info_cobra['peconhenta'] == 2 %}
@@ -21,11 +21,11 @@
               </div>
             {% endfor %}
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#{{cobra|replace(' ', '-')}}" data-bs-slide="prev">
+          <button class="carousel-control-prev" type="button" data-bs-target="#{{cobra|slug}}" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
           </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#{{cobra|replace(' ', '-')}}" data-bs-slide="next">
+          <button class="carousel-control-next" type="button" data-bs-target="#{{cobra|slug}}" data-bs-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
           </button>

@@ -10,15 +10,14 @@ from hashlib import sha256
 from datetime import timedelta
 from waitress import serve
 from config import Config
-import os, io, zipfile, time
-
+import os, io, zipfile, time, re, unicodedata
 
 app = Flask(__name__)
 CSRFProtect(app)
 
 app.config.from_object(Config)
 
-app.config['UPLOAD_PATH'] = "/home/cobrasdocariri/mysite/static/registros" if app.config['PRODUCTION'] else os.path.join('static', 'registros') 
+app.config['UPLOAD_PATH'] = "/home/cobrasdocariri/mysite/static/registros" if app.config['PRODUCTION'] else os.path.join('static', 'registros')
 app.config['SNAKE_IMAGES'] = "/home/cobrasdocariri/mysite/static/serpentesFotos" if app.config['PRODUCTION'] else os.path.join('static', 'serpentesFotos')
 
 Session(app)
@@ -173,7 +172,7 @@ def admin_registros():
             return render_template("admin_registros.html", username=session['username'], registros=registros, deleteRegistro=deleteRegistro)
         else:
             return render_template("admin_registros.html", username=session['username'], registros=registros)
-        
+
 @app.route("/admin/cobras", methods=('GET', 'POST'))
 def admin_cobras():
     form = OcorrenciaForm()
@@ -189,7 +188,7 @@ def admin_cobras():
                     isImg = 1
                 else:
                     raise KeyError
-                
+
                 for imagem in imagens:
                     if imagem.filename != '':
                         nomesImg.append(secure_filename(imagem.filename))
@@ -199,7 +198,7 @@ def admin_cobras():
                         imagem.save(os.path.join(app.config['SNAKE_IMAGES'], request.form['snake'], nomesImg[-1]))
             except(KeyError):
                 print("Não foram enviadas fotos!");
-                
+
         ids, cobras_info, nomes_pop, peconhenta = get_cobras_info()
         deleteRegistro = request.args.get('deleteRegistro', None)
         if deleteRegistro is not None:
@@ -232,7 +231,7 @@ def excluir(id):
     else:
         status = delete_registro(id)
         return redirect(url_for("admin_registros", deleteRegistro=status))
-    
+
 @app.route("/excluir-img/<snake>/<id>")
 def excluir_img(snake, id):
     if not session.get('logged'):
@@ -252,6 +251,12 @@ def excluir_img(snake, id):
 def logout():
     session.clear()
     return redirect(url_for("index"))
+
+
+@app.template_filter('slug')
+def slug(value):
+    value = unicodedata.normalize('NFKD', str(value)).encode('ascii', 'ignore').decode()
+    return re.sub(r'[^a-zA-Z0-9]+', '-', value).strip('-') or 'item'
 
 
 if __name__ == "__main__":

@@ -76,7 +76,7 @@
 
         <div class="col-12 col-md-6 col-lg-3 px-2 mb-3 flex-column align-items-center justify-content-center">
           <a href="{{url_for('cobra', id=ids[cobra])}}">
-            <div id="{{cobra|replace(' ', '-')}}" class="carousel slide slider" data-ride="carousel">
+            <div id="{{cobra|slug}}" class="carousel slide slider" data-ride="carousel">
               <div class="carousel-inner {{classe}}">
                 {% for i in range(imgs|length) %}
                 <div class="carousel-item {% if i == 0 %}active{% endif %}">
@@ -84,11 +84,11 @@
                 </div>
                 {% endfor %}
               </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#{{cobra|replace(' ', '-')}}" data-bs-slide="prev">
+              <button class="carousel-control-prev" type="button" data-bs-target="#{{cobra|slug}}" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
               </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#{{cobra|replace(' ', '-')}}" data-bs-slide="next">
+              <button class="carousel-control-next" type="button" data-bs-target="#{{cobra|slug}}" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
               </button>
@@ -104,11 +104,11 @@
             <i class="bi bi-info-circle mx-1 fs-6" style="position: relative; top: 1px; color: {{cor}};"></i>
           </span>
           <p>
-            <a class="collapse-link" data-bs-toggle="collapse" href="#collapse-{{cobra|replace(' ', '-')}}" role="button" aria-expanded="false" aria-controls="collapse-{{cobra|replace(' ', '-')}}">
+            <a class="collapse-link" data-bs-toggle="collapse" href="#collapse-{{cobra|slug}}" role="button" aria-expanded="false" aria-controls="collapse-{{cobra|slug}}">
               Nomes populares <i class="bi bi-chevron-down"></i>
             </a>
           </p>
-          <div class="collapse" id="collapse-{{cobra|replace(' ', '-')}}">
+          <div class="collapse" id="collapse-{{cobra|slug}}">
             <div><p>{{nomes_pop[cobra] | join(', ')}}</p></div>
           </div>
         </div>
