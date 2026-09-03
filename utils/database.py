@@ -4,6 +4,12 @@ from config import Config
 import mysql.connector
 import json
 import os
+import re
+
+
+def _ordem_foto(nome):
+    partes = re.split(r'(\d+)', nome.lower())
+    return [int(p) if p.isdigit() else p.strip() for p in partes]
 
 conn = None
 credentials = {}
@@ -112,7 +118,7 @@ def get_cobras_info(search=None):
     cobras = list(set(cobras))
     for cobra in cobras:
         path = "/home/cobrasdocariri/mysite/static/serpentesFotos/{}".format(cobra) if Config.PRODUCTION else "./static/serpentesFotos/{}".format(cobra)
-        filenames = sorted(os.listdir(path))  # Sort the filenames alphabetically
+        filenames = sorted(os.listdir(path), key=_ordem_foto)  # Sort the filenames alphabetically
         if cobra not in cobras_info:
             cobras_info[cobra] = []
         cobras_info[cobra].extend(filenames)
@@ -201,6 +207,7 @@ def novo_usuario(usuario, senha_cript, email):
         idRegistro = -1
     return idRegistro
 
+
 def get_cobra(id):
 
     query = f"SELECT  cobra.familia, cobra.especie, cobra.peconhenta, cobra_nome_pop.nome, familia.nome, denticao.nome, denticao.descricao, cobra.tam_max, cobra.alimentacao, cobra.habitat, cobra.atividade, cobra.encontro, cobra.reproducao FROM cobra INNER JOIN cobra_nome_pop ON cobra.idCOBRA = cobra_nome_pop.idCOBRA INNER JOIN familia ON cobra.grupo = familia.idFam INNER JOIN denticao ON denticao.idDenticao = cobra.idDenticao WHERE cobra.idCOBRA = {id}"
@@ -226,9 +233,7 @@ def get_cobra(id):
         info_cobra['nome_pop'].append(nome_pop)
 
 
-    for filename in os.listdir("/home/cobrasdocariri/mysite/static/serpentesFotos/{}".format(info_cobra['especie']) if Config.PRODUCTION else "./static/serpentesFotos/{}".format(info_cobra['especie'])): # PROD: /home/cobrasdocariri/mysite
-        if 'filenames' not in info_cobra.keys():
-            info_cobra['filenames'] = []
-        info_cobra['filenames'].append(filename)
+    caminho = "/home/cobrasdocariri/mysite/static/serpentesFotos/{}".format(info_cobra['especie']) if Config.PRODUCTION else "./static/serpentesFotos/{}".format(info_cobra['especie'])
+    info_cobra['filenames'] = sorted(os.listdir(caminho), key=_ordem_foto)
 
     return info_cobra
